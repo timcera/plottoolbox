@@ -283,7 +283,7 @@ def probability_density_cli(
         +-------+----------------+
         | d     | thin diamond   |
         +-------+----------------+
-        | _     | hlines_y          |
+        | _     | hlines_y       |
         +-------+----------------+
         | None  | nothing        |
         +-------+----------------+

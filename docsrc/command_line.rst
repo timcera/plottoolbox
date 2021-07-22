@@ -3,201 +3,132 @@
 Command Line
 ============
 
-Help::
-
-     plottoolbox –help
-
 about
 ~~~~~
 .. program-output:: plottoolbox about --help
    :prompt:
 
-accumulate
-~~~~~~~~~~
-.. program-output:: plottoolbox accumulate --help
+autocorrelation
+~~~~~~~~~~~~~~~
+.. program-output:: plottoolbox autocorrelation --help
    :prompt:
 
-add_trend
-~~~~~~~~~
-.. program-output:: plottoolbox add_trend --help
+bar
+~~~
+.. program-output:: plottoolbox bar --help
    :prompt:
 
-aggregate
-~~~~~~~~~
-.. program-output:: plottoolbox aggregate --help
-   :prompt:
-
-calculate_fdc
-~~~~~~~~~~~~~
-.. program-output:: plottoolbox calculate_fdc --help
-   :prompt:
-
-calculate_kde
-~~~~~~~~~~~~~
-.. program-output:: plottoolbox calculate_kde --help
-   :prompt:
-
-clip
-~~~~
-.. program-output:: plottoolbox clip --help
-   :prompt:
-
-convert
-~~~~~~~
-.. program-output:: plottoolbox convert --help
-   :prompt:
-
-convert_index
-~~~~~~~~~~~~~~~~~~~~~~~
-.. program-output:: plottoolbox convert_index --help
-   :prompt:
-
-convert_index_to_julian
-~~~~~~~~~~~~~~~~~~~~~~~
-.. program-output:: plottoolbox convert_index_to_julian --help
-   :prompt:
-
-converttz
-~~~~~~~~~
-.. program-output:: plottoolbox converttz --help
-   :prompt:
-
-correlation
+bar_stacked
 ~~~~~~~~~~~
-.. program-output:: plottoolbox correlation --help
+.. program-output:: plottoolbox bar_stacked --help
    :prompt:
 
-createts
-~~~~~~~~
-.. program-output:: plottoolbox createts --help
-   :prompt:
-
-date_offset
-~~~~~~~~~~~
-.. program-output:: plottoolbox date_offset --help
-   :prompt:
-
-date_slice
-~~~~~~~~~~
-.. program-output:: plottoolbox date_slice --help
-   :prompt:
-
-describe
-~~~~~~~~
-.. program-output:: plottoolbox describe --help
-   :prompt:
-
-dtw
-~~~
-.. program-output:: plottoolbox dtw --help
-   :prompt:
-
-equation
-~~~~~~~~
-.. program-output:: plottoolbox equation --help
-   :prompt:
-
-ewm_window
-~~~~~~~~~~
-.. program-output:: plottoolbox ewm_window --help
-   :prompt:
-
-expanding_window
-~~~~~~~~~~~~~~~~
-.. program-output:: plottoolbox expanding_window --help
-   :prompt:
-
-fill
+barh
 ~~~~
-.. program-output:: plottoolbox fill --help
+.. program-output:: plottoolbox barh --help
    :prompt:
 
-filter
-~~~~~~
-.. program-output:: plottoolbox filter --help
-   :prompt:
-
-gof
-~~~
-.. program-output:: plottoolbox gof --help
-   :prompt:
-
-lag
-~~~
-.. program-output:: plottoolbox lag --help
-   :prompt:
-
-normalization
-~~~~~~~~~~~~~
-.. program-output:: plottoolbox normalization --help
-   :prompt:
-
-pca
-~~~
-.. program-output:: plottoolbox pca --help
-   :prompt:
-
-pct_change
-~~~~~~~~~~
-.. program-output:: plottoolbox pct_change --help
-   :prompt:
-
-peak_detection
-~~~~~~~~~~~~~~
-.. program-output:: plottoolbox peak_detection --help
-   :prompt:
-
-pick
-~~~~
-.. program-output:: plottoolbox pick --help
-   :prompt:
-
-plot
-~~~~
-.. program-output:: plottoolbox plot --help
-   :prompt:
-
-rank
-~~~~
-.. program-output:: plottoolbox rank --help
-   :prompt:
-
-read
-~~~~
-.. program-output:: plottoolbox read --help
-   :prompt:
-
-remove_trend
+barh_stacked
 ~~~~~~~~~~~~
-.. program-output:: plottoolbox remove_trend --help
+.. program-output:: plottoolbox barh_stacked --help
    :prompt:
 
-replace
-~~~~~~~
-.. program-output:: plottoolbox replace --help
-   :prompt:
-
-rolling_window
-~~~~~~~~~~~~~~
-.. program-output:: plottoolbox rolling_window --help
-   :prompt:
-
-stack
-~~~~~
-.. program-output:: plottoolbox stack --help
-   :prompt:
-
-stdtozrxp
+bootstrap
 ~~~~~~~~~
-.. program-output:: plottoolbox stdtozrxp --help
+.. program-output:: plottoolbox bootstrap --help
    :prompt:
 
-tstopickle
-~~~~~~~~~~
-.. program-output:: plottoolbox tstopickle --help
-   :prompt:
-
-unstack
+boxplot
 ~~~~~~~
-.. program-output:: plottoolbox unstack --help
+.. program-output:: plottoolbox boxplot --help
+   :prompt:
+
+double_mass
+~~~~~~~~~~~
+.. program-output:: plottoolbox double_mass --help
+   :prompt:
+
+heatmap
+~~~~~~~
+.. program-output:: plottoolbox heatmap --help
+   :prompt:
+
+histogram
+~~~~~~~~~
+.. program-output:: plottoolbox histogram --help
+   :prompt:
+
+kde
+~~~
+.. program-output:: plottoolbox kde --help
+   :prompt:
+
+kde_time
+~~~~~~~~
+.. program-output:: plottoolbox kde_time --help
+   :prompt:
+
+lag_plot
+~~~~~~~~
+.. program-output:: plottoolbox lag_plot --help
+   :prompt:
+
+lognorm_xaxis
+~~~~~~~~~~~~~
+.. program-output:: plottoolbox lognorm_xaxis --help
+   :prompt:
+
+lognorm_yaxis
+~~~~~~~~~~~~~
+.. program-output:: plottoolbox lognorm_yaxis --help
+   :prompt:
+
+norm_xaxis
+~~~~~~~~~~
+.. program-output:: plottoolbox norm_xaxis --help
+   :prompt:
+
+norm_yaxis
+~~~~~~~~~~
+.. program-output:: plottoolbox norm_yaxis --help
+   :prompt:
+
+probability_density
+~~~~~~~~~~~~~~~~~~~
+.. program-output:: plottoolbox probability_density --help
+   :prompt:
+
+scatter_matrix
+~~~~~~~~~~~~~~
+.. program-output:: plottoolbox scatter_matrix --help
+   :prompt:
+
+target
+~~~~~~
+.. program-output:: plottoolbox target --help
+   :prompt:
+
+taylor
+~~~~~~
+.. program-output:: plottoolbox taylor --help
+   :prompt:
+
+time
+~~~~
+.. program-output:: plottoolbox time --help
+   :prompt:
+
+weibull_xaxis
+~~~~~~~~~~~~~
+.. program-output:: plottoolbox weibull_xaxis --help
+   :prompt:
+
+weibull_yaxis
+~~~~~~~~~~~~~
+.. program-output:: plottoolbox weibull_yaxis --help
+   :prompt:
+
+xy
+~~
+.. program-output:: plottoolbox xy --help
    :prompt:

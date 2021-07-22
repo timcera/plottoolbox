@@ -3,10 +3,10 @@
 .. _plottoolbox_documentation:
 
 plottoolbox
-=========
+===========
 
 This is the home page for plottoolbox.  plottoolbox is a command line program and
-Python library to work with time-series.
+Python library to make plots.
 
 plottoolbox should work with Python 3.6+.
 
@@ -16,7 +16,6 @@ Table of Contents
    :maxdepth: 2
 
    readme
-   notebooks
    command_line
    function_summary
    contributing
