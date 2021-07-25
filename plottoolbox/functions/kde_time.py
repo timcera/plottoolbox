@@ -9,8 +9,6 @@ import warnings
 
 import mando
 import numpy as np
-import pandas as pd
-import scipy.stats as scst
 import sklearn
 from mando.rst_text_formatter import RSTHelpFormatter
 from tstoolbox import tsutils
@@ -24,13 +22,6 @@ warnings.filterwarnings("ignore")
 @tsutils.doc(plotutils.ldocstrings)
 def kde_time_cli(
     input_ts="-",
-    columns=None,
-    start_date=None,
-    end_date=None,
-    clean=False,
-    skiprows=None,
-    index_type="datetime",
-    names=None,
     ofilename="plot.png",
     xtitle="",
     ytitle="",
@@ -44,7 +35,6 @@ def kde_time_cli(
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
-    bar_hatchstyles="auto",
     style="auto",
     logx=False,
     logy=False,
@@ -54,9 +44,6 @@ def kde_time_cli(
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
     norm_xaxis=False,
     norm_yaxis=False,
     lognorm_xaxis=False,
@@ -65,17 +52,21 @@ def kde_time_cli(
     grid=False,
     label_rotation=None,
     label_skip=1,
-    force_freq=None,
     drawstyle="default",
     por=False,
+    force_freq=None,
     invert_xaxis=False,
     invert_yaxis=False,
-    round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
+    columns=None,
+    start_date=None,
+    end_date=None,
+    clean=False,
+    skiprows=None,
+    index_type="datetime",
+    names=None,
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
+    round_index=None,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
@@ -108,10 +99,6 @@ def kde_time_cli(
             with a time-series plot.
 
             {ydata}
-    lag_plot_lag
-        [optional, default to 1]
-
-        The lag used if ``type`` "lag_plot" is chosen.
     xtitle : str
         [optional, default depends on ``type``]
 
@@ -310,37 +297,6 @@ def kde_time_cli(
         Comma separated matplotlib style strings per time-series.  Just
         combine codes in 'ColorMarkerLine' order, for example 'r*--' is
         a red dashed line with star marker.
-    bar_hatchstyles
-        [optional, default to "auto", only used if type equal to "bar", "barh",
-        "bar_stacked", and "barh_stacked"]
-
-        If 'auto' will iterate through the available matplotlib hatch types.
-        Otherwise on the command line a comma separated list, or a list of
-        strings if using the Python API.
-
-        +-----------------+-------------------+
-        | bar_hatchstyles | Description       |
-        +=================+===================+
-        | /               | diagonal hatching |
-        +-----------------+-------------------+
-        | ``\``           | back diagonal     |
-        +-----------------+-------------------+
-        | ``|``           | vertical          |
-        +-----------------+-------------------+
-        | -               | horizontal        |
-        +-----------------+-------------------+
-        | +               | crossed           |
-        +-----------------+-------------------+
-        | x               | crossed diagonal  |
-        +-----------------+-------------------+
-        | o               | small circle      |
-        +-----------------+-------------------+
-        | O               | large circle      |
-        +-----------------+-------------------+
-        | .               | dots              |
-        +-----------------+-------------------+
-        | *               | stars             |
-        +-----------------+-------------------+
 
     logx
         DEPRECATED: use '--xaxis="log"' instead.
@@ -376,20 +332,6 @@ def kde_time_cli(
 
         When using a secondary_y axis, should the legend label the axis of the
         various time-series automatically.
-    scatter_matrix_diagonal : str
-        [optional, defaults to 'kde']
-
-        If plot type is 'scatter_matrix', this specifies the plot along the
-        diagonal.  One of 'kde' for Kernel Density Estimation or 'hist'
-        for a histogram.
-    bootstrap_size : int
-        [optional, defaults to 50]
-
-        The size of the random subset for 'bootstrap' plot.
-    bootstrap_samples
-        [optional, defaults to 500]
-
-        The number of random subsets of 'bootstrap_size'.
     norm_xaxis
         DEPRECATED: use '--type="norm_xaxis"' instead.
     norm_yaxis
@@ -439,20 +381,6 @@ def kde_time_cli(
         [optional, default is False]
 
         Invert the y-axis.
-    plotting_position : str
-        [optional, default is 'weibull']
-
-        {plotting_position_table}
-
-        Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
-        lognorm_yaxis, weibull_xaxis, and weibull_yaxis.
-    prob_plot_sort_values : str
-        [optional, default is 'descending']
-
-        How to sort the values for the probability plots.
-
-        Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
-        lognorm_yaxis, weibull_xaxis, and weibull_yaxis.
     {columns}
     {start_date}
     {end_date}
@@ -545,13 +473,6 @@ def kde_time_cli(
     """
     plt = kde_time(
         input_ts=input_ts,
-        columns=columns,
-        start_date=start_date,
-        end_date=end_date,
-        clean=clean,
-        skiprows=skiprows,
-        index_type=index_type,
-        names=names,
         ofilename=ofilename,
         xtitle=xtitle,
         ytitle=ytitle,
@@ -562,22 +483,25 @@ def kde_time_cli(
         subplots=subplots,
         sharex=sharex,
         sharey=sharey,
+        columns=columns,
         colors=colors,
         linestyles=linestyles,
         markerstyles=markerstyles,
-        bar_hatchstyles=bar_hatchstyles,
         style=style,
         logx=logx,
         logy=logy,
-        xaxis=xaxis,
-        yaxis=yaxis,
         xlim=xlim,
         ylim=ylim,
+        xaxis=xaxis,
+        yaxis=yaxis,
         secondary_y=secondary_y,
         mark_right=mark_right,
-        scatter_matrix_diagonal=scatter_matrix_diagonal,
-        bootstrap_size=bootstrap_size,
-        bootstrap_samples=bootstrap_samples,
+        start_date=start_date,
+        end_date=end_date,
+        clean=clean,
+        skiprows=skiprows,
+        index_type=index_type,
+        names=names,
         norm_xaxis=norm_xaxis,
         norm_yaxis=norm_yaxis,
         lognorm_xaxis=lognorm_xaxis,
@@ -592,11 +516,8 @@ def kde_time_cli(
         invert_xaxis=invert_xaxis,
         invert_yaxis=invert_yaxis,
         round_index=round_index,
-        plotting_position=plotting_position,
-        prob_plot_sort_values=prob_plot_sort_values,
         source_units=source_units,
         target_units=target_units,
-        lag_plot_lag=lag_plot_lag,
         plot_styles=plot_styles,
         hlines_y=hlines_y,
         hlines_xmin=hlines_xmin,
@@ -614,7 +535,6 @@ def kde_time_cli(
 # @tsutils.validator(
 #     ofilename=[str, ["pass", []], 1],
 #     type=[str, ["domain", ["kde_time",],], 1,],
-#     lag_plot_lag=[int, ["range", [1, None]], 1],
 #     xtitle=[str, ["pass", []], 1],
 #     ytitle=[str, ["pass", []], 1],
 #     title=[str, ["pass", []], 1],
@@ -627,7 +547,6 @@ def kde_time_cli(
 #     colors=[str, ["pass", []], None],
 #     linestyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.LINE_LIST], None],
 #     markerstyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.MARKER_LIST], None],
-#     bar_hatchstyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.HATCH_LIST], None],
 #     style=[str, ["pass", []], None],
 #     xlim=[float, ["pass", []], 2],
 #     ylim=[float, ["pass", []], 2],
@@ -635,8 +554,6 @@ def kde_time_cli(
 #     yaxis=[str, ["domain", ["arithmetic", "log"]], 1],
 #     secondary_y=[bool, ["domain", [True, False]], 1],
 #     mark_right=[bool, ["domain", [True, False]], 1],
-#     scatter_matrix_diagonal=[str, ["domain", ["kde", "hist"]], 1],
-#     bootstrap_size=[int, ["range", [0, None]], 1],
 #     xy_match_line=[str, ["pass", []], 1],
 #     grid=[bool, ["domain", [True, False]], 1],
 #     label_rotation=[float, ["pass", []], 1],
@@ -645,15 +562,6 @@ def kde_time_cli(
 #     por=[bool, ["domain", [True, False]], 1],
 #     invert_xaxis=[bool, ["domain", [True, False]], 1],
 #     invert_yaxis=[bool, ["domain", [True, False]], 1],
-#     plotting_position=[
-#         str,
-#         [
-#             "domain",
-#             ["weibull", "benard", "tukey", "gumbel", "hazen", "cunnane", "california"],
-#         ],
-#         1,
-#     ],
-#     prob_plot_sort_values=[str, ["domain", ["ascending", "descending"]], 1],
 #     plot_styles=[
 #         str,
 #         [
@@ -739,7 +647,6 @@ def kde_time(
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
-    bar_hatchstyles="auto",
     style="auto",
     logx=False,
     logy=False,
@@ -749,9 +656,6 @@ def kde_time(
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
     norm_xaxis=False,
     norm_yaxis=False,
     lognorm_xaxis=False,
@@ -766,11 +670,8 @@ def kde_time(
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
@@ -841,11 +742,6 @@ def kde_time(
     else:
         linestyles = tsutils.make_list(linestyles)
 
-    if bar_hatchstyles == "auto":
-        bar_hatchstyles = plotutils.HATCH_LIST
-    else:
-        bar_hatchstyles = tsutils.make_list(bar_hatchstyles)
-
     if markerstyles == "auto":
         markerstyles = plotutils.MARKER_LIST
     else:
@@ -898,9 +794,6 @@ but you have {2} time-series.
         icolors = None
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
-
-    # Only for bar, barh, bar_stacked, and barh_stacked.
-    ibar_hatchstyles = itertools.cycle(bar_hatchstyles)
 
     if (
         logx is True
