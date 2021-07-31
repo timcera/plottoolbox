@@ -298,7 +298,7 @@ def autocorrelation(
             short_freq = ""
         else:
             # short freq string (day) OR (2 day)
-            short_freq = "({0})".format(pltfreq[beginstr:-1])
+            short_freq = "({})".format(pltfreq[beginstr:-1])
     except AttributeError:
         short_freq = ""
 
@@ -310,7 +310,7 @@ def autocorrelation(
     from pandas.plotting import autocorrelation_plot
 
     autocorrelation_plot(tsd, ax=ax)
-    xtitle = xtitle or "Time Lag {0}".format(short_freq)
+    xtitle = xtitle or "Time Lag {}".format(short_freq)
 
     plt.xlabel(xtitle)
     plt.ylabel(ytitle)

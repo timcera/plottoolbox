@@ -411,7 +411,7 @@ def prepare_styles(tsd):
             short_freq = ""
         else:
             # short freq string (day) OR (2 day)
-            short_freq = "({0})".format(pltfreq[beginstr:-1])
+            short_freq = "({})".format(pltfreq[beginstr:-1])
     except AttributeError:
         short_freq = ""
 
@@ -440,8 +440,8 @@ def prepare_styles(tsd):
                 tsutils.error_wrapper(
                     """
 You have to have the same number of style strings as time-series to plot.
-You supplied '{0}' for style which has {1} style strings,
-but you have {2} time-series.
+You supplied '{}' for style which has {} style strings,
+but you have {} time-series.
 """.format(
                         style, len(nstyle), len(tsd.columns)
                     )
@@ -513,7 +513,7 @@ def know_your_limits(xylimits, axis="arithmetic"):
 Both limits must be between 0 and 1 for the 'normal', 'lognormal', or 'weibull'
 axis.
 
-Instead you have {0}.
+Instead you have {}.
 """.format(
                         nlim
                     )
@@ -530,7 +530,7 @@ Instead you have {0}.
                     """
 The second limit must be greater than the first.
 
-You gave {0}.
+You gave {}.
 """.format(
                         nlim
                     )
@@ -546,7 +546,7 @@ You gave {0}.
                     """
 If log plot cannot have limits less than or equal to 0.
 
-You have {0}.
+You have {}.
 """.format(
                         nlim
                     )
@@ -598,8 +598,8 @@ Each name in legend_names must be unique.
             tsutils.error_wrapper(
                 """
 For 'legend_names' and most plot types you must have the same number of comma
-separated names as columns in the input data.  The input data has {0} where the
-number of 'legend_names' is {1}.
+separated names as columns in the input data.  The input data has {} where the
+number of 'legend_names' is {}.
 
 If `type` is 'xy' or 'double_mass' you need to have legend names as
 l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,

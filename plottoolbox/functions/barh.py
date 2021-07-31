@@ -416,7 +416,7 @@ def barh(
             short_freq = ""
         else:
             # short freq string (day) OR (2 day)
-            short_freq = "({0})".format(pltfreq[beginstr:-1])
+            short_freq = "({})".format(pltfreq[beginstr:-1])
     except AttributeError:
         short_freq = ""
 
@@ -450,8 +450,8 @@ def barh(
                 tsutils.error_wrapper(
                     """
 You have to have the same number of style strings as time-series to plot.
-You supplied '{0}' for style which has {1} style strings,
-but you have {2} time-series.
+You supplied '{}' for style which has {} style strings,
+but you have {} time-series.
 """.format(
                         style, len(nstyle), len(tsd.columns)
                     )

@@ -3,7 +3,7 @@
 import os
 import sys
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 # temporarily redirect config directory to prevent matplotlib importing
 # testing that for writeable directory which results in sandbox error in
@@ -15,6 +15,7 @@ pkg_name = "plottoolbox"
 version = open("VERSION").readline().strip()
 
 if sys.argv[-1] == "publish":
+    os.system("cleanpy .")
     os.system("python setup.py sdist")
     os.system("twine upload dist/{pkg_name}-{version}.tar.gz".format(**locals()))
     sys.exit()
@@ -34,6 +35,20 @@ install_requires = [
     "tstoolbox >= 103",
     "typical",
 ]
+
+extras_require = {
+    "dev": [
+        "black",
+        "cleanpy",
+        "twine",
+        "pytest",
+        "coverage",
+        "flake8",
+        "pytest-cov",
+        "pytest-mpl",
+        "pre-commit",
+    ]
+}
 
 setup(
     name=pkg_name,
@@ -59,20 +74,15 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],  # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     keywords="time_series",
-    author="Tim Cera, P.E.",
+    author="Tim Cera, PE",
     author_email="tim@cerazone.net",
     url="http://timcera.bitbucket.io/{pkg_name}/docsrc/index.html".format(**locals()),
     license="BSD",
-    packages=[
-        "{pkg_name}".format(**locals()),
-        "{pkg_name}.functions".format(**locals()),
-        "{pkg_name}.skill_metrics".format(**locals()),
-    ],
-    package_dir={"plottoolbox": "plottoolbox"},
-    package_data={"plottoolbox": ["SciencePlots_styles/*"]},
-    include_package_data=True,
+    packages=find_packages("src"),
+    package_dir={"": "src"},
     zip_safe=False,
     install_requires=install_requires,
+    extras_require=extras_require,
     entry_points={
         "console_scripts": ["{pkg_name}={pkg_name}.{pkg_name}:main".format(**locals())]
     },

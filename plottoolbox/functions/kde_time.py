@@ -84,6 +84,7 @@ def kde_time_cli(
     Parameters
     ----------
     {input_ts}
+
     ofilename : str
         [optional, defaults to 'plot.png']
 
@@ -99,26 +100,32 @@ def kde_time_cli(
             with a time-series plot.
 
             {ydata}
+
     xtitle : str
         [optional, default depends on ``type``]
 
         Title of x-axis.
+
     ytitle : str
         [optional, default depends on ``type``]
 
         Title of y-axis.
+
     title : str
         [optional, defaults to '']
 
         Title of chart.
+
     figsize : str
         [optional, defaults to '10,6.5']
 
         The 'width,height' of plot in inches.
+
     legend
         [optional, defaults to True]
 
         Whether to display the legend.
+
     legend_names : str
         [optional, defaults to None]
 
@@ -126,18 +133,22 @@ def kde_time_cli(
         the input data.  The 'legend_names' option allows you to
         override the names in the data set.  You must supply a comma
         separated list of strings for each time-series in the data set.
+
     subplots
         [optional, defaults to False]
 
         Make separate subplots for each time series.
+
     sharex
         [optional, default to True]
 
         In case subplots=True, share x axis.
+
     sharey
         [optional, default to False]
 
         In case subplots=True, share y axis.
+
     colors
         [optional, default is 'auto']
 
@@ -191,6 +202,7 @@ def kde_time_cli(
 
         Color reference:
         http://matplotlib.org/api/colors_api.html
+
     linestyles
         [optional, default to 'auto']
 
@@ -223,6 +235,7 @@ def kde_time_cli(
 
         Line reference:
         http://matplotlib.org/api/artist_api.html
+
     markerstyles
         [optional, default to ' ']
 
@@ -287,6 +300,7 @@ def kde_time_cli(
 
         Marker reference:
         http://matplotlib.org/api/markers_api.html
+
     style
         [optional, default is None]
 
@@ -300,8 +314,10 @@ def kde_time_cli(
 
     logx
         DEPRECATED: use '--xaxis="log"' instead.
+
     logy
         DEPRECATED: use '--yaxis="log"' instead.
+
     xlim
         [optional, default is based on range of x values]
 
@@ -309,53 +325,67 @@ def kde_time_cli(
         plot.  For example, '--xlim 1,1000' would limit the plot from
         1 to 1000, where '--xlim ,1000' would base the lower limit on
         the data and set the upper limit to 1000.
+
     ylim
         [optional, default is based on range of y values]
 
         Comma separated lower and upper limits for the y-axis of the
         plot.  See `xlim` for examples.
+
     xaxis : str
         [optional, default is 'arithmetic']
 
         Defines the type of the xaxis.  One of 'arithmetic', 'log'.
+
     yaxis : str
         [optional, default is 'arithmetic']
 
         Defines the type of the yaxis.  One of 'arithmetic', 'log'.
+
     secondary_y
         [optional, default is False]
 
         Whether to plot on the secondary y-axis. If a list/tuple, which
         time-series to plot on secondary y-axis.
+
     mark_right
         [optional, default is True]
 
         When using a secondary_y axis, should the legend label the axis of the
         various time-series automatically.
+
     norm_xaxis
         DEPRECATED: use '--type="norm_xaxis"' instead.
+
     norm_yaxis
         DEPRECATED: use '--type="norm_yaxis"' instead.
+
     lognorm_xaxis
         DEPRECATED: use '--type="lognorm_xaxis"' instead.
+
     lognorm_yaxis
         DEPRECATED: use '--type="lognorm_yaxis"' instead.
+
     xy_match_line : str
         [optional, defaults is '']
 
         Will add a match line where x == y. Set to a line style code.
+
     grid
         [optional, default is False]
 
         Whether to plot grid lines on the major ticks.
+
     label_rotation : int
         [optional]
 
         Rotation for major labels for bar plots.
+
     label_skip : int
         [optional]
 
         Skip for major labels for bar plots.
+
     drawstyle : str
         [optional, default is 'default']
 
@@ -372,25 +402,39 @@ def kde_time_cli(
 
         Plot from first good value to last good value.  Strips NANs
         from beginning and end.
+
     {force_freq}
+
     invert_xaxis
         [optional, default is False]
 
         Invert the x-axis.
+
     invert_yaxis
         [optional, default is False]
 
         Invert the y-axis.
+
     {columns}
+
     {start_date}
+
     {end_date}
+
     {clean}
+
     {skiprows}
+
     {index_type}
+
     {names}
+
     {source_units}
+
     {target_units}
+
     {round_index}
+
     plot_styles: str
         [optional, default is "default"]
 
@@ -434,38 +478,47 @@ def kde_time_cli(
         [optional, defaults to None]
 
         Number or list of y values where to place a horizontal line.
+
     hlines_xmin:
         [optional, defaults to None]
 
         List of minimum x values to start the horizontal line.  If a list must be same length as `hlines_y`.  If a single number will be used as the minimum x values for all horizontal lines.  A missing value or None will start at the minimum x value for the entire plot.
+
     hlines_xmax:
         [optional, defaults to None]
 
         List of maximum x values to end each horizontal line.  If a list must be same length as `hlines_y`.  If a single number will be the maximum x value for all horizontal lines.  A missing value or None will end at the maximum x value for the entire plot.
+
     hlines_colors:
         [optional, defaults to None]
 
         List of colors for the horizontal lines.  If a single color then will be used as the color for all horizontal lines.  If a list must be same length as `hlines_y`.  If None will take from the color pallette in the current plot style.
+
     hlines_linestyles:
         [optional, defaults to None]
 
         List of linestyles for the horizontal lines.  If a single linestyle then will be used as the linestyle for all horizontal lines.  If a list must be same length as `hlines_y`.  If None will take for the standard linestyles list.
+
     vlines_x:
         [optional, defaults to None]
 
         List of x values where to place a vertical line.
+
     vlines_ymin:
         [optional, defaults to None]
 
         List of minimum y values to start the vertical line.  If a list must be same length as `vlines_x`.  If a single number will be used as the minimum x values for all vertical lines.  A missing value or None will start at the minimum x value for the entire plot.
+
     vlines_ymax:
         [optional, defaults to None]
 
         List of maximum x values to end each vertical line.  If a list must be same length as `vlines_x`.  If a single number will be the maximum x value for all vertical lines.  A missing value or None will end at the maximum x value for the entire plot.
+
     vlines_colors:
         [optional, defaults to None]
 
         List of colors for the vertical lines.  If a single color then will be used as the color for all vertical lines.  If a list must be same length as `vlines_x`.  If None will take from the color pallette in the current plot style.
+
     vlines_linestyles:
         [optional, defaults to None]
 
@@ -728,7 +781,7 @@ def kde_time(
             short_freq = ""
         else:
             # short freq string (day) OR (2 day)
-            short_freq = "({0})".format(pltfreq[beginstr:-1])
+            short_freq = "({})".format(pltfreq[beginstr:-1])
     except AttributeError:
         short_freq = ""
 
@@ -757,8 +810,8 @@ def kde_time(
                 tsutils.error_wrapper(
                     """
 You have to have the same number of style strings as time-series to plot.
-You supplied '{0}' for style which has {1} style strings,
-but you have {2} time-series.
+You supplied '{}' for style which has {} style strings,
+but you have {} time-series.
 """.format(
                         style, len(nstyle), len(tsd.columns)
                     )
