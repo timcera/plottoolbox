@@ -88,4 +88,5 @@ setup(
     },
     test_suite="tests",
     python_requires=">=3.7.1",
+    include_package_data=True,
 )
