@@ -1,3 +1,9 @@
+## v101.4.12 (2021-08-08)
+
+### Fix
+
+- **setup.py**: needed to include package data
+
 ## v101.4.11 (2021-08-08)
 
 ### Fix
