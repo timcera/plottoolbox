@@ -81,6 +81,10 @@ def kde_time_cli(
 ):
     r"""A time-series plot with a kernel density estimation (KDE) plot.
 
+    This plot is an estimation of the probability density function based on the
+    data called kernel density estimation (KDE) combined with a time-series
+    plot.
+
     Parameters
     ----------
     {input_ts}
@@ -94,12 +98,6 @@ def kde_time_cli(
         If used within Python, and `ofilename` is None will return the
         Matplotlib figure that can then be changed or added to as
         needed.
-        kde_time
-            This plot is an estimation of the probability density function
-            based on the data called kernel density estimation (KDE) combined
-            with a time-series plot.
-
-            {ydata}
 
     xtitle : str
         [optional, default depends on ``type``]
@@ -482,22 +480,34 @@ def kde_time_cli(
     hlines_xmin:
         [optional, defaults to None]
 
-        List of minimum x values to start the horizontal line.  If a list must be same length as `hlines_y`.  If a single number will be used as the minimum x values for all horizontal lines.  A missing value or None will start at the minimum x value for the entire plot.
+        List of minimum x values to start the horizontal line.  If a list must
+        be same length as `hlines_y`.  If a single number will be used as the
+        minimum x values for all horizontal lines.  A missing value or None
+        will start at the minimum x value for the entire plot.
 
     hlines_xmax:
         [optional, defaults to None]
 
-        List of maximum x values to end each horizontal line.  If a list must be same length as `hlines_y`.  If a single number will be the maximum x value for all horizontal lines.  A missing value or None will end at the maximum x value for the entire plot.
+        List of maximum x values to end each horizontal line.  If a list must
+        be same length as `hlines_y`.  If a single number will be the maximum
+        x value for all horizontal lines.  A missing value or None will end at
+        the maximum x value for the entire plot.
 
     hlines_colors:
         [optional, defaults to None]
 
-        List of colors for the horizontal lines.  If a single color then will be used as the color for all horizontal lines.  If a list must be same length as `hlines_y`.  If None will take from the color pallette in the current plot style.
+        List of colors for the horizontal lines.  If a single color then will
+        be used as the color for all horizontal lines.  If a list must be same
+        length as `hlines_y`.  If None will take from the color pallette in the
+        current plot style.
 
     hlines_linestyles:
         [optional, defaults to None]
 
-        List of linestyles for the horizontal lines.  If a single linestyle then will be used as the linestyle for all horizontal lines.  If a list must be same length as `hlines_y`.  If None will take for the standard linestyles list.
+        List of linestyles for the horizontal lines.  If a single linestyle
+        then will be used as the linestyle for all horizontal lines.  If a list
+        must be same length as `hlines_y`.  If None will take for the standard
+        linestyles list.
 
     vlines_x:
         [optional, defaults to None]
@@ -507,22 +517,34 @@ def kde_time_cli(
     vlines_ymin:
         [optional, defaults to None]
 
-        List of minimum y values to start the vertical line.  If a list must be same length as `vlines_x`.  If a single number will be used as the minimum x values for all vertical lines.  A missing value or None will start at the minimum x value for the entire plot.
+        List of minimum y values to start the vertical line.  If a list must be
+        same length as `vlines_x`.  If a single number will be used as the
+        minimum x values for all vertical lines.  A missing value or None will
+        start at the minimum x value for the entire plot.
 
     vlines_ymax:
         [optional, defaults to None]
 
-        List of maximum x values to end each vertical line.  If a list must be same length as `vlines_x`.  If a single number will be the maximum x value for all vertical lines.  A missing value or None will end at the maximum x value for the entire plot.
+        List of maximum x values to end each vertical line.  If a list must be
+        same length as `vlines_x`.  If a single number will be the maximum
+        x value for all vertical lines.  A missing value or None will end at
+        the maximum x value for the entire plot.
 
     vlines_colors:
         [optional, defaults to None]
 
-        List of colors for the vertical lines.  If a single color then will be used as the color for all vertical lines.  If a list must be same length as `vlines_x`.  If None will take from the color pallette in the current plot style.
+        List of colors for the vertical lines.  If a single color then will be
+        used as the color for all vertical lines.  If a list must be same
+        length as `vlines_x`.  If None will take from the color pallette in the
+        current plot style.
 
     vlines_linestyles:
         [optional, defaults to None]
 
-        List of linestyles for the vertical lines.  If a single linestyle then will be used as the linestyle for all vertical lines.  If a list must be same length as `vlines_x`.  If None will take for the standard linestyles list.
+        List of linestyles for the vertical lines.  If a single linestyle then
+        will be used as the linestyle for all vertical lines.  If a list must
+        be same length as `vlines_x`.  If None will take for the standard
+        linestyles list.
     """
     plt = kde_time(
         input_ts=input_ts,
