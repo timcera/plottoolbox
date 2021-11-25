@@ -341,8 +341,15 @@ ldocstrings[
         "seaborn-poster", "seaborn-talk", "seaborn-ticks", "seaborn-white",
         "seaborn-whitegrid", "tableau-colorblind10", and
 
-        SciencePlots styles "science", "grid", "ieee", "scatter", "notebook",
-        "high-vis", "bright", "vibrant", "muted", and "retro".
+        The main SciencePlots styles are "science", "grid", "ieee", "scatter",
+        "notebook", "high-vis", "bright", "vibrant", "muted", and "retro".
+
+        Other SciencPlots styles that are less common or intended to modify
+        other styles are, "cjk-jp-font.mplstyle", "cjk-kr-font.mplstyle",
+        "cjk-sc-font.mplstyle", "cjk-tc-font.mplstyle",
+        "high-contrast.mplstyle", "latex-sans.mplstyle", "light.mplstyle",
+        "nature.mplstyle", "no-latex.mplstyle", "pgf.mplstyle",
+        "russian-font.mplstyle", and "std-colors.mplstyle".
 
         If multiple styles then each over rides some or all of the
         characteristics of the previous.
