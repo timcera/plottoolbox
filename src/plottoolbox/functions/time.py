@@ -8,7 +8,6 @@ import os
 import warnings
 
 import mando
-import numpy as np
 import pandas as pd
 from mando.rst_text_formatter import RSTHelpFormatter
 from tstoolbox import tsutils
@@ -833,14 +832,10 @@ def time(
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
     norm_xaxis=False,
     norm_yaxis=False,
     lognorm_xaxis=False,
     lognorm_yaxis=False,
-    xy_match_line="",
     grid=False,
     label_rotation=None,
     label_skip=1,
@@ -850,11 +845,8 @@ def time(
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
@@ -873,7 +865,7 @@ def time(
     # mando
     legend = bool(legend == "" or legend == "True" or legend is None)
 
-    type = "time"
+    kind = "time"
 
     import matplotlib
 
@@ -897,7 +889,7 @@ def time(
         por=por,
     )
 
-    tsd, lnames = plotutils.check(type, tsd, legend_names)
+    tsd, lnames = plotutils.check(kind, tsd, legend_names)
 
     # This is to help pretty print the frequency
     try:
@@ -985,9 +977,6 @@ but you have {} time-series.
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
 
-    # Only for bar, barh, bar_stacked, and barh_stacked.
-    ibar_hatchstyles = itertools.cycle(bar_hatchstyles)
-
     if (
         logx is True
         or logy is True
@@ -1036,18 +1025,18 @@ but you have {} time-series.
     _, ax = plt.subplots(figsize=figsize)
 
     if not isinstance(tsd.index, pd.DatetimeIndex):
-        if type == "time":
+        if kind == "time":
             raise ValueError(
                 tsutils.error_wrapper(
                     """
 The index is not a datetime index and cannot be plotted as a time-series.
-Instead of `type="time"` you might want `type="xy"` or change the index to
+Instead of `kind="time"` you might want `type="xy"` or change the index to
 a datetime index.
 """
                 )
             )
 
-    if type == "time":
+    if kind == "time":
         ax = tsd.plot(
             legend=legend,
             subplots=subplots,
@@ -1105,7 +1094,7 @@ a datetime index.
             vlines_ymin = nylim[0]
         if vlines_ymax is None:
             vlines_ymax = nylim[1]
-    if type in [
+    if kind in [
         "time",
         "xy",
         "bar",
@@ -1119,8 +1108,8 @@ a datetime index.
         "weibull_yaxis",
     ]:
         if hlines_y is not None:
-            if type in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
-                hlines_y = ppf(tsutils.make_list(hlines_y))
+            if kind in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
+                hlines_y = tsutils.ppf(tsutils.make_list(hlines_y))
             plt.hlines(
                 hlines_y,
                 hlines_xmin,
@@ -1129,8 +1118,8 @@ a datetime index.
                 linestyles=hlines_linestyles,
             )
         if vlines_x is not None:
-            if type in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
-                vlines_x = ppf(tsutils.make_list(vlines_x))
+            if kind in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
+                vlines_x = tsutils.ppf(tsutils.make_list(vlines_x))
             plt.vlines(
                 vlines_x,
                 vlines_ymin,
