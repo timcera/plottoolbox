@@ -55,10 +55,6 @@ def norm_xaxis_cli(
     scatter_matrix_diagonal="kde",
     bootstrap_size=50,
     bootstrap_samples=500,
-    norm_xaxis=False,
-    norm_yaxis=False,
-    lognorm_xaxis=False,
-    lognorm_yaxis=False,
     xy_match_line="",
     grid=False,
     label_rotation=None,
@@ -652,10 +648,6 @@ def norm_xaxis_cli(
         scatter_matrix_diagonal=scatter_matrix_diagonal,
         bootstrap_size=bootstrap_size,
         bootstrap_samples=bootstrap_samples,
-        norm_xaxis=norm_xaxis,
-        norm_yaxis=norm_yaxis,
-        lognorm_xaxis=lognorm_xaxis,
-        lognorm_yaxis=lognorm_yaxis,
         xy_match_line=xy_match_line,
         grid=grid,
         label_rotation=label_rotation,
@@ -826,10 +818,6 @@ def norm_xaxis(
     scatter_matrix_diagonal="kde",
     bootstrap_size=50,
     bootstrap_samples=500,
-    norm_xaxis=False,
-    norm_yaxis=False,
-    lognorm_xaxis=False,
-    lognorm_yaxis=False,
     xy_match_line="",
     grid=False,
     label_rotation=None,
@@ -974,33 +962,6 @@ but you have {} time-series.
         icolors = None
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
-
-    # Only for bar, barh, bar_stacked, and barh_stacked.
-    ibar_hatchstyles = itertools.cycle(bar_hatchstyles)
-
-    if (
-        logx is True
-        or logy is True
-        or norm_xaxis is True
-        or norm_yaxis is True
-        or lognorm_xaxis is True
-        or lognorm_yaxis is True
-    ):
-        warnings.warn(
-            """
-*
-*   The --logx, --logy, --norm_xaxis, --norm_yaxis, --lognorm_xaxis, and
-*   --lognorm_yaxis options are deprecated.
-*
-*   For --logx use --xaxis="log"
-*   For --logy use --yaxis="log"
-*   For --norm_xaxis use --type="norm_xaxis"
-*   For --norm_yaxis use --type="norm_yaxis"
-*   For --lognorm_xaxis use --type="lognorm_xaxis"
-*   For --lognorm_yaxis use --type="lognorm_yaxis"
-*
-"""
-        )
 
     if xaxis == "log":
         logx = True

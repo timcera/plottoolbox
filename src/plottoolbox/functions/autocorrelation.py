@@ -3,7 +3,6 @@
 
 from __future__ import absolute_import, division, print_function
 
-import itertools
 import warnings
 
 import mando
@@ -31,41 +30,26 @@ def autocorrelation_cli(
     ytitle="",
     title="",
     figsize="10,6.0",
-    subplots=False,
-    sharex=True,
-    sharey=False,
-    colors="auto",
-    linestyles="auto",
-    markerstyles=" ",
-    style="auto",
     xlim=None,
     ylim=None,
-    secondary_y=False,
-    mark_right=True,
-    xy_match_line="",
     grid=False,
-    label_rotation=None,
-    label_skip=1,
-    force_freq=None,
-    drawstyle="default",
+    xlabel_rotation=0,
+    ylabel_rotation=0,
     por=False,
     round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
     plot_styles="bright",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
-    legend_names=None,
 ):
     r"""Autocorrelation plot.
 
     The "autocorrelation" creates an autocorrelation plot.
+
+    The horizontal lines in the plot correspond to 95% and 99% confidence
+    bands.
+
+    The dashed line is 99% confidence band.
+
     Only available for a single time-series.
 
     {yone}
@@ -73,31 +57,6 @@ def autocorrelation_cli(
     Parameters
     ----------
     {input_ts}
-    {ofilename}
-    {xtitle}
-    {ytitle}
-    {title}
-    {figsize}
-    {subplots}
-    {sharex}
-    {sharey}
-    {colors}
-    {linestyles}
-    {markerstyles}
-    {style}
-    {xlim}
-    {ylim}
-    secondary_y
-        {secondary}
-    secondary_x
-        {secondary}
-    {mark_right}
-    {grid}
-    {label_rotation}
-    {label_skip}
-    {drawstyle}
-    {por}
-    {force_freq}
     {columns}
     {start_date}
     {end_date}
@@ -105,9 +64,20 @@ def autocorrelation_cli(
     {skiprows}
     {index_type}
     {names}
+    {ofilename}
+    {xtitle}
+    {ytitle}
+    {title}
+    {figsize}
+    {xlim}
+    {ylim}
+    {grid}
+    {xlabel_rotation}
+    {ylabel_rotation}
+    {por}
+    {round_index}
     {source_units}
     {target_units}
-    {round_index}
     {plot_styles}
     """
     plt = autocorrelation(
@@ -124,28 +94,16 @@ def autocorrelation_cli(
         ytitle=ytitle,
         title=title,
         figsize=figsize,
-        sharex=sharex,
-        sharey=sharey,
-        colors=colors,
-        linestyles=linestyles,
-        markerstyles=markerstyles,
-        style=style,
-        secondary_y=secondary_y,
-        mark_right=mark_right,
+        xlim=xlim,
+        ylim=ylim,
         grid=grid,
-        label_rotation=label_rotation,
-        label_skip=label_skip,
-        force_freq=force_freq,
-        drawstyle=drawstyle,
+        xlabel_rotation=xlabel_rotation,
+        ylabel_rotation=ylabel_rotation,
         por=por,
         round_index=round_index,
-        plotting_position=plotting_position,
-        prob_plot_sort_values=prob_plot_sort_values,
         source_units=source_units,
         target_units=target_units,
-        lag_plot_lag=lag_plot_lag,
         plot_styles=plot_styles,
-        legend_names=legend_names,
     )
 
 
@@ -170,7 +128,6 @@ def autocorrelation_cli(
 #     bootstrap_size=[int, ["range", [0, None]], 1],
 #     grid=[bool, ["domain", [True, False]], 1],
 #     label_rotation=[float, ["pass", []], 1],
-#     label_skip=[int, ["range", [1, None]], 1],
 #     drawstyle=[str, ["pass", []], 1],
 #     por=[bool, ["domain", [True, False]], 1],
 #     plot_styles=[
@@ -233,28 +190,16 @@ def autocorrelation(
     ytitle="",
     title="",
     figsize="10,6.0",
-    subplots=False,
-    sharex=True,
-    sharey=False,
-    colors="auto",
-    linestyles="auto",
-    markerstyles=" ",
-    style="auto",
     xlim=None,
     ylim=None,
-    secondary_y=False,
-    mark_right=True,
     grid=False,
-    label_rotation=None,
-    label_skip=1,
-    force_freq=None,
-    drawstyle="default",
+    xlabel_rotation=0,
+    ylabel_rotation=0,
     por=False,
     round_index=None,
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    legend_names=None,
     **kwds,
 ):
     r"""Plot data."""
@@ -282,7 +227,7 @@ def autocorrelation(
         por=por,
     )
 
-    tsd, lnames = plotutils.check(type, tsd, legend_names)
+    tsd, _ = plotutils.check(type, tsd, [""])
 
     # This is to help pretty print the frequency
     try:
@@ -298,7 +243,7 @@ def autocorrelation(
             short_freq = ""
         else:
             # short freq string (day) OR (2 day)
-            short_freq = "({})".format(pltfreq[beginstr:-1])
+            short_freq = f"({pltfreq[beginstr:-1]})"
     except AttributeError:
         short_freq = ""
 
@@ -310,14 +255,21 @@ def autocorrelation(
     from pandas.plotting import autocorrelation_plot
 
     autocorrelation_plot(tsd, ax=ax)
-    xtitle = xtitle or "Time Lag {}".format(short_freq)
+    xtitle = xtitle or f"Time Lag {short_freq}"
 
     plt.xlabel(xtitle)
     plt.ylabel(ytitle)
 
+    plt.xticks(rotation=xlabel_rotation)
+    plt.yticks(rotation=ylabel_rotation)
+
     plt.grid(grid)
 
     plt.title(title)
+
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+
     plt.tight_layout()
     if ofilename is not None:
         plt.savefig(ofilename)

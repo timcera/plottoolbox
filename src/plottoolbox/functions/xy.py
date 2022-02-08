@@ -52,9 +52,6 @@ def xy_cli(
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
     norm_xaxis=False,
     norm_yaxis=False,
     lognorm_xaxis=False,
@@ -63,17 +60,13 @@ def xy_cli(
     grid=False,
     label_rotation=None,
     label_skip=1,
-    force_freq=None,
     drawstyle="default",
     por=False,
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
@@ -103,11 +96,6 @@ def xy_cli(
         If used within Python, and `ofilename` is None will return the
         Matplotlib figure that can then be changed or added to as
         needed.
-
-    lag_plot_lag
-        [optional, default to 1]
-
-        The lag used if ``type`` "lag_plot" is chosen.
 
     xtitle : str
         [optional, default depends on ``type``]
@@ -394,23 +382,6 @@ def xy_cli(
         When using a secondary_y axis, should the legend label the axis of the
         various time-series automatically.
 
-    scatter_matrix_diagonal : str
-        [optional, defaults to 'kde']
-
-        If plot type is 'scatter_matrix', this specifies the plot along the
-        diagonal.  One of 'kde' for Kernel Density Estimation or 'hist'
-        for a histogram.
-
-    bootstrap_size : int
-        [optional, defaults to 50]
-
-        The size of the random subset for 'bootstrap' plot.
-
-    bootstrap_samples
-        [optional, defaults to 500]
-
-        The number of random subsets of 'bootstrap_size'.
-
     norm_xaxis
         DEPRECATED: use '--type="norm_xaxis"' instead.
 
@@ -460,8 +431,6 @@ def xy_cli(
         Plot from first good value to last good value.  Strips NANs
         from beginning and end.
 
-    {force_freq}
-
     invert_xaxis
         [optional, default is False]
 
@@ -471,22 +440,6 @@ def xy_cli(
         [optional, default is False]
 
         Invert the y-axis.
-
-    plotting_position : str
-        [optional, default is 'weibull']
-
-        {plotting_position_table}
-
-        Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
-        lognorm_yaxis, weibull_xaxis, and weibull_yaxis.
-
-    prob_plot_sort_values : str
-        [optional, default is 'descending']
-
-        How to sort the values for the probability plots.
-
-        Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
-        lognorm_yaxis, weibull_xaxis, and weibull_yaxis.
 
     {columns}
 
@@ -653,9 +606,6 @@ def xy_cli(
         ylim=ylim,
         secondary_y=secondary_y,
         mark_right=mark_right,
-        scatter_matrix_diagonal=scatter_matrix_diagonal,
-        bootstrap_size=bootstrap_size,
-        bootstrap_samples=bootstrap_samples,
         norm_xaxis=norm_xaxis,
         norm_yaxis=norm_yaxis,
         lognorm_xaxis=lognorm_xaxis,
@@ -664,17 +614,13 @@ def xy_cli(
         grid=grid,
         label_rotation=label_rotation,
         label_skip=label_skip,
-        force_freq=force_freq,
         drawstyle=drawstyle,
         por=por,
         invert_xaxis=invert_xaxis,
         invert_yaxis=invert_yaxis,
         round_index=round_index,
-        plotting_position=plotting_position,
-        prob_plot_sort_values=prob_plot_sort_values,
         source_units=source_units,
         target_units=target_units,
-        lag_plot_lag=lag_plot_lag,
         plot_styles=plot_styles,
         hlines_y=hlines_y,
         hlines_xmin=hlines_xmin,
@@ -691,8 +637,7 @@ def xy_cli(
 
 # @tsutils.validator(
 #     ofilename=[str, ["pass", []], 1],
-#     type=[str, ["domain", ["xy",],], 1,],
-#     lag_plot_lag=[int, ["range", [1, None]], 1],
+#     kind=[str, ["domain", ["xy",],], 1,],
 #     xtitle=[str, ["pass", []], 1],
 #     ytitle=[str, ["pass", []], 1],
 #     title=[str, ["pass", []], 1],
@@ -713,8 +658,6 @@ def xy_cli(
 #     yaxis=[str, ["domain", ["arithmetic", "log"]], 1],
 #     secondary_y=[bool, ["domain", [True, False]], 1],
 #     mark_right=[bool, ["domain", [True, False]], 1],
-#     scatter_matrix_diagonal=[str, ["domain", ["kde", "hist"]], 1],
-#     bootstrap_size=[int, ["range", [0, None]], 1],
 #     xy_match_line=[str, ["pass", []], 1],
 #     grid=[bool, ["domain", [True, False]], 1],
 #     label_rotation=[float, ["pass", []], 1],
@@ -723,15 +666,7 @@ def xy_cli(
 #     por=[bool, ["domain", [True, False]], 1],
 #     invert_xaxis=[bool, ["domain", [True, False]], 1],
 #     invert_yaxis=[bool, ["domain", [True, False]], 1],
-#     plotting_position=[
-#         str,
-#         [
-#             "domain",
-#             ["weibull", "benard", "tukey", "gumbel", "hazen", "cunnane", "california"],
-#         ],
-#         1,
 #     ],
-#     prob_plot_sort_values=[str, ["domain", ["ascending", "descending"]], 1],
 #     plot_styles=[
 #         str,
 #         [
@@ -827,9 +762,6 @@ def xy(
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
     norm_xaxis=False,
     norm_yaxis=False,
     lognorm_xaxis=False,
@@ -838,17 +770,13 @@ def xy(
     grid=False,
     label_rotation=None,
     label_skip=1,
-    force_freq=None,
     drawstyle="default",
     por=False,
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
@@ -867,7 +795,7 @@ def xy(
     # mando
     legend = bool(legend == "" or legend == "True" or legend is None)
 
-    type = "xy"
+    kind = "xy"
 
     import matplotlib
 
@@ -891,25 +819,7 @@ def xy(
         por=por,
     )
 
-    tsd, lnames = plotutils.check(type, tsd, legend_names)
-
-    # This is to help pretty print the frequency
-    try:
-        try:
-            pltfreq = str(tsd.index.freq, "utf-8").lower()
-        except TypeError:
-            pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = "({})".format(pltfreq[beginstr:-1])
-    except AttributeError:
-        short_freq = ""
+    tsd, lnames = plotutils.check(kind, tsd, legend_names)
 
     if colors == "auto":
         colors = None
@@ -1029,7 +939,7 @@ but you have {} time-series.
     figsize = tsutils.make_list(figsize, n=2)
     _, ax = plt.subplots(figsize=figsize)
 
-    if type in ["xy", "double_mass"]:
+    if kind in ["xy", "double_mass"]:
         if tsd.shape[1] > 1:
             if tsd.shape[1] % 2 != 0:
                 raise AttributeError(
@@ -1044,7 +954,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
                 )
         colcnt = tsd.shape[1] // 2
 
-    if type in [
+    if kind in [
         "xy",
         "double_mass",
         "norm_xaxis",
@@ -1061,7 +971,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
             (False, False): ax.plot,
         }
 
-    if type in ["xy", "double_mass"]:
+    if kind in ["xy", "double_mass"]:
         # PANDAS was not doing the right thing with xy plots
         # if you wanted lines between markers.
         # Fell back to using raw matplotlib.
@@ -1075,7 +985,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
 
             ndf.dropna(inplace=True)
 
-            if type == "double_mass":
+            if kind == "double_mass":
                 ndf.iloc[:, 0] = ndf.iloc[:, 0].cumsum()
                 ndf.iloc[:, 1] = ndf.iloc[:, 1].cumsum()
             oxdata = np.array(ndf.iloc[:, 0])
@@ -1102,7 +1012,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
         if legend is True:
             ax.legend(loc="best")
 
-        if type == "double_mass":
+        if kind == "double_mass":
             xtitle = xtitle or "Cumulative {}".format(tsd.columns[0])
             ytitle = ytitle or "Cumulative {}".format(tsd.columns[1])
 
@@ -1128,7 +1038,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
             vlines_ymin = nylim[0]
         if vlines_ymax is None:
             vlines_ymax = nylim[1]
-    if type in [
+    if kind in [
         "time",
         "xy",
         "bar",
@@ -1142,7 +1052,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
         "weibull_yaxis",
     ]:
         if hlines_y is not None:
-            if type in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
+            if kind in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
                 hlines_y = ppf(tsutils.make_list(hlines_y))
             plt.hlines(
                 hlines_y,
@@ -1152,7 +1062,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
                 linestyles=hlines_linestyles,
             )
         if vlines_x is not None:
-            if type in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
+            if kind in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
                 vlines_x = ppf(tsutils.make_list(vlines_x))
             plt.vlines(
                 vlines_x,
@@ -1162,7 +1072,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
                 linestyles=vlines_linestyles,
             )
 
-    if type == "xy" and xy_match_line:
+    if kind == "xy" and xy_match_line:
         if isinstance(xy_match_line, str):
             xymsty = xy_match_line
         else:

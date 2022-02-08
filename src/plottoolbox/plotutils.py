@@ -309,6 +309,30 @@ ldocstrings[
 
         Skip for major labels for bar plots."""
 ldocstrings[
+    "xlabel_rotation"
+] = """xlabel_rotation : int
+        [optional]
+
+        Rotation for major x-axis labels for plots."""
+ldocstrings[
+    "xlabel_skip"
+] = """xlabel_skip : int
+        [optional]
+
+        Skip for major x-axis labels for plots."""
+ldocstrings[
+    "ylabel_rotation"
+] = """ylabel_rotation : int
+        [optional]
+
+        Rotation for major y-axis labels for plots."""
+ldocstrings[
+    "ylabel_skip"
+] = """ylabel_skip : int
+        [optional]
+
+        Skip for major y-axis labels for plots."""
+ldocstrings[
     "drawstyle"
 ] = """drawstyle : str
         [optional, default is 'default']
@@ -401,6 +425,8 @@ MARKER_LIST = [
 ]
 
 LINE_LIST = ["-", "--", "-.", ":", "solid", "dashed", "dashdot", "dotted"]
+
+HATCH_LIST = ["/", "\\", "|", "-", "+", "x", "o", "O", ".", "*"]
 
 
 def prepare_styles(tsd):
