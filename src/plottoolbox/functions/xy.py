@@ -81,11 +81,11 @@ def xy_cli(
 ):
     r"""Creates an 'x,y' plot, also known as a scatter plot.
 
-    {xydata}
+    ${xydata}
 
     Parameters
     ----------
-    {input_ts}
+    ${input_ts}
 
     ofilename : str
         [optional, defaults to 'plot.png']
@@ -441,25 +441,25 @@ def xy_cli(
 
         Invert the y-axis.
 
-    {columns}
+    ${columns}
 
-    {start_date}
+    ${start_date}
 
-    {end_date}
+    ${end_date}
 
-    {clean}
+    ${clean}
 
-    {skiprows}
+    ${skiprows}
 
-    {index_type}
+    ${index_type}
 
-    {names}
+    ${names}
 
-    {source_units}
+    ${source_units}
 
-    {target_units}
+    ${target_units}
 
-    {round_index}
+    ${round_index}
 
     plot_styles: str
         [optional, default is "default"]

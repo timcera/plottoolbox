@@ -32,7 +32,7 @@ install_requires = [
     "pandas",
     "matplotlib",
     "xlsxwriter",
-    "tstoolbox >= 103",
+    "tstoolbox > 103.16.1",
     "typical",
 ]
 

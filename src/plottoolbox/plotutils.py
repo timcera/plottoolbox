@@ -398,6 +398,186 @@ ldocstrings[
 
         SciencePlots styles:
             https://github.com/garrettj403/SciencePlots"""
+ldocstrings[
+    "legend"
+] = """legend: bool
+        [optional, default is True]
+
+        Whether to create a legend or not."""
+ldocstrings[
+    "legend_names"
+] = """legend_names:
+        [optional, default is None]
+
+        If the default of None will take legend names from columns tiles in the
+        input dataset.  Otherwise will take names from the `legend_names`
+        list."""
+ldocstrings[
+    "hlines_y"
+] = """hlines_y:
+        [optional, defaults to None]
+
+        Number or list of y values where to place a horizontal line."""
+ldocstrings[
+    "hlines_xmin"
+] = """hlines_xmin:
+        [optional, defaults to None]
+
+        List of minimum x values to start the horizontal line.  If a list must
+        be same length as `hlines_y`.  If a single number will be used as the
+        minimum x values for all horizontal lines.  A missing value or None
+        will start at the minimum x value for the entire plot."""
+ldocstrings[
+    "hlines_xmax"
+] = """hlines_xmax:
+        [optional, defaults to None]
+
+        List of maximum x values to end each horizontal line.  If a list must
+        be same length as `hlines_y`.  If a single number will be the maximum
+        x value for all horizontal lines.  A missing value or None will end at
+        the maximum x value for the entire plot."""
+ldocstrings[
+    "hlines_colors"
+] = """hlines_colors:
+        [optional, defaults to None]
+
+        List of colors for the horizontal lines.  If a single color then will
+        be used as the color for all horizontal lines.  If a list must be same
+        length as `hlines_y`.  If None will take from the color pallette in the
+        current plot style."""
+ldocstrings[
+    "hlines_linestyles"
+] = """hlines_linestyles:
+        [optional, defaults to None]
+
+        List of linestyles for the horizontal lines.  If a single linestyle
+        then will be used as the linestyle for all horizontal lines.  If a list
+        must be same length as `hlines_y`.  If None will take for the standard
+        linestyles list."""
+ldocstrings[
+    "vlines_x"
+] = """vlines_x:
+        [optional, defaults to None]
+
+        List of x values where to place a vertical line."""
+ldocstrings[
+    "vlines_ymin"
+] = """vlines_ymin:
+        [optional, defaults to None]
+
+        List of minimum y values to start the vertical line.  If a list must be
+        same length as `vlines_x`.  If a single number will be used as the
+        minimum x values for all vertical lines.  A missing value or None will
+        start at the minimum x value for the entire plot."""
+ldocstrings[
+    "vlines_ymax"
+] = """vlines_ymax:
+        [optional, defaults to None]
+
+        List of maximum x values to end each vertical line.  If a list must be
+        same length as `vlines_x`.  If a single number will be the maximum
+        x value for all vertical lines.  A missing value or None will end at
+        the maximum x value for the entire plot."""
+ldocstrings[
+    "vlines_colors"
+] = """vlines_colors:
+        [optional, defaults to None]
+
+        List of colors for the vertical lines.  If a single color then will be
+        used as the color for all vertical lines.  If a list must be same
+        length as `vlines_x`.  If None will take from the color pallette in the
+        current plot style."""
+ldocstrings[
+    "vlines_linestyles"
+] = """vlines_linestyles:
+        [optional, defaults to None]
+
+        List of linestyles for the vertical lines.  If a single linestyle then
+        will be used as the linestyle for all vertical lines.  If a list must
+        be same length as `vlines_x`.  If None will take for the standard
+        linestyles list."""
+ldocstrings[
+    "bar_hatchstyles"
+] = r"""bar_hatchstyles
+        [optional, default to "auto", only used if type equal to "bar", "barh",
+        "bar_stacked", and "barh_stacked"]
+
+        If 'auto' will iterate through the available matplotlib hatch types.
+        Otherwise on the command line a comma separated list, or a list of
+        strings if using the Python API.
+
+        +-----------------+-------------------+
+        | bar_hatchstyles | Description       |
+        +=================+===================+
+        | /               | diagonal hatching |
+        +-----------------+-------------------+
+        | ``\``           | back diagonal     |
+        +-----------------+-------------------+
+        | ``|``           | vertical          |
+        +-----------------+-------------------+
+        | ``-``           | horizontal        |
+        +-----------------+-------------------+
+        | ``+``           | crossed           |
+        +-----------------+-------------------+
+        | ``x``           | crossed diagonal  |
+        +-----------------+-------------------+
+        | o               | small circle      |
+        +-----------------+-------------------+
+        | O               | large circle      |
+        +-----------------+-------------------+
+        | .               | dots              |
+        +-----------------+-------------------+
+        | ``*``           | stars             |
+        +-----------------+-------------------+"""
+ldocstrings[
+    "xaxis"
+] = """xaxis : str
+        [optional, default is 'arithmetic']
+
+        Defines the type of the xaxis.  One of 'arithmetic', 'log'."""
+ldocstrings[
+    "yaxis"
+] = """yaxis : str
+        [optional, default is 'arithmetic']
+
+        Defines the type of the yaxis.  One of 'arithmetic', 'log'."""
+ldocstrings[
+    "invert_xaxis"
+] = """invert_xaxis
+        [optional, default is False]
+
+        Invert the x-axis."""
+ldocstrings[
+    "invert_yaxis"
+] = """invert_yaxis
+        [optional, default is False]
+
+        Invert the y-axis."""
+ldocstrings[
+    "mark_right"
+] = """mark_right
+        [optional, default is True]
+
+        When using a secondary_y axis, should the legend label the axis of the
+        various time-series automatically."""
+ldocstrings[
+    "plotting_position"
+] = """plotting_position : str
+        [optional, default is 'weibull']
+
+        {plotting_position_table}
+
+        Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
+        lognorm_yaxis, weibull_xaxis, and weibull_yaxis."""
+ldocstrings[
+    "prob_plot_sort_values"
+] = """prob_plot_sort_values : str
+        [optional, default is 'descending']
+
+        How to sort the values for the probability plots.
+
+        Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
+        lognorm_yaxis, weibull_xaxis, and weibull_yaxis."""
 
 MARKER_LIST = [
     ".",

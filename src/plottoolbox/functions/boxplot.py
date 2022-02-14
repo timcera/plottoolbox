@@ -92,11 +92,11 @@ def boxplot_cli(
     Depending on the statistics, the wiskers represent the range of the data or
     1.5 times the inter-quartile range (Q3 - Q1).
 
-    {ydata}
+    ${ydata}
 
     Parameters
     ----------
-    {input_ts}
+    ${input_ts}
 
     ofilename : str
         [optional, defaults to 'plot.png']
@@ -465,7 +465,7 @@ def boxplot_cli(
         Plot from first good value to last good value.  Strips NANs
         from beginning and end.
 
-    {force_freq}
+    ${force_freq}
 
     invert_xaxis
         [optional, default is False]
@@ -480,7 +480,7 @@ def boxplot_cli(
     plotting_position : str
         [optional, default is 'weibull']
 
-        {plotting_position_table}
+        ${plotting_position_table}
 
         Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
         lognorm_yaxis, weibull_xaxis, and weibull_yaxis.
@@ -493,25 +493,25 @@ def boxplot_cli(
         Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
         lognorm_yaxis, weibull_xaxis, and weibull_yaxis.
 
-    {columns}
+    ${columns}
 
-    {start_date}
+    ${start_date}
 
-    {end_date}
+    ${end_date}
 
-    {clean}
+    ${clean}
 
-    {skiprows}
+    ${skiprows}
 
-    {index_type}
+    ${index_type}
 
-    {names}
+    ${names}
 
-    {source_units}
+    ${source_units}
 
-    {target_units}
+    ${target_units}
 
-    {round_index}
+    ${round_index}
 
     plot_styles: str
         [optional, default is "default"]

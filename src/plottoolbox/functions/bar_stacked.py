@@ -42,49 +42,31 @@ def bar_stacked_cli(
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
-    bar_hatchstyles="auto",
     style="auto",
-    logx=False,
-    logy=False,
-    xaxis="arithmetic",
-    yaxis="arithmetic",
+    bar_hatchstyles="auto",
     xlim=None,
     ylim=None,
+    xaxis="arithmetic",
+    yaxis="arithmetic",
+    secondary_x=False,
     secondary_y=False,
     mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
-    norm_xaxis=False,
-    norm_yaxis=False,
-    lognorm_xaxis=False,
-    lognorm_yaxis=False,
-    xy_match_line="",
     grid=False,
     label_rotation=None,
     label_skip=1,
-    force_freq=None,
-    drawstyle="default",
     por=False,
+    force_freq=None,
     invert_xaxis=False,
     invert_yaxis=False,
-    round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
+    round_index=None,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
     hlines_xmax=None,
     hlines_colors=None,
     hlines_linestyles="-",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
 ):
     r"""Stacked vertical bar, sometimes called a stacked column plot.
 
@@ -92,50 +74,54 @@ def bar_stacked_cli(
 
     Parameters
     ----------
-    {input_ts}
-    {ofilename}
-    {lag_plot_lag}
-    {xtitle}
-    {ytitle}
-    {title}
-    {figsize}
-    {legend}
-    {legend_names}
-    {subplots}
-    {sharex}
-    {sharey}
-    {colors}
-    {linestyles}
-    {markerstyles}
-    {style}
-    {bar_hatchstyles}
-    {xlim}
-    {ylim}
-    {xaxis}
-    {yaxis}
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${subplots}
+    ${sharex}
+    ${sharey}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${bar_hatchstyles}
+    ${xlim}
+    ${ylim}
+    ${xaxis}
+    ${yaxis}
     secondary_x
-        {secondary}
-    {mark_right}
-    {grid}
-    {label_rotation}
-    {label_skip}
-    {por}
-    {force_freq}
-    {invert_xaxis}
-    {columns}
-    {start_date}
-    {end_date}
-    {clean}
-    {skiprows}
-    {index_type}
-    {names}
-    {source_units}
-    {target_units}
-    {round_index}
-    {plot_styles}
-    {vlines_x}
-    {vlines_colors}
-    {vlines_linestyles}
+        ${secondary}
+    secondary_y
+        ${secondary}
+    ${mark_right}
+    ${grid}
+    ${label_rotation}
+    ${label_skip}
+    ${por}
+    ${force_freq}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${source_units}
+    ${target_units}
+    ${round_index}
+    ${plot_styles}
+    ${hlines_y}
+    ${hlines_xmin}
+    ${hlines_xmax}
+    ${hlines_colors}
+    ${hlines_linestyles}
     """
     plt = bar_stacked(
         input_ts=input_ts,
@@ -161,36 +147,22 @@ def bar_stacked_cli(
         markerstyles=markerstyles,
         bar_hatchstyles=bar_hatchstyles,
         style=style,
-        logx=logx,
-        logy=logy,
         xaxis=xaxis,
         yaxis=yaxis,
         xlim=xlim,
         ylim=ylim,
         secondary_y=secondary_y,
         mark_right=mark_right,
-        scatter_matrix_diagonal=scatter_matrix_diagonal,
-        bootstrap_size=bootstrap_size,
-        bootstrap_samples=bootstrap_samples,
-        norm_xaxis=norm_xaxis,
-        norm_yaxis=norm_yaxis,
-        lognorm_xaxis=lognorm_xaxis,
-        lognorm_yaxis=lognorm_yaxis,
-        xy_match_line=xy_match_line,
         grid=grid,
         label_rotation=label_rotation,
         label_skip=label_skip,
         force_freq=force_freq,
-        drawstyle=drawstyle,
         por=por,
         invert_xaxis=invert_xaxis,
         invert_yaxis=invert_yaxis,
         round_index=round_index,
-        plotting_position=plotting_position,
-        prob_plot_sort_values=prob_plot_sort_values,
         source_units=source_units,
         target_units=target_units,
-        lag_plot_lag=lag_plot_lag,
         plot_styles=plot_styles,
         hlines_y=hlines_y,
         hlines_xmin=hlines_xmin,
@@ -205,112 +177,6 @@ def bar_stacked_cli(
     )
 
 
-# @tsutils.validator(
-#     ofilename=[str, ["pass", []], 1],
-#     type=[str, ["domain", ["bar_stacked",],], 1,],
-#     lag_plot_lag=[int, ["range", [1, None]], 1],
-#     xtitle=[str, ["pass", []], 1],
-#     ytitle=[str, ["pass", []], 1],
-#     title=[str, ["pass", []], 1],
-#     figsize=[float, ["range", [0, None]], 2],
-#     legend=[bool, ["domain", [True, False]], 1],
-#     legend_names=[str, ["pass", []], 1],
-#     subplots=[bool, ["domain", [True, False]], 1],
-#     sharex=[bool, ["domain", [True, False]], 1],
-#     sharey=[bool, ["domain", [True, False]], 1],
-#     colors=[str, ["pass", []], None],
-#     linestyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.LINE_LIST], None],
-#     markerstyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.MARKER_LIST], None],
-#     bar_hatchstyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.HATCH_LIST], None],
-#     style=[str, ["pass", []], None],
-#     xlim=[float, ["pass", []], 2],
-#     ylim=[float, ["pass", []], 2],
-#     xaxis=[str, ["domain", ["arithmetic", "log"]], 1],
-#     yaxis=[str, ["domain", ["arithmetic", "log"]], 1],
-#     secondary_y=[bool, ["domain", [True, False]], 1],
-#     mark_right=[bool, ["domain", [True, False]], 1],
-#     scatter_matrix_diagonal=[str, ["domain", ["kde", "hist"]], 1],
-#     bootstrap_size=[int, ["range", [0, None]], 1],
-#     xy_match_line=[str, ["pass", []], 1],
-#     grid=[bool, ["domain", [True, False]], 1],
-#     label_rotation=[float, ["pass", []], 1],
-#     label_skip=[int, ["range", [1, None]], 1],
-#     drawstyle=[str, ["pass", []], 1],
-#     por=[bool, ["domain", [True, False]], 1],
-#     invert_xaxis=[bool, ["domain", [True, False]], 1],
-#     invert_yaxis=[bool, ["domain", [True, False]], 1],
-#     plotting_position=[
-#         str,
-#         [
-#             "domain",
-#             ["weibull", "benard", "tukey", "gumbel", "hazen", "cunnane", "california"],
-#         ],
-#         1,
-#     ],
-#     prob_plot_sort_values=[str, ["domain", ["ascending", "descending"]], 1],
-#     plot_styles=[
-#         str,
-#         [
-#             "domain",
-#             [
-#                 "classic",
-#                 "Solarize_Light2",
-#                 "bmh",
-#                 "dark_background",
-#                 "fast",
-#                 "fivethirtyeight",
-#                 "ggplot",
-#                 "grayscale",
-#                 "seaborn",
-#                 "seaborn-bright",
-#                 "seaborn-colorblind",
-#                 "seaborn-dark",
-#                 "seaborn-dark-palette",
-#                 "seaborn-darkgrid",
-#                 "seaborn-deep",
-#                 "seaborn-muted",
-#                 "seaborn-notebook",
-#                 "seaborn-paper",
-#                 "seaborn-pastel",
-#                 "seaborn-poster",
-#                 "seaborn-talk",
-#                 "seaborn-ticks",
-#                 "seaborn-white",
-#                 "seaborn-whitegrid",
-#                 "tableau-colorblind10",
-#                 "science",
-#                 "grid",
-#                 "ieee",
-#                 "scatter",
-#                 "notebook",
-#                 "high-vis",
-#                 "bright",
-#                 "vibrant",
-#                 "muted",
-#                 "retro",
-#             ],
-#         ],
-#         None,
-#     ],
-#     hlines_y=[float, ["pass", []], None],
-#     hlines_xmin=[float, ["pass", []], None],
-#     hlines_xmax=[float, ["pass", []], None],
-#     hlines_colors=[str, ["pass", []], None],
-#     hlines_linestyles=[
-#         str,
-#         ["domain", ["auto", None, "", " ", "  "] + plotutils.LINE_LIST],
-#         None,
-#     ],
-#     vlines_x=[float, ["pass", []], None],
-#     vlines_ymin=[float, ["pass", []], None],
-#     vlines_ymax=[float, ["pass", []], None],
-#     vlines_colors=[str, ["pass", []], None],
-#     vlines_linestyles=[
-#         str,
-#         ["domain", ["auto", None, "", " ", "  "] + plotutils.LINE_LIST],
-#         None,
-#     ],
-# )
 def bar_stacked(
     input_ts="-",
     columns=None,
@@ -335,36 +201,22 @@ def bar_stacked(
     markerstyles=" ",
     bar_hatchstyles="auto",
     style="auto",
-    logx=False,
-    logy=False,
     xaxis="arithmetic",
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
-    norm_xaxis=False,
-    norm_yaxis=False,
-    lognorm_xaxis=False,
-    lognorm_yaxis=False,
-    xy_match_line="",
     grid=False,
     label_rotation=None,
     label_skip=1,
     force_freq=None,
-    drawstyle="default",
     por=False,
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
-    plotting_position="weibull",
-    prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
@@ -498,30 +350,6 @@ but you have {} time-series.
     # Only for bar, barh, bar_stacked, and barh_stacked.
     ibar_hatchstyles = itertools.cycle(bar_hatchstyles)
 
-    if (
-        logx is True
-        or logy is True
-        or norm_xaxis is True
-        or norm_yaxis is True
-        or lognorm_xaxis is True
-        or lognorm_yaxis is True
-    ):
-        warnings.warn(
-            """
-*
-*   The --logx, --logy, --norm_xaxis, --norm_yaxis, --lognorm_xaxis, and
-*   --lognorm_yaxis options are deprecated.
-*
-*   For --logx use --xaxis="log"
-*   For --logy use --yaxis="log"
-*   For --norm_xaxis use --type="norm_xaxis"
-*   For --norm_yaxis use --type="norm_yaxis"
-*   For --lognorm_xaxis use --type="lognorm_xaxis"
-*   For --lognorm_yaxis use --type="lognorm_yaxis"
-*
-"""
-        )
-
     if xaxis == "log":
         logx = True
     if yaxis == "log":
@@ -625,21 +453,10 @@ but you have {} time-series.
         if vlines_ymax is None:
             vlines_ymax = nylim[1]
     if type in [
-        "time",
-        "xy",
         "bar",
         "bar_stacked",
-        "histogram",
-        "norm_xaxis",
-        "lognorm_xaxis",
-        "weibull_xaxis",
-        "norm_yaxis",
-        "lognorm_yaxis",
-        "weibull_yaxis",
     ]:
         if hlines_y is not None:
-            if type in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
-                hlines_y = ppf(tsutils.make_list(hlines_y))
             plt.hlines(
                 hlines_y,
                 hlines_xmin,
@@ -648,8 +465,6 @@ but you have {} time-series.
                 linestyles=hlines_linestyles,
             )
         if vlines_x is not None:
-            if type in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
-                vlines_x = ppf(tsutils.make_list(vlines_x))
             plt.vlines(
                 vlines_x,
                 vlines_ymin,

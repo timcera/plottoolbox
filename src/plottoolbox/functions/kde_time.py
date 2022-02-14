@@ -87,7 +87,7 @@ def kde_time_cli(
 
     Parameters
     ----------
-    {input_ts}
+    ${input_ts}
 
     ofilename : str
         [optional, defaults to 'plot.png']
@@ -401,7 +401,7 @@ def kde_time_cli(
         Plot from first good value to last good value.  Strips NANs
         from beginning and end.
 
-    {force_freq}
+    ${force_freq}
 
     invert_xaxis
         [optional, default is False]
@@ -413,25 +413,25 @@ def kde_time_cli(
 
         Invert the y-axis.
 
-    {columns}
+    ${columns}
 
-    {start_date}
+    ${start_date}
 
-    {end_date}
+    ${end_date}
 
-    {clean}
+    ${clean}
 
-    {skiprows}
+    ${skiprows}
 
-    {index_type}
+    ${index_type}
 
-    {names}
+    ${names}
 
-    {source_units}
+    ${source_units}
 
-    {target_units}
+    ${target_units}
 
-    {round_index}
+    ${round_index}
 
     plot_styles: str
         [optional, default is "default"]

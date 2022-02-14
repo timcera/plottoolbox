@@ -52,33 +52,33 @@ def autocorrelation_cli(
 
     Only available for a single time-series.
 
-    {yone}
+    ${yone}
 
     Parameters
     ----------
-    {input_ts}
-    {columns}
-    {start_date}
-    {end_date}
-    {clean}
-    {skiprows}
-    {index_type}
-    {names}
-    {ofilename}
-    {xtitle}
-    {ytitle}
-    {title}
-    {figsize}
-    {xlim}
-    {ylim}
-    {grid}
-    {xlabel_rotation}
-    {ylabel_rotation}
-    {por}
-    {round_index}
-    {source_units}
-    {target_units}
-    {plot_styles}
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${xlim}
+    ${ylim}
+    ${grid}
+    ${xlabel_rotation}
+    ${ylabel_rotation}
+    ${por}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
     """
     plt = autocorrelation(
         input_ts=input_ts,
