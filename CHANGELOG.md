@@ -1,3 +1,9 @@
+## v101.5.0 (2022-02-14)
+
+### Feat
+
+- **docstrings**: moved to new dostring template format in latest tstoolbox
+
 ## v101.4.13 (2022-02-07)
 
 ### Fix
