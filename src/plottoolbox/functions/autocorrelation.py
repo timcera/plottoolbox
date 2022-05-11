@@ -202,8 +202,12 @@ def autocorrelation(
     plot_styles="bright",
     **kwds,
 ):
-    r"""Plot data."""
-    type = "autocorrelation"
+    r"""Plot data.
+
+    pandas.plotting.autocorrelation_plot(series, ax=None, **kwargs)
+
+    """
+    plot_type = "autocorrelation"
 
     import matplotlib
 
@@ -227,25 +231,9 @@ def autocorrelation(
         por=por,
     )
 
-    tsd, _ = plotutils.check(type, tsd, [""])
+    tsd, _ = plotutils.check(plot_type, tsd, [""])
 
-    # This is to help pretty print the frequency
-    try:
-        try:
-            pltfreq = str(tsd.index.freq, "utf-8").lower()
-        except TypeError:
-            pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = f"({pltfreq[beginstr:-1]})"
-    except AttributeError:
-        short_freq = ""
+    short_freq = plotutils.pprint_freq(tsd)
 
     plt.style.use(plot_styles)
 

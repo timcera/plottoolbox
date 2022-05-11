@@ -792,9 +792,6 @@ def boxplot(
     figsize="10,6.0",
     legend=None,
     legend_names=None,
-    subplots=False,
-    sharex=True,
-    sharey=False,
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
@@ -806,16 +803,10 @@ def boxplot(
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
-    secondary_y=False,
-    mark_right=True,
-    scatter_matrix_diagonal="kde",
-    bootstrap_size=50,
-    bootstrap_samples=500,
     norm_xaxis=False,
     norm_yaxis=False,
     lognorm_xaxis=False,
     lognorm_yaxis=False,
-    xy_match_line="",
     grid=False,
     label_rotation=None,
     label_skip=1,
@@ -829,7 +820,6 @@ def boxplot(
     prob_plot_sort_values="descending",
     source_units=None,
     target_units=None,
-    lag_plot_lag=1,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
@@ -873,24 +863,6 @@ def boxplot(
     )
 
     tsd, lnames = plotutils.check(type, tsd, legend_names)
-
-    # This is to help pretty print the frequency
-    try:
-        try:
-            pltfreq = str(tsd.index.freq, "utf-8").lower()
-        except TypeError:
-            pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = "({})".format(pltfreq[beginstr:-1])
-    except AttributeError:
-        short_freq = ""
 
     if colors == "auto":
         colors = None

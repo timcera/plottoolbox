@@ -826,3 +826,27 @@ l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,
     legend_names = tsd.columns
 
     return tsd, legend_names
+
+
+def pprint_freq(tsd):
+    # This is to help pretty print the frequency
+    try:
+        try:
+            pltfreq = str(tsd.index.freq, "utf-8").lower()
+        except TypeError:
+            pltfreq = str(tsd.index.freq).lower()
+
+        if pltfreq.split(" ")[0][1:] == "1":
+            beginstr = 3
+        else:
+            beginstr = 1
+
+        if pltfreq == "none":
+            short_freq = ""
+        else:
+            # short freq string (day) OR (2 day)
+            short_freq = f"({pltfreq[beginstr:-1]})"
+    except AttributeError:
+        short_freq = ""
+
+    return short_freq

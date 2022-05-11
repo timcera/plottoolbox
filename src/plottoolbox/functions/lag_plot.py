@@ -871,23 +871,7 @@ def lag_plot(
 
     tsd, lnames = plotutils.check(type, tsd, legend_names)
 
-    # This is to help pretty print the frequency
-    try:
-        try:
-            pltfreq = str(tsd.index.freq, "utf-8").lower()
-        except TypeError:
-            pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = "({})".format(pltfreq[beginstr:-1])
-    except AttributeError:
-        short_freq = ""
+    short_freq = plotutils.pprint_freq(tsd)
 
     if colors == "auto":
         colors = None

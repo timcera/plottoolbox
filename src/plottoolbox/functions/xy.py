@@ -52,10 +52,6 @@ def xy_cli(
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    norm_xaxis=False,
-    norm_yaxis=False,
-    lognorm_xaxis=False,
-    lognorm_yaxis=False,
     xy_match_line="",
     grid=False,
     label_rotation=None,
@@ -382,18 +378,6 @@ def xy_cli(
         When using a secondary_y axis, should the legend label the axis of the
         various time-series automatically.
 
-    norm_xaxis
-        DEPRECATED: use '--type="norm_xaxis"' instead.
-
-    norm_yaxis
-        DEPRECATED: use '--type="norm_yaxis"' instead.
-
-    lognorm_xaxis
-        DEPRECATED: use '--type="lognorm_xaxis"' instead.
-
-    lognorm_yaxis
-        DEPRECATED: use '--type="lognorm_yaxis"' instead.
-
     xy_match_line : str
         [optional, defaults is '']
 
@@ -606,10 +590,6 @@ def xy_cli(
         ylim=ylim,
         secondary_y=secondary_y,
         mark_right=mark_right,
-        norm_xaxis=norm_xaxis,
-        norm_yaxis=norm_yaxis,
-        lognorm_xaxis=lognorm_xaxis,
-        lognorm_yaxis=lognorm_yaxis,
         xy_match_line=xy_match_line,
         grid=grid,
         label_rotation=label_rotation,
@@ -762,10 +742,6 @@ def xy(
     ylim=None,
     secondary_y=False,
     mark_right=True,
-    norm_xaxis=False,
-    norm_yaxis=False,
-    lognorm_xaxis=False,
-    lognorm_yaxis=False,
     xy_match_line="",
     grid=False,
     label_rotation=None,
@@ -889,33 +865,6 @@ but you have {} time-series.
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
 
-    # Only for bar, barh, bar_stacked, and barh_stacked.
-    ibar_hatchstyles = itertools.cycle(bar_hatchstyles)
-
-    if (
-        logx is True
-        or logy is True
-        or norm_xaxis is True
-        or norm_yaxis is True
-        or lognorm_xaxis is True
-        or lognorm_yaxis is True
-    ):
-        warnings.warn(
-            """
-*
-*   The --logx, --logy, --norm_xaxis, --norm_yaxis, --lognorm_xaxis, and
-*   --lognorm_yaxis options are deprecated.
-*
-*   For --logx use --xaxis="log"
-*   For --logy use --yaxis="log"
-*   For --norm_xaxis use --type="norm_xaxis"
-*   For --norm_yaxis use --type="norm_yaxis"
-*   For --lognorm_xaxis use --type="lognorm_xaxis"
-*   For --lognorm_yaxis use --type="lognorm_yaxis"
-*
-"""
-        )
-
     if xaxis == "log":
         logx = True
     if yaxis == "log":
@@ -954,22 +903,12 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
                 )
         colcnt = tsd.shape[1] // 2
 
-    if kind in [
-        "xy",
-        "double_mass",
-        "norm_xaxis",
-        "norm_yaxis",
-        "lognorm_xaxis",
-        "lognorm_yaxis",
-        "weibull_xaxis",
-        "weibull_yaxis",
-    ]:
-        plotdict = {
-            (False, True): ax.semilogy,
-            (True, False): ax.semilogx,
-            (True, True): ax.loglog,
-            (False, False): ax.plot,
-        }
+    plotdict = {
+        (False, True): ax.semilogy,
+        (True, False): ax.semilogx,
+        (True, True): ax.loglog,
+        (False, False): ax.plot,
+    }
 
     if kind in ["xy", "double_mass"]:
         # PANDAS was not doing the right thing with xy plots
@@ -1038,41 +977,25 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
             vlines_ymin = nylim[0]
         if vlines_ymax is None:
             vlines_ymax = nylim[1]
-    if kind in [
-        "time",
-        "xy",
-        "bar",
-        "bar_stacked",
-        "histogram",
-        "norm_xaxis",
-        "lognorm_xaxis",
-        "weibull_xaxis",
-        "norm_yaxis",
-        "lognorm_yaxis",
-        "weibull_yaxis",
-    ]:
-        if hlines_y is not None:
-            if kind in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
-                hlines_y = ppf(tsutils.make_list(hlines_y))
-            plt.hlines(
-                hlines_y,
-                hlines_xmin,
-                hlines_xmax,
-                colors=hlines_colors,
-                linestyles=hlines_linestyles,
-            )
-        if vlines_x is not None:
-            if kind in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
-                vlines_x = ppf(tsutils.make_list(vlines_x))
-            plt.vlines(
-                vlines_x,
-                vlines_ymin,
-                vlines_ymax,
-                colors=vlines_colors,
-                linestyles=vlines_linestyles,
-            )
 
-    if kind == "xy" and xy_match_line:
+    if hlines_y is not None:
+        plt.hlines(
+            hlines_y,
+            hlines_xmin,
+            hlines_xmax,
+            colors=hlines_colors,
+            linestyles=hlines_linestyles,
+        )
+    if vlines_x is not None:
+        plt.vlines(
+            vlines_x,
+            vlines_ymin,
+            vlines_ymax,
+            colors=vlines_colors,
+            linestyles=vlines_linestyles,
+        )
+
+    if xy_match_line:
         if isinstance(xy_match_line, str):
             xymsty = xy_match_line
         else:

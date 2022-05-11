@@ -43,7 +43,6 @@ def norm_xaxis_cli(
     linestyles="auto",
     markerstyles=" ",
     style="auto",
-    xaxis="arithmetic",
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
@@ -98,7 +97,6 @@ def norm_xaxis_cli(
     ${style}
     ${xlim}
     ${ylim}
-    ${xaxis}
     ${yaxis}
     secondary_y
         ${secondary}
@@ -158,7 +156,6 @@ def norm_xaxis_cli(
         linestyles=linestyles,
         markerstyles=markerstyles,
         style=style,
-        xaxis=xaxis,
         yaxis=yaxis,
         xlim=xlim,
         ylim=ylim,
@@ -214,7 +211,6 @@ def norm_xaxis(
     linestyles="auto",
     markerstyles=" ",
     style="auto",
-    xaxis="arithmetic",
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
@@ -276,24 +272,6 @@ def norm_xaxis(
     )
 
     tsd, lnames = plotutils.check(type, tsd, legend_names)
-
-    # This is to help pretty print the frequency
-    try:
-        try:
-            pltfreq = str(tsd.index.freq, "utf-8").lower()
-        except TypeError:
-            pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = "({})".format(pltfreq[beginstr:-1])
-    except AttributeError:
-        short_freq = ""
 
     if colors == "auto":
         colors = None
@@ -358,27 +336,12 @@ but you have {} time-series.
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
 
-    if xaxis == "log":
-        logx = True
+    logx = False
+    logy = False
     if yaxis == "log":
         logy = True
 
-    if type in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
-        xaxis = "normal"
-        if logx is True:
-            logx = False
-            warnings.warn(
-                """
-*
-*   The --type={1} cannot also have the xaxis set to {0}.
-*   The {0} setting for xaxis is ignored.
-*
-""".format(
-                    xaxis, type
-                )
-            )
-
-    xlim = plotutils.know_your_limits(xlim, axis=xaxis)
+    xlim = plotutils.know_your_limits(xlim, axis="normal")
     ylim = plotutils.know_your_limits(ylim, axis=yaxis)
 
     plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
