@@ -8,14 +8,18 @@ import os
 import warnings
 
 import mando
-import numpy as np
-import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
 from mando.rst_text_formatter import RSTHelpFormatter
 from tstoolbox import tsutils
 
 from .. import plotutils
 
+matplotlib.use("Agg")
+
 warnings.filterwarnings("ignore")
+
+plotutils.HATCH_LIST = ["/", "\\", "|", "-", "+", "x", "o", "O", ".", "*"]
 
 
 @mando.command("bar_stacked", formatter_class=RSTHelpFormatter, doctype="numpy")
@@ -36,37 +40,36 @@ def bar_stacked_cli(
     figsize="10,6.0",
     legend=None,
     legend_names=None,
-    subplots=False,
-    sharex=True,
-    sharey=False,
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
-    style="auto",
     bar_hatchstyles="auto",
-    xlim=None,
-    ylim=None,
+    style="auto",
     xaxis="arithmetic",
     yaxis="arithmetic",
-    secondary_x=False,
-    secondary_y=False,
-    mark_right=True,
+    xlim=None,
+    ylim=None,
     grid=False,
     label_rotation=None,
     label_skip=1,
-    por=False,
     force_freq=None,
+    por=False,
     invert_xaxis=False,
     invert_yaxis=False,
+    round_index=None,
     source_units=None,
     target_units=None,
-    round_index=None,
     plot_styles="bright",
     hlines_y=None,
     hlines_xmin=None,
     hlines_xmax=None,
     hlines_colors=None,
     hlines_linestyles="-",
+    vlines_x=None,
+    vlines_ymin=None,
+    vlines_ymax=None,
+    vlines_colors=None,
+    vlines_linestyles="-",
 ):
     r"""Stacked vertical bar, sometimes called a stacked column plot.
 
@@ -89,41 +92,38 @@ def bar_stacked_cli(
     ${figsize}
     ${legend}
     ${legend_names}
-    ${subplots}
-    ${sharex}
-    ${sharey}
     ${colors}
     ${linestyles}
     ${markerstyles}
-    ${style}
     ${bar_hatchstyles}
-    ${xlim}
-    ${ylim}
+    ${style}
     ${xaxis}
     ${yaxis}
-    secondary_x
-        ${secondary}
-    secondary_y
-        ${secondary}
-    ${mark_right}
+    ${xlim}
+    ${ylim}
     ${grid}
     ${label_rotation}
     ${label_skip}
-    ${por}
     ${force_freq}
+    ${por}
     ${invert_xaxis}
     ${invert_yaxis}
+    ${round_index}
     ${source_units}
     ${target_units}
-    ${round_index}
     ${plot_styles}
     ${hlines_y}
     ${hlines_xmin}
     ${hlines_xmax}
     ${hlines_colors}
     ${hlines_linestyles}
+    ${vlines_x}
+    ${vlines_ymin}
+    ${vlines_ymax}
+    ${vlines_colors}
+    ${vlines_linestyles}
     """
-    plt = bar_stacked(
+    plot = bar_stacked(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -139,9 +139,6 @@ def bar_stacked_cli(
         figsize=figsize,
         legend=legend,
         legend_names=legend_names,
-        subplots=subplots,
-        sharex=sharex,
-        sharey=sharey,
         colors=colors,
         linestyles=linestyles,
         markerstyles=markerstyles,
@@ -151,8 +148,6 @@ def bar_stacked_cli(
         yaxis=yaxis,
         xlim=xlim,
         ylim=ylim,
-        secondary_y=secondary_y,
-        mark_right=mark_right,
         grid=grid,
         label_rotation=label_rotation,
         label_skip=label_skip,
@@ -175,6 +170,7 @@ def bar_stacked_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
+    return plot
 
 
 def bar_stacked(
@@ -193,9 +189,6 @@ def bar_stacked(
     figsize="10,6.0",
     legend=None,
     legend_names=None,
-    subplots=False,
-    sharex=True,
-    sharey=False,
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
@@ -205,8 +198,6 @@ def bar_stacked(
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
-    secondary_y=False,
-    mark_right=True,
     grid=False,
     label_rotation=None,
     label_skip=1,
@@ -231,18 +222,8 @@ def bar_stacked(
     **kwds,
 ):
     r"""Plot data."""
-    # Need to work around some old option defaults with the implementation of
-    # mando
-    legend = bool(legend == "" or legend == "True" or legend is None)
 
-    type = "bar_stacked"
-
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    from matplotlib.ticker import FixedLocator
-
+    # set up dataframe
     tsd = tsutils.common_kwds(
         input_ts,
         skiprows=skiprows,
@@ -259,88 +240,43 @@ def bar_stacked(
         por=por,
     )
 
-    tsd, lnames = plotutils.check(type, tsd, legend_names)
+    # Need to work around some old option defaults with the implementation of
+    # mando
+    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    plottype = "bar_stacked"
+    lnames = tsutils.make_list(legend_names)
+    tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
 
-    if colors == "auto":
-        colors = None
+    # check axis scales
+    if xaxis == "log":
+        logx = True
     else:
-        colors = tsutils.make_list(colors)
+        logx = False
+    if yaxis == "log":
+        logy = True
+    else:
+        logy = False
+    xlim = plotutils.know_your_limits(xlim, axis=xaxis)
+    ylim = plotutils.know_your_limits(ylim, axis=yaxis)
 
-    if linestyles == "auto":
-        linestyles = plotutils.LINE_LIST
-    else:
-        linestyles = tsutils.make_list(linestyles)
+    # process styles: colors, linestyles, markerstyles
+    (
+        style,
+        colors,
+        linestyles,
+        markerstyles,
+        icolors,
+        ilinestyles,
+        imarkerstyles,
+    ) = plotutils.prepare_styles(
+        len(tsd.columns), style, colors, linestyles, markerstyles
+    )
 
     if bar_hatchstyles == "auto":
         bar_hatchstyles = plotutils.HATCH_LIST
     else:
         bar_hatchstyles = tsutils.make_list(bar_hatchstyles)
-
-    if markerstyles == "auto":
-        markerstyles = plotutils.MARKER_LIST
-    else:
-        markerstyles = tsutils.make_list(markerstyles)
-        if markerstyles is None:
-            markerstyles = " "
-
-    if style != "auto":
-
-        nstyle = tsutils.make_list(style)
-        if len(nstyle) != len(tsd.columns):
-            raise ValueError(
-                tsutils.error_wrapper(
-                    """
-You have to have the same number of style strings as time-series to plot.
-You supplied '{}' for style which has {} style strings,
-but you have {} time-series.
-""".format(
-                        style, len(nstyle), len(tsd.columns)
-                    )
-                )
-            )
-        colors = []
-        markerstyles = []
-        linestyles = []
-        for st in nstyle:
-            colors.append(st[0])
-            if len(st) == 1:
-                markerstyles.append(" ")
-                linestyles.append("-")
-                continue
-            if st[1] in plotutils.MARKER_LIST:
-                markerstyles.append(st[1])
-                try:
-                    linestyles.append(st[2:])
-                except IndexError:
-                    linestyles.append(" ")
-            else:
-                markerstyles.append(" ")
-                linestyles.append(st[1:])
-    if linestyles is None:
-        linestyles = [" "]
-    else:
-        linestyles = [" " if i in ["  ", None] else i for i in linestyles]
-    markerstyles = [" " if i is None else i for i in markerstyles]
-
-    if colors is not None:
-        icolors = itertools.cycle(colors)
-    else:
-        icolors = None
-    imarkerstyles = itertools.cycle(markerstyles)
-    ilinestyles = itertools.cycle(linestyles)
-
-    # Only for bar, barh, bar_stacked, and barh_stacked.
     ibar_hatchstyles = itertools.cycle(bar_hatchstyles)
-
-    logx = False
-    logy = False
-    if xaxis == "log":
-        logx = True
-    if yaxis == "log":
-        logy = True
-
-    xlim = plotutils.know_your_limits(xlim, axis=xaxis)
-    ylim = plotutils.know_your_limits(ylim, axis=yaxis)
 
     plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
     style_loc = os.path.join(
@@ -357,62 +293,55 @@ but you have {} time-series.
     figsize = tsutils.make_list(figsize, n=2)
     _, ax = plt.subplots(figsize=figsize)
 
-    if type in ("bar", "bar_stacked", "barh", "barh_stacked"):
-        stacked = False
-        if type[-7:] == "stacked":
-            stacked = True
-        kind = "bar"
-        if type[:4] == "barh":
-            kind = "barh"
-        if icolors is not None:
-            c = [next(icolors) for i in range(len(tsd.columns))]
+    stacked = True
+    kind = "bar"
+    if icolors is not None:
+        c = [next(icolors) for i in range(len(tsd.columns))]
+    else:
+        c = None
+    tsd.plot(
+        ax=ax,
+        kind=kind,
+        legend=legend,
+        stacked=stacked,
+        logx=logx,
+        logy=logy,
+        xlim=xlim,
+        ylim=ylim,
+        figsize=figsize,
+        linestyle=None,
+        color=c,
+    )
+
+    hatches = [next(ibar_hatchstyles) for i in range(len(tsd.columns))]
+    hatches = "".join(h * len(tsd.index) for h in hatches)
+    for patch, hatch in zip(ax.patches, hatches):
+        patch.set_hatch(hatch)
+
+    freq = tsutils.asbestfreq(tsd, force_freq=force_freq).index.freqstr
+    if freq is not None:
+        if "A" in freq:
+            endchar = 4
+        elif "M" in freq:
+            endchar = 7
+        elif "D" in freq:
+            endchar = 10
+        elif "H" in freq:
+            endchar = 13
         else:
-            c = None
-        tsd.plot(
-            ax=ax,
-            kind=kind,
-            legend=legend,
-            stacked=stacked,
-            logx=logx,
-            logy=logy,
-            xlim=xlim,
-            ylim=ylim,
-            figsize=figsize,
-            linestyle=None,
-            color=c,
-        )
-
-        hatches = [next(ibar_hatchstyles) for i in range(len(tsd.columns))]
-        hatches = "".join(h * len(tsd.index) for h in hatches)
-        for patch, hatch in zip(ax.patches, hatches):
-            patch.set_hatch(hatch)
-
-        freq = tsutils.asbestfreq(tsd, force_freq=force_freq).index.freqstr
-        if freq is not None:
-            if "A" in freq:
-                endchar = 4
-            elif "M" in freq:
-                endchar = 7
-            elif "D" in freq:
-                endchar = 10
-            elif "H" in freq:
-                endchar = 13
+            endchar = None
+        nticklabels = []
+        taxis = ax.xaxis
+        for index, i in enumerate(taxis.get_majorticklabels()):
+            if index % label_skip:
+                nticklabels.append(" ")
             else:
-                endchar = None
-            nticklabels = []
-            if kind == "bar":
-                taxis = ax.xaxis
-            else:
-                taxis = ax.yaxis
-            for index, i in enumerate(taxis.get_majorticklabels()):
-                if index % label_skip:
-                    nticklabels.append(" ")
-                else:
-                    nticklabels.append(i.get_text()[:endchar])
-            taxis.set_ticklabels(nticklabels)
-            plt.setp(taxis.get_majorticklabels(), rotation=label_rotation)
-        if legend is True:
-            plt.legend(loc="best")
+                nticklabels.append(i.get_text()[:endchar])
+        taxis.set_ticklabels(nticklabels)
+        plt.setp(taxis.get_majorticklabels(), rotation=label_rotation)
+
+    if legend is True:
+        plt.legend(loc="best")
 
     if hlines_y is not None:
         hlines_y = tsutils.make_list(hlines_y)
@@ -436,26 +365,22 @@ but you have {} time-series.
             vlines_ymin = nylim[0]
         if vlines_ymax is None:
             vlines_ymax = nylim[1]
-    if type in [
-        "bar",
-        "bar_stacked",
-    ]:
-        if hlines_y is not None:
-            plt.hlines(
-                hlines_y,
-                hlines_xmin,
-                hlines_xmax,
-                colors=hlines_colors,
-                linestyles=hlines_linestyles,
-            )
-        if vlines_x is not None:
-            plt.vlines(
-                vlines_x,
-                vlines_ymin,
-                vlines_ymax,
-                colors=vlines_colors,
-                linestyles=vlines_linestyles,
-            )
+    if hlines_y is not None:
+        plt.hlines(
+            hlines_y,
+            hlines_xmin,
+            hlines_xmax,
+            colors=hlines_colors,
+            linestyles=hlines_linestyles,
+        )
+    if vlines_x is not None:
+        plt.vlines(
+            vlines_x,
+            vlines_ymin,
+            vlines_ymax,
+            colors=vlines_colors,
+            linestyles=vlines_linestyles,
+        )
 
     plt.xlabel(xtitle)
     plt.ylabel(ytitle)

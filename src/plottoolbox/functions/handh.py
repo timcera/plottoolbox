@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import gridspec
 
+# this file needs definitions of input parameters and a doc string
+
 
 def plotHH(t, sP, sQ):
     fig = plt.figure()

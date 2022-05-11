@@ -3,18 +3,20 @@
 
 from __future__ import absolute_import, division, print_function
 
-import itertools
 import os
 import warnings
 
 import mando
+import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from mando.rst_text_formatter import RSTHelpFormatter
+from matplotlib.ticker import FixedLocator
 from tstoolbox import tsutils
 
 from .. import plotutils
 
+matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
@@ -36,22 +38,15 @@ def norm_xaxis_cli(
     figsize="10,6.0",
     legend=None,
     legend_names=None,
-    subplots=False,
-    sharex=True,
-    sharey=False,
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
     style="auto",
+    xaxis="arithmetic",
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
-    secondary_y=False,
-    mark_right=True,
     grid=False,
-    label_rotation=None,
-    label_skip=1,
-    force_freq=None,
     drawstyle="default",
     por=False,
     invert_xaxis=False,
@@ -81,36 +76,6 @@ def norm_xaxis_cli(
     Parameters
     ----------
     ${input_ts}
-    ${ofilename}
-    ${xtitle}
-    ${ytitle}
-    ${title}
-    ${figsize}
-    ${legend}
-    ${legend_names}
-    ${subplots}
-    ${sharex}
-    ${sharey}
-    ${colors}
-    ${linestyles}
-    ${markerstyles}
-    ${style}
-    ${xlim}
-    ${ylim}
-    ${yaxis}
-    secondary_y
-        ${secondary}
-    ${mark_right}
-    ${grid}
-    ${label_rotation}
-    ${label_skip}
-    ${drawstyle}
-    ${por}
-    ${force_freq}
-    ${invert_xaxis}
-    ${invert_yaxis}
-    ${plotting_position}
-    ${prob_plot_sort_values}
     ${columns}
     ${start_date}
     ${end_date}
@@ -118,9 +83,31 @@ def norm_xaxis_cli(
     ${skiprows}
     ${index_type}
     ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${xaxis}
+    ${yaxis}
+    ${xlim}
+    ${ylim}
+    ${grid}
+    ${drawstyle}
+    ${por}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${plotting_position}
+    ${prob_plot_sort_values}
+    ${round_index}
     ${source_units}
     ${target_units}
-    ${round_index}
     ${plot_styles}
     ${hlines_y}
     ${hlines_xmin}
@@ -133,7 +120,7 @@ def norm_xaxis_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plt = norm_xaxis(
+    plot = norm_xaxis(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -149,22 +136,15 @@ def norm_xaxis_cli(
         figsize=figsize,
         legend=legend,
         legend_names=legend_names,
-        subplots=subplots,
-        sharex=sharex,
-        sharey=sharey,
         colors=colors,
         linestyles=linestyles,
         markerstyles=markerstyles,
         style=style,
+        xaxis=xaxis,
         yaxis=yaxis,
         xlim=xlim,
         ylim=ylim,
-        secondary_y=secondary_y,
-        mark_right=mark_right,
         grid=grid,
-        label_rotation=label_rotation,
-        label_skip=label_skip,
-        force_freq=force_freq,
         drawstyle=drawstyle,
         por=por,
         invert_xaxis=invert_xaxis,
@@ -186,6 +166,7 @@ def norm_xaxis_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
+    return plot
 
 
 def norm_xaxis(
@@ -204,22 +185,15 @@ def norm_xaxis(
     figsize="10,6.0",
     legend=None,
     legend_names=None,
-    subplots=False,
-    sharex=True,
-    sharey=False,
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
     style="auto",
+    xaxis="arithmetic",
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
-    secondary_y=False,
-    mark_right=True,
     grid=False,
-    label_rotation=None,
-    label_skip=1,
-    force_freq=None,
     drawstyle="default",
     por=False,
     invert_xaxis=False,
@@ -243,18 +217,8 @@ def norm_xaxis(
     **kwds,
 ):
     r"""Plot data."""
-    # Need to work around some old option defaults with the implementation of
-    # mando
-    legend = bool(legend == "" or legend == "True" or legend is None)
 
-    type = "norm_xaxis"
-
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    from matplotlib.ticker import FixedLocator
-
+    # set up dataframe
     tsd = tsutils.common_kwds(
         input_ts,
         skiprows=skiprows,
@@ -271,78 +235,51 @@ def norm_xaxis(
         por=por,
     )
 
-    tsd, lnames = plotutils.check(type, tsd, legend_names)
+    # Need to work around some old option defaults with the implementation of
+    # mando
+    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    plottype = "norm_xaxis"
+    lnames = tsutils.make_list(legend_names)
+    tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
 
-    if colors == "auto":
-        colors = None
+    # check axis scales
+    if xaxis == "log":
+        logx = True
     else:
-        colors = tsutils.make_list(colors)
-
-    if linestyles == "auto":
-        linestyles = plotutils.LINE_LIST
-    else:
-        linestyles = tsutils.make_list(linestyles)
-
-    if markerstyles == "auto":
-        markerstyles = plotutils.MARKER_LIST
-    else:
-        markerstyles = tsutils.make_list(markerstyles)
-        if markerstyles is None:
-            markerstyles = " "
-
-    if style != "auto":
-
-        nstyle = tsutils.make_list(style)
-        if len(nstyle) != len(tsd.columns):
-            raise ValueError(
-                tsutils.error_wrapper(
-                    """
-You have to have the same number of style strings as time-series to plot.
-You supplied '{}' for style which has {} style strings,
-but you have {} time-series.
-""".format(
-                        style, len(nstyle), len(tsd.columns)
-                    )
-                )
-            )
-        colors = []
-        markerstyles = []
-        linestyles = []
-        for st in nstyle:
-            colors.append(st[0])
-            if len(st) == 1:
-                markerstyles.append(" ")
-                linestyles.append("-")
-                continue
-            if st[1] in plotutils.MARKER_LIST:
-                markerstyles.append(st[1])
-                try:
-                    linestyles.append(st[2:])
-                except IndexError:
-                    linestyles.append(" ")
-            else:
-                markerstyles.append(" ")
-                linestyles.append(st[1:])
-    if linestyles is None:
-        linestyles = [" "]
-    else:
-        linestyles = [" " if i in ["  ", None] else i for i in linestyles]
-    markerstyles = [" " if i is None else i for i in markerstyles]
-
-    if colors is not None:
-        icolors = itertools.cycle(colors)
-    else:
-        icolors = None
-    imarkerstyles = itertools.cycle(markerstyles)
-    ilinestyles = itertools.cycle(linestyles)
-
-    logx = False
-    logy = False
+        logx = False
     if yaxis == "log":
         logy = True
+    else:
+        logy = False
 
-    xlim = plotutils.know_your_limits(xlim, axis="normal")
+    xaxis = "normal"
+    if logx is True:
+        logx = False
+        warnings.warn(
+            tsutils.error_wrapper(
+                """
+*   The plot type {1} cannot also have the xaxis set to {0}.
+*   The {0} setting for xaxis is ignored.
+""".format(
+                    yaxis, plottype
+                )
+            )
+        )
+    xlim = plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = plotutils.know_your_limits(ylim, axis=yaxis)
+
+    # process styles: colors, linestyles, markerstyles
+    (
+        style,
+        colors,
+        linestyles,
+        markerstyles,
+        icolors,
+        ilinestyles,
+        imarkerstyles,
+    ) = plotutils.prepare_styles(
+        len(tsd.columns), style, colors, linestyles, markerstyles
+    )
 
     plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
     style_loc = os.path.join(
@@ -361,105 +298,68 @@ but you have {} time-series.
 
     colcnt = tsd.shape[1]
 
-    if type in [
-        "xy",
-        "double_mass",
-        "norm_xaxis",
-        "norm_yaxis",
-        "lognorm_xaxis",
-        "lognorm_yaxis",
-        "weibull_xaxis",
-        "weibull_yaxis",
-    ]:
-        plotdict = {
-            (False, True): ax.semilogy,
-            (True, False): ax.semilogx,
-            (True, True): ax.loglog,
-            (False, False): ax.plot,
-        }
+    plotdict = {
+        (False, True): ax.semilogy,
+        (True, False): ax.semilogx,
+        (True, True): ax.loglog,
+        (False, False): ax.plot,
+    }
 
-    if type in [
-        "norm_xaxis",
-        "norm_yaxis",
-        "lognorm_xaxis",
-        "lognorm_yaxis",
-        "weibull_xaxis",
-        "weibull_yaxis",
-    ]:
-        ppf = tsutils.set_ppf(type.split("_")[0])
-        ys = tsd.iloc[:, :]
+    ppf = tsutils.set_ppf(plottype.split("_")[0])
+    ys = tsd.iloc[:, :]
 
-        for colindex in range(colcnt):
-            oydata = np.array(ys.iloc[:, colindex].dropna())
-            if prob_plot_sort_values == "ascending":
-                oydata = np.sort(oydata)
-            elif prob_plot_sort_values == "descending":
-                oydata = np.sort(oydata)[::-1]
-            n = len(oydata)
+    for colindex in range(colcnt):
+        oydata = np.array(ys.iloc[:, colindex].dropna())
+        if prob_plot_sort_values == "ascending":
+            oydata = np.sort(oydata)
+        elif prob_plot_sort_values == "descending":
+            oydata = np.sort(oydata)[::-1]
+        n = len(oydata)
 
-            norm_axis = ax.xaxis
-            oxdata = ppf(tsutils.set_plotting_position(n, plotting_position))
-            if type in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
-                oxdata, oydata = oydata, oxdata
-                norm_axis = ax.yaxis
+        norm_axis = ax.xaxis
+        oxdata = ppf(tsutils.set_plotting_position(n, plotting_position))
 
-            if icolors is not None:
-                c = next(icolors)
-            else:
-                c = None
-            plotdict[(logx, logy)](
-                oxdata,
-                oydata,
-                linestyle=next(ilinestyles),
-                color=c,
-                marker=next(imarkerstyles),
-                label=lnames[colindex],
-                drawstyle=drawstyle,
-            )
-
-        # Make it pretty
-        xtmaj = np.array([0.01, 0.1, 0.5, 0.9, 0.99])
-        xtmaj_str = ["1", "10", "50", "90", "99"]
-        xtmin = np.concatenate(
-            [
-                np.linspace(0.001, 0.01, 10),
-                np.linspace(0.01, 0.1, 10),
-                np.linspace(0.1, 0.9, 9),
-                np.linspace(0.9, 0.99, 10),
-                np.linspace(0.99, 0.999, 10),
-            ]
+        if icolors is not None:
+            c = next(icolors)
+        else:
+            c = None
+        plotdict[(logx, logy)](
+            oxdata,
+            oydata,
+            linestyle=next(ilinestyles),
+            color=c,
+            marker=next(imarkerstyles),
+            label=lnames[colindex],
+            drawstyle=drawstyle,
         )
-        xtmaj = ppf(xtmaj)
-        xtmin = ppf(xtmin)
 
-        norm_axis.set_major_locator(FixedLocator(xtmaj))
-        norm_axis.set_minor_locator(FixedLocator(xtmin))
+    # Make it pretty
+    xtmaj = np.array([0.01, 0.1, 0.5, 0.9, 0.99])
+    xtmaj_str = ["1", "10", "50", "90", "99"]
+    xtmin = np.concatenate(
+        [
+            np.linspace(0.001, 0.01, 10),
+            np.linspace(0.01, 0.1, 10),
+            np.linspace(0.1, 0.9, 9),
+            np.linspace(0.9, 0.99, 10),
+            np.linspace(0.99, 0.999, 10),
+        ]
+    )
+    xtmaj = ppf(xtmaj)
+    xtmin = ppf(xtmin)
 
-        if type in ["norm_xaxis", "lognorm_xaxis", "weibull_xaxis"]:
-            ax.set_xticklabels(xtmaj_str)
-            ax.set_ylim(ylim)
-            ax.set_xlim(ppf(xlim))
+    norm_axis.set_major_locator(FixedLocator(xtmaj))
+    norm_axis.set_minor_locator(FixedLocator(xtmin))
 
-        elif type in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
-            ax.set_yticklabels(xtmaj_str)
-            ax.set_xlim(xlim)
-            ax.set_ylim(ppf(ylim))
+    ax.set_xticklabels(xtmaj_str)
+    ax.set_ylim(ylim)
+    ax.set_xlim(ppf(xlim))
 
-        if type in ["norm_xaxis", "norm_yaxis"]:
-            xtitle = xtitle or "Normal Distribution"
-            ytitle = ytitle or tsd.columns[0]
-        elif type in ["lognorm_xaxis", "lognorm_yaxis"]:
-            xtitle = xtitle or "Log Normal Distribution"
-            ytitle = ytitle or tsd.columns[0]
-        elif type in ["weibull_xaxis", "weibull_yaxis"]:
-            xtitle = xtitle or "Weibull Distribution"
-            ytitle = ytitle or tsd.columns[0]
+    xtitle = xtitle or "Normal Distribution"
+    ytitle = ytitle or tsd.columns[0]
 
-        if type in ["norm_yaxis", "lognorm_yaxis", "weibull_yaxis"]:
-            xtitle, ytitle = ytitle, xtitle
-
-        if legend is True:
-            ax.legend(loc="best")
+    if legend is True:
+        ax.legend(loc="best")
 
     if hlines_y is not None:
         hlines_y = tsutils.make_list(hlines_y)
@@ -472,7 +372,6 @@ but you have {} time-series.
             hlines_xmin = nxlim[0]
         if hlines_xmax is None:
             hlines_xmax = nxlim[1]
-
     if vlines_x is not None:
         vlines_x = tsutils.make_list(vlines_x)
         vlines_ymin = tsutils.make_list(vlines_ymin)
@@ -484,7 +383,6 @@ but you have {} time-series.
             vlines_ymin = nylim[0]
         if vlines_ymax is None:
             vlines_ymax = nylim[1]
-
     if hlines_y is not None:
         hlines_y = ppf(tsutils.make_list(hlines_y))
         plt.hlines(

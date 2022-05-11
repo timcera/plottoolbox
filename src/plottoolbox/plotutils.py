@@ -45,13 +45,13 @@ ldocstrings[
 ldocstrings[
     "xtitle"
 ] = """xtitle : str
-        [optional, default depends on ``type``]
+        [optional, default depends on type]
 
         Title of x-axis."""
 ldocstrings[
     "ytitle"
 ] = """ytitle : str
-        [optional, default depends on ``type``]
+        [optional, default depends on type]
 
         Title of y-axis."""
 ldocstrings[
@@ -100,42 +100,44 @@ ldocstrings[
         1. Use 'CN' where N is a number from 0 to 9 that gets the Nth color
         from the current style.
 
-        2. Single character code from the table below.
+        2. Single character code from the table
+        below.
 
-        +------+---------+
-        | Code | Color   |
-        +======+=========+
-        | b    | blue    |
-        +------+---------+
-        | g    | green   |
-        +------+---------+
-        | r    | red     |
-        +------+---------+
-        | c    | cyan    |
-        +------+---------+
-        | m    | magenta |
-        +------+---------+
-        | y    | yellow  |
-        +------+---------+
-        | k    | black   |
-        +------+---------+
+            +------+---------+
+            | Code | Color   |
+            +======+=========+
+            | b    | blue    |
+            +------+---------+
+            | g    | green   |
+            +------+---------+
+            | r    | red     |
+            +------+---------+
+            | c    | cyan    |
+            +------+---------+
+            | m    | magenta |
+            +------+---------+
+            | y    | yellow  |
+            +------+---------+
+            | k    | black   |
+            +------+---------+
 
         3. Number between 0 and 1 that represents the level of gray, where 0 is
         white an 1 is black.
 
-        4. Any of the HTML color names.
+        4. Any of the HTML color
+        names.
 
-        +------------------+
-        | HTML Color Names |
-        +==================+
-        | red              |
-        +------------------+
-        | burlywood        |
-        +------------------+
-        | chartreuse       |
-        +------------------+
-        | ...etc.          |
-        +------------------+
+            +------------------+
+            | HTML Color Names |
+            +==================+
+            | red              |
+            +------------------+
+            | burlywood        |
+            +------------------+
+            | chartreuse       |
+            +------------------+
+            | ...etc.          |
+            +------------------+
 
         Color reference:
         http://matplotlib.org/api/colors_api.html"""
@@ -279,7 +281,7 @@ ldocstrings[
           "pint" library.
         * (callable, callable): Functions relating relationship between
           primary and secondary axis.  First function will be given the values
-          on primary axis and returns valueis on secondary axis.  Second function
+          on primary axis and returns values on secondary axis.  Second function
           will be do the inverse.  Python API only.
         * string: One of pre-built (callable, callable) combinations.  Can be
           one of "period"."""
@@ -609,100 +611,6 @@ LINE_LIST = ["-", "--", "-.", ":", "solid", "dashed", "dashdot", "dotted"]
 HATCH_LIST = ["/", "\\", "|", "-", "+", "x", "o", "O", ".", "*"]
 
 
-def prepare_styles(tsd):
-    # This is to help pretty print the frequency
-    try:
-        try:
-            pltfreq = str(tsd.index.freq, "utf-8").lower()
-        except TypeError:
-            pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = "({})".format(pltfreq[beginstr:-1])
-    except AttributeError:
-        short_freq = ""
-
-    if colors == "auto":
-        colors = None
-    else:
-        colors = tsutils.make_list(colors)
-
-    if linestyles == "auto":
-        linestyles = plotutils.LINE_LIST
-    else:
-        linestyles = tsutils.make_list(linestyles)
-
-    if markerstyles == "auto":
-        markerstyles = plotutils.MARKER_LIST
-    else:
-        markerstyles = tsutils.make_list(markerstyles)
-        if markerstyles is None:
-            markerstyles = " "
-
-    if style != "auto":
-
-        nstyle = tsutils.make_list(style)
-        if len(nstyle) != len(tsd.columns):
-            raise ValueError(
-                tsutils.error_wrapper(
-                    """
-You have to have the same number of style strings as time-series to plot.
-You supplied '{}' for style which has {} style strings,
-but you have {} time-series.
-""".format(
-                        style, len(nstyle), len(tsd.columns)
-                    )
-                )
-            )
-        colors = []
-        markerstyles = []
-        linestyles = []
-        for st in nstyle:
-            colors.append(st[0])
-            if len(st) == 1:
-                markerstyles.append(" ")
-                linestyles.append("-")
-                continue
-            if st[1] in plotutils.MARKER_LIST:
-                markerstyles.append(st[1])
-                try:
-                    linestyles.append(st[2:])
-                except IndexError:
-                    linestyles.append(" ")
-            else:
-                markerstyles.append(" ")
-                linestyles.append(st[1:])
-    if linestyles is None:
-        linestyles = [" "]
-    else:
-        linestyles = [" " if i in ["  ", None] else i for i in linestyles]
-    markerstyles = [" " if i is None else i for i in markerstyles]
-
-    if colors is not None:
-        icolors = itertools.cycle(colors)
-    else:
-        icolors = None
-    imarkerstyles = itertools.cycle(markerstyles)
-    ilinestyles = itertools.cycle(linestyles)
-
-    plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
-    style_loc = os.path.join(
-        os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
-    )
-    plot_styles = [
-        os.path.join(style_loc, i + ".mplstyle")
-        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
-        else i
-        for i in plot_styles
-    ]
-
-
 def know_your_limits(xylimits, axis="arithmetic"):
     """Establish axis limits.
 
@@ -769,11 +677,11 @@ You have {}.
     return nlim
 
 
-@tsutils.transform_args(legend_names=tsutils.make_list)
 @typic.al
-def check(ntype, tsd, legend_names):
+def check_column_legend(plottype, tsd, legend_names):
+    # print("in ck_col_lg :", plottype, type(tsd), len(tsd.columns), type(legend_names), legend_names)
     # Check number of columns.
-    if ntype in ["bootstrap", "heatmap", "autocorrelation", "lag_plot"]:
+    if plottype in ["bootstrap", "heatmap", "autocorrelation", "lag_plot"]:
         if len(tsd.columns) != 1:
             raise ValueError(
                 tsutils.error_wrapper(
@@ -781,7 +689,7 @@ def check(ntype, tsd, legend_names):
 The '{1}' plot can only work with 1 time-series in the DataFrame.
 The DataFrame that you supplied has {0} time-series.
 """.format(
-                        len(tsd.columns), type
+                        len(tsd.columns), plottype
                     )
                 )
             )
@@ -801,7 +709,7 @@ Each name in legend_names must be unique.
         )
     if len(tsd.columns) == len(legend_names):
         renamedict = dict(list(zip(tsd.columns, legend_names)))
-    elif ntype in ["xy", "double_mass"] and (
+    elif plottype in ["xy", "double_mass"] and (
         len(tsd.columns) // 2 == len(legend_names) or len(tsd.columns) == 1
     ):
         renamedict = dict(list(zip(tsd.columns[2::2], legend_names[1:])))
@@ -828,25 +736,66 @@ l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,
     return tsd, legend_names
 
 
-def pprint_freq(tsd):
-    # This is to help pretty print the frequency
-    try:
-        try:
-            pltfreq = str(tsd.index.freq, "utf-8").lower()
-        except TypeError:
-            pltfreq = str(tsd.index.freq).lower()
+def prepare_styles(ntrace,style, colors, linestyles, markerstyles):
+    if colors == "auto":
+        colors = None
+    else:
+        colors = tsutils.make_list(colors)
 
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
+    if linestyles == "auto":
+        linestyles = LINE_LIST
+    else:
+        linestyles = tsutils.make_list(linestyles)
 
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = f"({pltfreq[beginstr:-1]})"
-    except AttributeError:
-        short_freq = ""
+    if markerstyles == "auto":
+        markerstyles = MARKER_LIST
+    else:
+        markerstyles = tsutils.make_list(markerstyles)
+        if markerstyles is None:
+            markerstyles = " "
+    if style != "auto":
+        nstyle = tsutils.make_list(style)
+        if len(nstyle) != ntrace:
+            raise ValueError(
+                tsutils.error_wrapper(
+                    """
+You have to have the same number of style strings as traces to plot.
+You supplied '{}' for style which has {} style strings,
+but you have {} traces.
+""".format(
+                        style, len(nstyle), ntrace
+                    )
+                )
+            )
+        colors = []
+        markerstyles = []
+        linestyles = []
+        for st in nstyle:
+            colors.append(st[0])
+            if len(st) == 1:
+                markerstyles.append(" ")
+                linestyles.append("-")
+                continue
+            if st[1] in MARKER_LIST:
+                markerstyles.append(st[1])
+                try:
+                    linestyles.append(st[2:])
+                except IndexError:
+                    linestyles.append(" ")
+            else:
+                markerstyles.append(" ")
+                linestyles.append(st[1:])
+    if linestyles is None:
+        linestyles = [" "]
+    else:
+        linestyles = [" " if i in ["  ", None] else i for i in linestyles]
+    markerstyles = [" " if i is None else i for i in markerstyles]
 
-    return short_freq
+    if colors is not None:
+        icolors = itertools.cycle(colors)
+    else:
+        icolors = None
+    imarkerstyles = itertools.cycle(markerstyles)
+    ilinestyles = itertools.cycle(linestyles)
+
+    return style, colors, linestyles, markerstyles, icolors, ilinestyles, imarkerstyles

@@ -6,11 +6,15 @@ from __future__ import absolute_import, division, print_function
 import warnings
 
 import mando
+import matplotlib
+import matplotlib.pyplot as plt
 from mando.rst_text_formatter import RSTHelpFormatter
+from pandas.plotting import autocorrelation_plot
 from tstoolbox import tsutils
 
 from .. import plotutils
 
+matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
@@ -30,6 +34,8 @@ def autocorrelation_cli(
     ytitle="",
     title="",
     figsize="10,6.0",
+    legend=None,
+    legend_names=None,
     xlim=None,
     ylim=None,
     grid=False,
@@ -69,6 +75,8 @@ def autocorrelation_cli(
     ${ytitle}
     ${title}
     ${figsize}
+    ${legend}
+    ${legend_names}
     ${xlim}
     ${ylim}
     ${grid}
@@ -80,7 +88,7 @@ def autocorrelation_cli(
     ${target_units}
     ${plot_styles}
     """
-    plt = autocorrelation(
+    plot = autocorrelation(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -94,6 +102,8 @@ def autocorrelation_cli(
         ytitle=ytitle,
         title=title,
         figsize=figsize,
+        legend=legend,
+        legend_names=legend_names,
         xlim=xlim,
         ylim=ylim,
         grid=grid,
@@ -105,77 +115,9 @@ def autocorrelation_cli(
         target_units=target_units,
         plot_styles=plot_styles,
     )
+    return plot
 
 
-# @tsutils.validator(
-#     ofilename=[str, ["pass", []], 1],
-#     type=[str, ["domain", ["autocorrelation",],], 1,],
-#     xtitle=[str, ["pass", []], 1],
-#     ytitle=[str, ["pass", []], 1],
-#     title=[str, ["pass", []], 1],
-#     figsize=[float, ["range", [0, None]], 2],
-#     subplots=[bool, ["domain", [True, False]], 1],
-#     sharex=[bool, ["domain", [True, False]], 1],
-#     sharey=[bool, ["domain", [True, False]], 1],
-#     colors=[str, ["pass", []], None],
-#     linestyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.LINE_LIST], None],
-#     markerstyles=[str, ["domain", ["auto", None, "", " ", "  "] + plotutils.MARKER_LIST], None],
-#     style=[str, ["pass", []], None],
-#     xlim=[float, ["pass", []], 2],
-#     ylim=[float, ["pass", []], 2],
-#     secondary_y=[bool, ["domain", [True, False]], 1],
-#     mark_right=[bool, ["domain", [True, False]], 1],
-#     bootstrap_size=[int, ["range", [0, None]], 1],
-#     grid=[bool, ["domain", [True, False]], 1],
-#     label_rotation=[float, ["pass", []], 1],
-#     drawstyle=[str, ["pass", []], 1],
-#     por=[bool, ["domain", [True, False]], 1],
-#     plot_styles=[
-#         str,
-#         [
-#             "domain",
-#             [
-#                 "classic",
-#                 "Solarize_Light2",
-#                 "bmh",
-#                 "dark_background",
-#                 "fast",
-#                 "fivethirtyeight",
-#                 "ggplot",
-#                 "grayscale",
-#                 "seaborn",
-#                 "seaborn-bright",
-#                 "seaborn-colorblind",
-#                 "seaborn-dark",
-#                 "seaborn-dark-palette",
-#                 "seaborn-darkgrid",
-#                 "seaborn-deep",
-#                 "seaborn-muted",
-#                 "seaborn-notebook",
-#                 "seaborn-paper",
-#                 "seaborn-pastel",
-#                 "seaborn-poster",
-#                 "seaborn-talk",
-#                 "seaborn-ticks",
-#                 "seaborn-white",
-#                 "seaborn-whitegrid",
-#                 "tableau-colorblind10",
-#                 "science",
-#                 "grid",
-#                 "ieee",
-#                 "scatter",
-#                 "notebook",
-#                 "high-vis",
-#                 "bright",
-#                 "vibrant",
-#                 "muted",
-#                 "retro",
-#             ],
-#         ],
-#         None,
-#     ],
-# )
-@tsutils.transform_args(figsize=tsutils.make_list)
 def autocorrelation(
     input_ts="-",
     columns=None,
@@ -190,6 +132,8 @@ def autocorrelation(
     ytitle="",
     title="",
     figsize="10,6.0",
+    legend=None,
+    legend_names=None,
     xlim=None,
     ylim=None,
     grid=False,
@@ -200,21 +144,10 @@ def autocorrelation(
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    **kwds,
 ):
-    r"""Plot data.
+    r"""Plot data."""
 
-    pandas.plotting.autocorrelation_plot(series, ax=None, **kwargs)
-
-    """
-    plot_type = "autocorrelation"
-
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    from matplotlib.ticker import FixedLocator
-
+    # set up dataframe
     tsd = tsutils.common_kwds(
         input_ts,
         skiprows=skiprows,
@@ -231,18 +164,36 @@ def autocorrelation(
         por=por,
     )
 
-    tsd, _ = plotutils.check(plot_type, tsd, [""])
-
-    short_freq = plotutils.pprint_freq(tsd)
+    # Need to work around some old option defaults with the implementation of
+    # mando
+    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    plottype = "autocorrelation"
+    lnames = tsutils.make_list(legend_names)
+    tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
 
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)
     _, ax = plt.subplots(figsize=figsize)
 
-    from pandas.plotting import autocorrelation_plot
-
     autocorrelation_plot(tsd, ax=ax)
+    # This is to help pretty print the frequency
+    try:
+        try:
+            pltfreq = str(tsd.index.freq, "utf-8").lower()
+        except TypeError:
+            pltfreq = str(tsd.index.freq).lower()
+        if pltfreq.split(" ")[0][1:] == "1":
+            beginstr = 3
+        else:
+            beginstr = 1
+        if pltfreq == "none":
+            short_freq = ""
+        else:
+            # short freq string (day) OR (2 day)
+            short_freq = f"({pltfreq[beginstr:-1]})"
+    except AttributeError:
+        short_freq = ""
     xtitle = xtitle or f"Time Lag {short_freq}"
 
     plt.xlabel(xtitle)
