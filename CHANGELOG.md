@@ -1,3 +1,13 @@
+## v101.6.0 (2022-05-11)
+
+### Feat
+
+- fixed return plot object and cleaned up function signatures to match plot type
+
+### Refactor
+
+- begin to finish converting tstoolbox plot to plottoolbox
+
 ## v101.5.0 (2022-02-14)
 
 ### Feat
