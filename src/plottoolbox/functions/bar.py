@@ -9,8 +9,8 @@ import warnings
 
 import mando
 import matplotlib
-from mando.rst_text_formatter import RSTHelpFormatter
 import matplotlib.pyplot as plt
+from mando.rst_text_formatter import RSTHelpFormatter
 from tstoolbox import tsutils
 
 from .. import plotutils

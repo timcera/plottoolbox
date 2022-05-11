@@ -3,14 +3,9 @@ from array import array
 
 import numpy as np
 
-from . import (
-    get_target_diagram_axes,
-    get_target_diagram_options,
-    overlay_target_diagram_circles,
-    plot_pattern_diagram_colorbar,
-    plot_pattern_diagram_markers,
-    plot_target_axes,
-)
+from . import (get_target_diagram_axes, get_target_diagram_options,
+               overlay_target_diagram_circles, plot_pattern_diagram_colorbar,
+               plot_pattern_diagram_markers, plot_target_axes)
 
 
 def target_diagram(*args, **kwargs):

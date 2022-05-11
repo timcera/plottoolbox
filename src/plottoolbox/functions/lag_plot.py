@@ -10,8 +10,8 @@ import mando
 import matplotlib
 import matplotlib.pyplot as plt
 from mando.rst_text_formatter import RSTHelpFormatter
-from tstoolbox import tsutils
 from pandas.plotting import lag_plot as lagplot
+from tstoolbox import tsutils
 
 from .. import plotutils
 

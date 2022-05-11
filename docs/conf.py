@@ -50,8 +50,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"plottoolbox"
-copyright = u"2013, Tim Cera, P.E."
+project = "plottoolbox"
+copyright = "2013, Tim Cera, P.E."
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -194,8 +194,8 @@ latex_documents = [
     (
         "index",
         "plottoolbox.tex",
-        u"plottoolbox Documentation",
-        u"Tim Cera, P.E.",
+        "plottoolbox Documentation",
+        "Tim Cera, P.E.",
         "manual",
     )
 ]
@@ -226,7 +226,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ("index", "plottoolbox", u"plottoolbox Documentation", [u"Tim Cera, P.E."], 1)
+    ("index", "plottoolbox", "plottoolbox Documentation", ["Tim Cera, P.E."], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -242,8 +242,8 @@ texinfo_documents = [
     (
         "index",
         "plottoolbox",
-        u"plottoolbox Documentation",
-        u"Tim Cera, P.E.",
+        "plottoolbox Documentation",
+        "Tim Cera, P.E.",
         "plottoolbox",
         "One line description of project.",
         "Miscellaneous",
@@ -263,10 +263,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u"plottoolbox"
-epub_author = u"Tim Cera, P.E."
-epub_publisher = u"Tim Cera, P.E."
-epub_copyright = u"2013, Tim Cera, P.E."
+epub_title = "plottoolbox"
+epub_author = "Tim Cera, P.E."
+epub_publisher = "Tim Cera, P.E."
+epub_copyright = "2013, Tim Cera, P.E."
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

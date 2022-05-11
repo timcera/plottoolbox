@@ -308,7 +308,7 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
         if colcnt == 0:
             ndf = tsd.reset_index()
         else:
-            ndf = tsd.iloc[:, colindex * 2: colindex * 2 + 2]
+            ndf = tsd.iloc[:, colindex * 2 : colindex * 2 + 2]
 
         ndf.dropna(inplace=True)
         oxdata = np.array(ndf.iloc[:, 0])

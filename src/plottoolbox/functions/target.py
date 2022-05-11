@@ -12,9 +12,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mando.rst_text_formatter import RSTHelpFormatter
 from tstoolbox import tsutils
-from ..skill_metrics import bias, centered_rms_dev, rmsd, target_diagram
 
 from .. import plotutils
+from ..skill_metrics import bias, centered_rms_dev, rmsd, target_diagram
 
 matplotlib.use("Agg")
 

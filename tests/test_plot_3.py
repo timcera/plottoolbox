@@ -130,7 +130,8 @@ def test_kde_time():
 def test_kde_time_multiple_traces():
     plt.close("all")
     ndf = tstoolbox.read(
-        "tests/data_daily_sample.csv", dropna="any"  #  , "tests/02234500_65_65.csv", dropna="any"
+        "tests/data_daily_sample.csv",
+        dropna="any",  #  , "tests/02234500_65_65.csv", dropna="any"
     )
     return plottoolbox.kde_time(
         columns=[2, 3],

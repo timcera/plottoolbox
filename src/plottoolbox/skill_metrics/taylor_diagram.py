@@ -3,17 +3,10 @@ from array import array
 
 import numpy as np
 
-from . import (
-    check_taylor_stats,
-    get_taylor_diagram_axes,
-    get_taylor_diagram_options,
-    overlay_taylor_diagram_circles,
-    overlay_taylor_diagram_lines,
-    plot_pattern_diagram_colorbar,
-    plot_pattern_diagram_markers,
-    plot_taylor_axes,
-    plot_taylor_obs,
-)
+from . import (check_taylor_stats, get_taylor_diagram_axes,
+               get_taylor_diagram_options, overlay_taylor_diagram_circles,
+               overlay_taylor_diagram_lines, plot_pattern_diagram_colorbar,
+               plot_pattern_diagram_markers, plot_taylor_axes, plot_taylor_obs)
 
 
 def taylor_diagram(*args, **kwargs):

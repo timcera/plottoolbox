@@ -736,7 +736,7 @@ l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,
     return tsd, legend_names
 
 
-def prepare_styles(ntrace,style, colors, linestyles, markerstyles):
+def prepare_styles(ntrace, style, colors, linestyles, markerstyles):
     if colors == "auto":
         colors = None
     else:
