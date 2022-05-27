@@ -1,3 +1,9 @@
+## v101.6.1 (2022-05-27)
+
+### Fix
+
+- the *_cli shouldn't return a plot value
+
 ## v101.6.0 (2022-05-11)
 
 ### Feat
