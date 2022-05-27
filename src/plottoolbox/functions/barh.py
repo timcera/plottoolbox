@@ -124,7 +124,7 @@ def barh_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = barh(
+    barh(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -171,7 +171,6 @@ def barh_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def barh(

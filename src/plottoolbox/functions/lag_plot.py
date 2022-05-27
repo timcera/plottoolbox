@@ -112,7 +112,7 @@ def lag_plot_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = lag_plot(
+    lag_plot(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -152,7 +152,6 @@ def lag_plot_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def lag_plot(

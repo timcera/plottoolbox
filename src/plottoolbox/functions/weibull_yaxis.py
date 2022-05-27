@@ -121,7 +121,7 @@ def weibull_yaxis_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = weibull_yaxis(
+    weibull_yaxis(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -167,7 +167,6 @@ def weibull_yaxis_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def weibull_yaxis(

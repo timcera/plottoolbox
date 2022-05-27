@@ -121,7 +121,7 @@ def lognorm_xaxis_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = lognorm_xaxis(
+    lognorm_xaxis(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -167,7 +167,6 @@ def lognorm_xaxis_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def lognorm_xaxis(

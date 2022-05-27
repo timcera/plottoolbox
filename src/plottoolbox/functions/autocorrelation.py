@@ -88,7 +88,7 @@ def autocorrelation_cli(
     ${target_units}
     ${plot_styles}
     """
-    plot = autocorrelation(
+    autocorrelation(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -115,7 +115,6 @@ def autocorrelation_cli(
         target_units=target_units,
         plot_styles=plot_styles,
     )
-    return plot
 
 
 def autocorrelation(

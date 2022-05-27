@@ -130,7 +130,7 @@ def time_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = time(
+    time(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -179,7 +179,6 @@ def time_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def time(

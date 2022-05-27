@@ -117,7 +117,7 @@ def double_mass_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = double_mass(
+    double_mass(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -161,7 +161,6 @@ def double_mass_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def double_mass(

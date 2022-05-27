@@ -114,7 +114,7 @@ def scatter_matrix_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = scatter_matrix(
+    scatter_matrix(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -154,7 +154,6 @@ def scatter_matrix_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def scatter_matrix(

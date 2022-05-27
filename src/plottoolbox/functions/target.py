@@ -111,7 +111,7 @@ def target_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = target(
+    target(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -150,7 +150,6 @@ def target_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def target(

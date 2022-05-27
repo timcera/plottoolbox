@@ -123,7 +123,7 @@ def bar_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = bar(
+    bar(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -170,7 +170,6 @@ def bar_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def bar(

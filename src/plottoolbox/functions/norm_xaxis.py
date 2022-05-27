@@ -120,7 +120,7 @@ def norm_xaxis_cli(
     ${vlines_colors}
     ${vlines_linestyles}
     """
-    plot = norm_xaxis(
+    norm_xaxis(
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -166,7 +166,6 @@ def norm_xaxis_cli(
         vlines_colors=vlines_colors,
         vlines_linestyles=vlines_linestyles,
     )
-    return plot
 
 
 def norm_xaxis(
