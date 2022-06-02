@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/timcera/plottoolbox.svg?branch=master
-    :target: https://travis-ci.org/timcera/plottoolbox
+.. image:: https://github.com/timcera/plottoolbox/actions/workflows/python-package.yml/badge.svg
+    :target: https://github.com/timcera/plottoolbox/actions/workflows/python-package.yml
     :height: 20
 
 .. image:: https://coveralls.io/repos/timcera/plottoolbox/badge.png?branch=master
