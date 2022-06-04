@@ -3,10 +3,17 @@ from array import array
 
 import numpy as np
 
-from . import (check_taylor_stats, get_taylor_diagram_axes,
-               get_taylor_diagram_options, overlay_taylor_diagram_circles,
-               overlay_taylor_diagram_lines, plot_pattern_diagram_colorbar,
-               plot_pattern_diagram_markers, plot_taylor_axes, plot_taylor_obs)
+from . import (
+    check_taylor_stats,
+    get_taylor_diagram_axes,
+    get_taylor_diagram_options,
+    overlay_taylor_diagram_circles,
+    overlay_taylor_diagram_lines,
+    plot_pattern_diagram_colorbar,
+    plot_pattern_diagram_markers,
+    plot_taylor_axes,
+    plot_taylor_obs,
+)
 
 
 def taylor_diagram(*args, **kwargs):
@@ -304,5 +311,5 @@ def _dispopt(optname, optval):
     It displays the option name OPTNAME on a line by itself followed by its
     value OPTVAL on the following line.
     """
-    _disp("\t{}".format(optname))
-    _disp("\t\t{}".format(optval))
+    _disp(f"\t{optname}")
+    _disp(f"\t\t{optval}")

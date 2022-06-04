@@ -630,14 +630,12 @@ def know_your_limits(xylimits, axis="arithmetic"):
         if nlim[0] < 0 or nlim[0] > 1 or nlim[1] < 0 or nlim[1] > 1:
             raise ValueError(
                 tsutils.error_wrapper(
-                    """
+                    f"""
 Both limits must be between 0 and 1 for the 'normal', 'lognormal', or 'weibull'
 axis.
 
-Instead you have {}.
-""".format(
-                        nlim
-                    )
+Instead you have {nlim}.
+"""
                 )
             )
 
@@ -648,13 +646,11 @@ Instead you have {}.
         if nlim[0] >= nlim[1]:
             raise ValueError(
                 tsutils.error_wrapper(
-                    """
+                    f"""
 The second limit must be greater than the first.
 
-You gave {}.
-""".format(
-                        nlim
-                    )
+You gave {nlim}.
+"""
                 )
             )
 
@@ -664,13 +660,11 @@ You gave {}.
         ):
             raise ValueError(
                 tsutils.error_wrapper(
-                    """
+                    f"""
 If log plot cannot have limits less than or equal to 0.
 
-You have {}.
-""".format(
-                        nlim
-                    )
+You have {nlim}.
+"""
                 )
             )
 
@@ -685,12 +679,10 @@ def check_column_legend(plottype, tsd, legend_names):
         if len(tsd.columns) != 1:
             raise ValueError(
                 tsutils.error_wrapper(
-                    """
-The '{1}' plot can only work with 1 time-series in the DataFrame.
-The DataFrame that you supplied has {0} time-series.
-""".format(
-                        len(tsd.columns), plottype
-                    )
+                    f"""
+The '{plottype}' plot can only work with 1 time-series in the DataFrame.
+The DataFrame that you supplied has {len(tsd.columns)} time-series.
+"""
                 )
             )
 
@@ -717,17 +709,15 @@ Each name in legend_names must be unique.
     else:
         raise ValueError(
             tsutils.error_wrapper(
-                """
+                f"""
 For 'legend_names' and most plot types you must have the same number of comma
-separated names as columns in the input data.  The input data has {} where the
-number of 'legend_names' is {}.
+separated names as columns in the input data.  The input data has {len(tsd.columns)} where the
+number of 'legend_names' is {len(legend_names)}.
 
 If `type` is 'xy' or 'double_mass' you need to have legend names as
 l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,
 ...etc.
-""".format(
-                    len(tsd.columns), len(legend_names)
-                )
+"""
             )
         )
         tsd.rename(columns=renamedict, inplace=True)
@@ -758,13 +748,11 @@ def prepare_styles(ntrace, style, colors, linestyles, markerstyles):
         if len(nstyle) != ntrace:
             raise ValueError(
                 tsutils.error_wrapper(
-                    """
+                    f"""
 You have to have the same number of style strings as traces to plot.
-You supplied '{}' for style which has {} style strings,
-but you have {} traces.
-""".format(
-                        style, len(nstyle), ntrace
-                    )
+You supplied '{style}' for style which has {len(nstyle)} style strings,
+but you have {ntrace} traces.
+"""
                 )
             )
         colors = []
