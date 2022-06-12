@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/timcera/plottoolbox.svg?branch=master
-    :target: https://travis-ci.org/timcera/plottoolbox
+.. image:: https://github.com/timcera/plottoolbox/actions/workflows/python-package.yml/badge.svg
+    :target: https://github.com/timcera/plottoolbox/actions/workflows/python-package.yml
     :height: 20
 
 .. image:: https://coveralls.io/repos/timcera/plottoolbox/badge.png?branch=master
@@ -11,7 +11,11 @@
     :target: https://pypi.python.org/pypi/plottoolbox
 
 .. image:: http://img.shields.io/badge/license-BSD-lightgrey.svg
-    :alt: plottoolbox license
+    :alt: BSD-3 clause license
+    :target: https://pypi.python.org/pypi/plottoolbox/
+
+.. image:: http://img.shields.io/pypi/dd/plottoolbox.svg
+    :alt: plottoolbox downloads
     :target: https://pypi.python.org/pypi/plottoolbox/
 
 plottoolbox - Quick Guide
@@ -45,7 +49,7 @@ Just run 'plottoolbox --help' to get a list of subcommands::
                        norm_xaxis, norm_yaxis, probability_density,
                        scatter_matrix, target, taylor, time, weibull_xaxis,
                        weibull_yaxis, xy, about} ...
-    
+
     positional arguments:
       {autocorrelation, bar, bar_stacked, barh, barh_stacked, bootstrap,
       boxplot, double_mass, heatmap, histogram, kde, kde_time, lag_plot,
@@ -53,59 +57,59 @@ Just run 'plottoolbox --help' to get a list of subcommands::
       probability_density, scatter_matrix, target, taylor, time, weibull_xaxis,
       weibull_yaxis, xy, about}
 
-    autocorrelation     
+    autocorrelation
         Autocorrelation plot.
-    bar                 
+    bar
         Bar plot, sometimes called a "column" plot.
-    bar_stacked         
+    bar_stacked
         Stacked vertical bar, sometimes called a stacked column plot.
-    barh                
+    barh
         Bar plot, sometimes called a "column" plot.
-    barh_stacked        
+    barh_stacked
         Horizontal stacked bar plot.
-    bootstrap           
+    bootstrap
         Bootstrap plot randomly selects a subset of the imput time-series.
-    boxplot             
+    boxplot
         Box and whiskers plot.
-    double_mass         
+    double_mass
         Double mass curve - cumulative sum of x against cumulative sum of y.
-    heatmap             
+    heatmap
         2D heatmap of daily data.
-    histogram           
+    histogram
         Histogram.
-    kde                 
+    kde
         Kernel density estimation of probability density function.
-    kde_time            
+    kde_time
         A time-series plot with a kernel density estimation (KDE) plot.
-    lag_plot            
+    lag_plot
         Lag plot.
-    lognorm_xaxis       
+    lognorm_xaxis
         Log-normal x-axis.
-    lognorm_yaxis       
+    lognorm_yaxis
         Log-normal y-axis.
-    norm_xaxis          
+    norm_xaxis
         Normal x-axis.
-    norm_yaxis          
+    norm_yaxis
         Normal y-axis.
     probability_density
         Probability plot.
-    scatter_matrix      
+    scatter_matrix
         Plots all columns against each other in matrix of plots.
-    target              
+    target
         Creates a "target" diagram to plot goodness of fit.
-    taylor              
+    taylor
         Taylor diagram to plot goodness of fit.
-    time                
+    time
         Time-series plot.
-    weibull_xaxis       
+    weibull_xaxis
         Weibull x-axis.
-    weibull_yaxis       
+    weibull_yaxis
         Weibull y-axis.
-    xy                  
+    xy
         Creates an 'x,y' plot, also known as a scatter plot.
-    about               
+    about
         Display version number and system information.
-    
+
     optional arguments:
       -h, --help            show this help message and exit
 
