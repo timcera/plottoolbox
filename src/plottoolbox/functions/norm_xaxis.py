@@ -235,23 +235,16 @@ def norm_xaxis(
 
     # Need to work around some old option defaults with the implementation of
     # mando
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "norm_xaxis"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
-
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xaxis = "normal"
-    if logx is True:
+    if logx:
         logx = False
         warnings.warn(
             tsutils.error_wrapper(
@@ -284,11 +277,12 @@ def norm_xaxis(
         os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
     )
     plot_styles = [
-        os.path.join(style_loc, i + ".mplstyle")
-        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
+        os.path.join(style_loc, f"{i}.mplstyle")
+        if os.path.exists(os.path.join(style_loc, f"{i}.mplstyle"))
         else i
         for i in plot_styles
     ]
+
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)
@@ -317,10 +311,7 @@ def norm_xaxis(
         norm_axis = ax.xaxis
         oxdata = ppf(tsutils.set_plotting_position(n, plotting_position))
 
-        if icolors is not None:
-            c = next(icolors)
-        else:
-            c = None
+        c = next(icolors) if icolors is not None else None
         plotdict[(logx, logy)](
             oxdata,
             oydata,
@@ -356,7 +347,7 @@ def norm_xaxis(
     xtitle = xtitle or "Normal Distribution"
     ytitle = ytitle or tsd.columns[0]
 
-    if legend is True:
+    if legend:
         ax.legend(loc="best")
 
     if hlines_y is not None:

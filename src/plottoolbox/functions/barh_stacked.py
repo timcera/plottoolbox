@@ -240,20 +240,14 @@ def barh_stacked(
 
     # Need to work around some old option defaults with the implementation of
     # mando
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "barh_stacked"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xlim = plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = plotutils.know_your_limits(ylim, axis=yaxis)
 
@@ -281,11 +275,12 @@ def barh_stacked(
         os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
     )
     plot_styles = [
-        os.path.join(style_loc, i + ".mplstyle")
-        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
+        os.path.join(style_loc, f"{i}.mplstyle")
+        if os.path.exists(os.path.join(style_loc, f"{i}.mplstyle"))
         else i
         for i in plot_styles
     ]
+
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)
@@ -294,7 +289,7 @@ def barh_stacked(
     stacked = True
     kind = "barh"
     if icolors is not None:
-        c = [next(icolors) for i in range(len(tsd.columns))]
+        c = [next(icolors) for _ in range(len(tsd.columns))]
     else:
         c = None
     tsd.plot(
@@ -311,7 +306,7 @@ def barh_stacked(
         color=c,
     )
 
-    hatches = [next(ibar_hatchstyles) for i in range(len(tsd.columns))]
+    hatches = [next(ibar_hatchstyles) for _ in range(len(tsd.columns))]
     hatches = "".join(h * len(tsd.index) for h in hatches)
     for patch, hatch in zip(ax.patches, hatches):
         patch.set_hatch(hatch)
@@ -338,7 +333,7 @@ def barh_stacked(
         taxis.set_ticklabels(nticklabels)
         plt.setp(taxis.get_majorticklabels(), rotation=label_rotation)
 
-    if legend is True:
+    if legend:
         plt.legend(loc="best")
 
     if hlines_y is not None:
