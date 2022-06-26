@@ -164,7 +164,7 @@ def autocorrelation(
 
     # Need to work around some old option defaults with the implementation of
     # mando
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "autocorrelation"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
@@ -181,15 +181,8 @@ def autocorrelation(
             pltfreq = str(tsd.index.freq, "utf-8").lower()
         except TypeError:
             pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = f"({pltfreq[beginstr:-1]})"
+        beginstr = 3 if pltfreq.split(" ")[0][1:] == "1" else 1
+        short_freq = "" if pltfreq == "none" else f"({pltfreq[beginstr:-1]})"
     except AttributeError:
         short_freq = ""
     xtitle = xtitle or f"Time Lag {short_freq}"

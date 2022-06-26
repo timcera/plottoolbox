@@ -209,7 +209,7 @@ def heatmap(
 
     # Need to work around some old option defaults with the implementation of
     # mando
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "heatmap"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
@@ -254,7 +254,7 @@ The "heatmap" plot type can only work with daily time series.
 """
             )
         )
-    dr = pd.date_range("{}-01-01".format(byear), "{}-12-31".format(eyear), freq="D")
+    dr = pd.date_range(f"{byear}-01-01", f"{eyear}-12-31", freq="D")
     ntsd = tsd.reindex(index=dr)
     groups = ntsd.iloc[:, 0].groupby(pd.Grouper(freq="A"))
     years = pd.DataFrame()

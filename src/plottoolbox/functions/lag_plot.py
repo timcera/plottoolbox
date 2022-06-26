@@ -215,7 +215,7 @@ def lag_plot(
 
     # Need to work around some old option defaults with the implementation of
     # mando
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "lag_plot"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
@@ -238,11 +238,12 @@ def lag_plot(
         os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
     )
     plot_styles = [
-        os.path.join(style_loc, i + ".mplstyle")
-        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
+        os.path.join(style_loc, f"{i}.mplstyle")
+        if os.path.exists(os.path.join(style_loc, f"{i}.mplstyle"))
         else i
         for i in plot_styles
     ]
+
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)
@@ -255,19 +256,12 @@ def lag_plot(
             pltfreq = str(tsd.index.freq, "utf-8").lower()
         except TypeError:
             pltfreq = str(tsd.index.freq).lower()
-        if pltfreq.split(" ")[0][1:] == "1":
-            beginstr = 3
-        else:
-            beginstr = 1
-        if pltfreq == "none":
-            short_freq = ""
-        else:
-            # short freq string (day) OR (2 day)
-            short_freq = "({})".format(pltfreq[beginstr:-1])
+        beginstr = 3 if pltfreq.split(" ")[0][1:] == "1" else 1
+        short_freq = "" if pltfreq == "none" else f"({pltfreq[beginstr:-1]})"
     except AttributeError:
         short_freq = ""
     xtitle = xtitle or "y(t)"
-    ytitle = ytitle or "y(t+{})".format(short_freq or 1)
+    ytitle = ytitle or f"y(t+{short_freq or 1})"
 
     if hlines_y is not None:
         hlines_y = tsutils.make_list(hlines_y)

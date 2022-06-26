@@ -641,31 +641,30 @@ Instead you have {nlim}.
     if nlim is None:
         return nlim
 
-    if nlim[0] is not None and nlim[1] is not None:
-        if nlim[0] >= nlim[1]:
-            raise ValueError(
-                tsutils.error_wrapper(
-                    f"""
+    if nlim[0] is not None and nlim[1] is not None and nlim[0] >= nlim[1]:
+        raise ValueError(
+            tsutils.error_wrapper(
+                f"""
 The second limit must be greater than the first.
 
 You gave {nlim}.
 """
-                )
             )
+        )
 
-    if axis == "log":
-        if (nlim[0] is not None and nlim[0] <= 0) or (
-            nlim[1] is not None and nlim[1] <= 0
-        ):
-            raise ValueError(
-                tsutils.error_wrapper(
-                    f"""
+    if axis == "log" and (
+        (nlim[0] is not None and nlim[0] <= 0)
+        or (nlim[1] is not None and nlim[1] <= 0)
+    ):
+        raise ValueError(
+            tsutils.error_wrapper(
+                f"""
 If log plot cannot have limits less than or equal to 0.
 
 You have {nlim}.
 """
-                )
             )
+        )
 
     return nlim
 
@@ -674,16 +673,18 @@ You have {nlim}.
 def check_column_legend(plottype, tsd, legend_names):
     # print("in ck_col_lg :", plottype, type(tsd), len(tsd.columns), type(legend_names), legend_names)
     # Check number of columns.
-    if plottype in ["bootstrap", "heatmap", "autocorrelation", "lag_plot"]:
-        if len(tsd.columns) != 1:
-            raise ValueError(
-                tsutils.error_wrapper(
-                    f"""
+    if (
+        plottype in ["bootstrap", "heatmap", "autocorrelation", "lag_plot"]
+        and len(tsd.columns) != 1
+    ):
+        raise ValueError(
+            tsutils.error_wrapper(
+                f"""
 The '{plottype}' plot can only work with 1 time-series in the DataFrame.
 The DataFrame that you supplied has {len(tsd.columns)} time-series.
 """
-                )
             )
+        )
 
     # Check legend_names.
     if not legend_names:
@@ -719,18 +720,13 @@ l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,
 """
             )
         )
-        tsd.rename(columns=renamedict, inplace=True)
     legend_names = tsd.columns
 
     return tsd, legend_names
 
 
 def prepare_styles(ntrace, style, colors, linestyles, markerstyles):
-    if colors == "auto":
-        colors = None
-    else:
-        colors = tsutils.make_list(colors)
-
+    colors = None if colors == "auto" else tsutils.make_list(colors)
     if linestyles == "auto":
         linestyles = LINE_LIST
     else:
@@ -778,10 +774,7 @@ but you have {ntrace} traces.
         linestyles = [" " if i in ["  ", None] else i for i in linestyles]
     markerstyles = [" " if i is None else i for i in markerstyles]
 
-    if colors is not None:
-        icolors = itertools.cycle(colors)
-    else:
-        icolors = None
+    icolors = itertools.cycle(colors) if colors is not None else None
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
 

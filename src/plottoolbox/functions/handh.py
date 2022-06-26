@@ -248,20 +248,14 @@ a datetime index.
 
     # Need to work around some old option defaults with the implementation of
     # mando
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "time"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xlim = plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = plotutils.know_your_limits(ylim, axis=yaxis)
 
@@ -283,11 +277,12 @@ a datetime index.
         os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
     )
     plot_styles = [
-        os.path.join(style_loc, i + ".mplstyle")
-        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
+        os.path.join(style_loc, f"{i}.mplstyle")
+        if os.path.exists(os.path.join(style_loc, f"{i}.mplstyle"))
         else i
         for i in plot_styles
     ]
+
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)
