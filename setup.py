@@ -34,6 +34,7 @@ install_requires = [
     "rst2ansi >= 0.1.5",
     "numpy",
     "pandas",
+    "setuptools_scm",
     "matplotlib",
     "xlsxwriter",
     "tstoolbox > 103.16.1",

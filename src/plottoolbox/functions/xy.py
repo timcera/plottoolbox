@@ -320,7 +320,9 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
             ls = next(ilinestyles)
         else:
             ls = None
-
+        print(ls)
+        print(c)
+        print(drawstyle)
         plotdict[(logx, logy)](
             oxdata,
             oydata,

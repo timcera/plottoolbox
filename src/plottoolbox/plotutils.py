@@ -653,8 +653,7 @@ You gave {nlim}.
         )
 
     if axis == "log" and (
-        (nlim[0] is not None and nlim[0] <= 0)
-        or (nlim[1] is not None and nlim[1] <= 0)
+        (nlim[0] is not None and nlim[0] <= 0) or (nlim[1] is not None and nlim[1] <= 0)
     ):
         raise ValueError(
             tsutils.error_wrapper(
@@ -727,18 +726,18 @@ l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,
 
 def prepare_styles(ntrace, style, colors, linestyles, markerstyles):
     colors = None if colors == "auto" else tsutils.make_list(colors)
-    if linestyles == "auto":
+    if "auto" in linestyles:
         linestyles = LINE_LIST
     else:
         linestyles = tsutils.make_list(linestyles)
 
-    if markerstyles == "auto":
+    if "auto" in markerstyles:
         markerstyles = MARKER_LIST
     else:
         markerstyles = tsutils.make_list(markerstyles)
         if markerstyles is None:
             markerstyles = " "
-    if style != "auto":
+    if "auto" not in style:
         nstyle = tsutils.make_list(style)
         if len(nstyle) != ntrace:
             raise ValueError(
