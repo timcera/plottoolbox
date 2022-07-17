@@ -1,3 +1,14 @@
+## v101.6.2 (2022-07-17)
+
+### Fix
+
+- correctly intepret "colors = ['auto']"
+
+### Refactor
+
+- removed __future__
+- moved format and % string interpolation to f strings
+
 ## v101.6.1 (2022-05-27)
 
 ### Fix
