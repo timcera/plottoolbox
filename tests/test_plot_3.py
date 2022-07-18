@@ -3,6 +3,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import pandas as pd
 import pytest
 from tstoolbox import tstoolbox
 
@@ -129,9 +130,10 @@ def test_kde_time():
 @pytest.mark.mpl_image_compare(tolerance=6)
 def test_kde_time_multiple_traces():
     plt.close("all")
-    ndf = tstoolbox.read(
-        "tests/data_daily_sample.csv",
-        dropna="any",  #  , "tests/02234500_65_65.csv", dropna="any"
+    ndf = pd.read_csv("tests/data_daily.csv", index_col=0, parse_dates=True)
+    ndf = ndf.join(
+        pd.read_csv("tests/data_02325000_flow.csv", index_col=0, parse_dates=True),
+        how="outer",
     )
     return plottoolbox.kde_time(
         columns=[2, 3],

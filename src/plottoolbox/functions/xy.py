@@ -320,9 +320,6 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
             ls = next(ilinestyles)
         else:
             ls = None
-        print(ls)
-        print(c)
-        print(drawstyle)
         plotdict[(logx, logy)](
             oxdata,
             oydata,
@@ -333,8 +330,10 @@ as x,y pairs or an x-index and one y data column.  You supplied {} columns.
             drawstyle=drawstyle,
         )
 
-        ax.set_xlim(xlim)
-        ax.set_ylim(ylim)
+        if xlim is not None:
+            ax.set_xlim(xlim)
+        if ylim is not None:
+            ax.set_ylim(ylim)
 
         if legend is True:
             ax.legend(loc="best")

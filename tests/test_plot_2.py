@@ -3,6 +3,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import pandas as pd
 import pytest
 from tstoolbox import tstoolbox
 
@@ -59,11 +60,10 @@ def test_double_mass_marker():
 @pytest.mark.mpl_image_compare(tolerance=6)
 def test_boxplot():
     plt.close("all")
-    xdf = tstoolbox.read(
-        "tests/02234500_65_65.csv",
-        "tests/data_gainesville_daily_precip.csv",
-        clean=True,
-        append="combine",
+    xdf = pd.read_csv("tests/02234500_65_65.csv", index_col=0, parse_dates=True)
+    xdf = xdf.join(
+        pd.read_csv("tests/data_02325000_flow.csv", index_col=0, parse_dates=True),
+        how="outer",
     )
     return plottoolbox.boxplot(
         input_ts=xdf,

@@ -10,8 +10,8 @@ import mando
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import sklearn
 from mando.rst_text_formatter import RSTHelpFormatter
+from scipy.stats import gaussian_kde
 from tstoolbox import tsutils
 
 from .. import plotutils
@@ -294,7 +294,6 @@ def kde_time(
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)
-    _, ax = plt.subplots(figsize=figsize)
 
     _, (ax0, ax1) = plt.subplots(
         nrows=1,
@@ -348,12 +347,12 @@ def kde_time(
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
     for col in range(len(tsd.columns)):
-        xvals = tsd.iloc[:, col].dropna().values
-        pdf = sklearn.neighbors.KernelDensity().fit(np.array(xvals).reshape(-1, 1))
+        xvals = tsd.iloc[:, col].astype("float64").dropna().values
+        pdf = gaussian_kde(xvals)
         if icolors is not None:
             c = next(icolors)
         ax0.plot(
-            pdf.score_samples(np.array(ny).reshape(-1, 1)),
+            pdf(ny),
             ny,
             linestyle=next(ilinestyles),
             color=c,
@@ -369,7 +368,7 @@ def kde_time(
         hlines_xmax = tsutils.make_list(hlines_xmax)
         hlines_colors = tsutils.make_list(hlines_colors)
         hlines_linestyles = tsutils.make_list(hlines_linestyles)
-        nxlim = ax.get_xlim()
+        nxlim = ax1.get_xlim()
         if hlines_xmin is None:
             hlines_xmin = nxlim[0]
         if hlines_xmax is None:
@@ -380,7 +379,7 @@ def kde_time(
         vlines_ymax = tsutils.make_list(vlines_ymax)
         vlines_colors = tsutils.make_list(vlines_colors)
         vlines_linestyles = tsutils.make_list(vlines_linestyles)
-        nylim = ax.get_ylim()
+        nylim = ax1.get_ylim()
         if vlines_ymin is None:
             vlines_ymin = nylim[0]
         if vlines_ymax is None:
