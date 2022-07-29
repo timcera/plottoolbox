@@ -1,3 +1,9 @@
+## v101.6.3 (2022-07-29)
+
+### Fix
+
+- **plotutils.py**: Fixed legend_names to actually renamed columns in the dataframe
+
 ## v101.6.2 (2022-07-17)
 
 ### Fix
