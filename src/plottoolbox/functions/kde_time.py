@@ -6,13 +6,13 @@ import itertools
 import os
 import warnings
 
-import mando
+import cltoolbox
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-from mando.rst_text_formatter import RSTHelpFormatter
+from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from scipy.stats import gaussian_kde
-from tstoolbox import tsutils
+from toolbox_utils import tsutils
 
 from .. import plotutils
 
@@ -21,7 +21,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
-@mando.command("kde_time", formatter_class=RSTHelpFormatter, doctype="numpy")
+@cltoolbox.command("kde_time", formatter_class=RSTHelpFormatter)
 @tsutils.doc(plotutils.ldocstrings)
 def kde_time_cli(
     input_ts="-",
@@ -250,7 +250,7 @@ def kde_time(
     )
 
     # Need to work around some old option defaults with the implementation of
-    # mando
+    # cltoolbox
     legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
     plottype = "kde_time"
     lnames = tsutils.make_list(legend_names)

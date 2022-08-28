@@ -5,12 +5,11 @@
 import os
 import warnings
 
-import mando
+import cltoolbox
 import matplotlib
-import matplotlib.pyplot as plt
 import pandas as pd
-from mando.rst_text_formatter import RSTHelpFormatter
-from tstoolbox import tsutils
+from cltoolbox.rst_text_formatter import RSTHelpFormatter
+from toolbox_utils import tsutils
 
 from .. import plotutils
 
@@ -18,9 +17,9 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
-@mando.command("time", formatter_class=RSTHelpFormatter, doctype="numpy")
+@cltoolbox.command("time", formatter_class=RSTHelpFormatter)
 @tsutils.doc(plotutils.ldocstrings)
-def time_cli(
+def _time_cli(
     input_ts="-",
     columns=None,
     start_date=None,
@@ -232,6 +231,8 @@ def time(
 ):
     r"""Plot data."""
 
+    import matplotlib.pyplot as plt
+
     # set up dataframe
     tsd = tsutils.common_kwds(
         input_ts,
@@ -261,7 +262,7 @@ a datetime index.
         )
 
     # Need to work around some old option defaults with the implementation of
-    # mando
+    # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "time"
     lnames = tsutils.make_list(legend_names)
@@ -331,44 +332,19 @@ a datetime index.
     if legend:
         plt.legend(loc="best")
 
-    if hlines_y is not None:
-        hlines_y = tsutils.make_list(hlines_y)
-        hlines_xmin = tsutils.make_list(hlines_xmin)
-        hlines_xmax = tsutils.make_list(hlines_xmax)
-        hlines_colors = tsutils.make_list(hlines_colors)
-        hlines_linestyles = tsutils.make_list(hlines_linestyles)
-        nxlim = ax.get_xlim()
-        if hlines_xmin is None:
-            hlines_xmin = nxlim[0]
-        if hlines_xmax is None:
-            hlines_xmax = nxlim[1]
-    if vlines_x is not None:
-        vlines_x = tsutils.make_list(vlines_x)
-        vlines_ymin = tsutils.make_list(vlines_ymin)
-        vlines_ymax = tsutils.make_list(vlines_ymax)
-        vlines_colors = tsutils.make_list(vlines_colors)
-        vlines_linestyles = tsutils.make_list(vlines_linestyles)
-        nylim = ax.get_ylim()
-        if vlines_ymin is None:
-            vlines_ymin = nylim[0]
-        if vlines_ymax is None:
-            vlines_ymax = nylim[1]
-    if hlines_y is not None:
-        plt.hlines(
-            hlines_y,
-            hlines_xmin,
-            hlines_xmax,
-            colors=hlines_colors,
-            linestyles=hlines_linestyles,
-        )
-    if vlines_x is not None:
-        plt.vlines(
-            vlines_x,
-            vlines_ymin,
-            vlines_ymax,
-            colors=vlines_colors,
-            linestyles=vlines_linestyles,
-        )
+    plt = plotutils.hv_lines(
+        plt,
+        hlines_y=hlines_y,
+        hlines_xmin=hlines_xmin,
+        hlines_xmax=hlines_xmax,
+        hlines_colors=hlines_colors,
+        hlines_linestyles=hlines_linestyles,
+        vlines_x=None,
+        vlines_xmin=None,
+        vlines_xmax=None,
+        vlines_colors=None,
+        vlines_linestyles=None,
+    )
 
     if invert_xaxis is True:
         plt.gca().invert_xaxis()
@@ -384,4 +360,4 @@ a datetime index.
     return plt
 
 
-time.__doc__ = time_cli.__doc__
+time.__doc__ = _time_cli.__doc__

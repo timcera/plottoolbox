@@ -37,7 +37,6 @@ install_requires = [
     "setuptools_scm",
     "matplotlib",
     "xlsxwriter",
-    "tstoolbox > 103.16.1",
     "typical",
 ]
 

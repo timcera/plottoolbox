@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import gridspec
 
 
-@mando.command("handh", formatter_class=RSTHelpFormatter, doctype="numpy")
+@cltoolbox.command("handh", formatter_class=RSTHelpFormatter)
 @tsutils.doc(plotutils.ldocstrings)
 def handh_cli(
     input_ts="-",
@@ -247,7 +247,7 @@ a datetime index.
         )
 
     # Need to work around some old option defaults with the implementation of
-    # mando
+    # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "time"
     lnames = tsutils.make_list(legend_names)

@@ -9,7 +9,7 @@ import warnings
 import mando
 import typic
 from mando.rst_text_formatter import RSTHelpFormatter
-from tstoolbox import tsutils
+from toolbox_utils import tsutils
 
 warnings.filterwarnings("ignore")
 
@@ -229,7 +229,7 @@ ldocstrings[
         +-------+----------------+
         | d     | thin diamond   |
         +-------+----------------+
-        | _     | hlines_y       |
+        | _     | hline          |
         +-------+----------------+
         | None  | nothing        |
         +-------+----------------+
@@ -780,3 +780,57 @@ but you have {ntrace} traces.
     ilinestyles = itertools.cycle(linestyles)
 
     return style, colors, linestyles, markerstyles, icolors, ilinestyles, imarkerstyles
+
+
+def hv_lines(
+    plt,
+    hlines_y=None,
+    hlines_xmin=None,
+    hlines_xmax=None,
+    hlines_colors=None,
+    hlines_linestyles=None,
+    vlines_x=None,
+    vlines_xmin=None,
+    vlines_xmax=None,
+    vlines_colors=None,
+    vlines_linestyles=None,
+):
+    if hlines_y is not None:
+        hlines_y = tsutils.make_list(hlines_y)
+        hlines_xmin = tsutils.make_list(hlines_xmin)
+        hlines_xmax = tsutils.make_list(hlines_xmax)
+        hlines_colors = tsutils.make_list(hlines_colors)
+        hlines_linestyles = tsutils.make_list(hlines_linestyles)
+        nxlim = ax.get_xlim()
+        if hlines_xmin is None:
+            hlines_xmin = nxlim[0]
+        if hlines_xmax is None:
+            hlines_xmax = nxlim[1]
+    if vlines_x is not None:
+        vlines_x = tsutils.make_list(vlines_x)
+        vlines_ymin = tsutils.make_list(vlines_ymin)
+        vlines_ymax = tsutils.make_list(vlines_ymax)
+        vlines_colors = tsutils.make_list(vlines_colors)
+        vlines_linestyles = tsutils.make_list(vlines_linestyles)
+        nylim = ax.get_ylim()
+        if vlines_ymin is None:
+            vlines_ymin = nylim[0]
+        if vlines_ymax is None:
+            vlines_ymax = nylim[1]
+    if hlines_y is not None:
+        plt.hlines(
+            hlines_y,
+            hlines_xmin,
+            hlines_xmax,
+            colors=hlines_colors,
+            linestyles=hlines_linestyles,
+        )
+    if vlines_x is not None:
+        plt.vlines(
+            vlines_x,
+            vlines_ymin,
+            vlines_ymax,
+            colors=vlines_colors,
+            linestyles=vlines_linestyles,
+        )
+    return plt

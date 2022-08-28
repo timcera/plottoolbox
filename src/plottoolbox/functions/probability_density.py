@@ -5,11 +5,11 @@
 import os
 import warnings
 
-import mando
+import cltoolbox
 import matplotlib
 import matplotlib.pyplot as plt
-from mando.rst_text_formatter import RSTHelpFormatter
-from tstoolbox import tsutils
+from cltoolbox.rst_text_formatter import RSTHelpFormatter
+from toolbox_utils import tsutils
 
 from .. import plotutils
 
@@ -18,7 +18,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
-@mando.command("probability_density", formatter_class=RSTHelpFormatter, doctype="numpy")
+@cltoolbox.command("probability_density", formatter_class=RSTHelpFormatter)
 @tsutils.doc(plotutils.ldocstrings)
 def probability_density_cli(
     input_ts="-",
@@ -237,7 +237,7 @@ def probability_density(
     )
 
     # Need to work around some old option defaults with the implementation of
-    # mando
+    # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "probability_density"
     lnames = tsutils.make_list(legend_names)

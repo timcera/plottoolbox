@@ -5,12 +5,12 @@
 import os
 import warnings
 
-import mando
+import cltoolbox
 import matplotlib
 import matplotlib.pyplot as plt
-from mando.rst_text_formatter import RSTHelpFormatter
+from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from pandas.plotting import bootstrap_plot
-from tstoolbox import tsutils
+from toolbox_utils import tsutils
 
 from .. import plotutils
 
@@ -19,7 +19,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
-@mando.command("bootstrap", formatter_class=RSTHelpFormatter, doctype="numpy")
+@cltoolbox.command("bootstrap", formatter_class=RSTHelpFormatter)
 @tsutils.doc(plotutils.ldocstrings)
 def bootstrap_cli(
     input_ts="-",
@@ -223,7 +223,7 @@ def bootstrap(
     )
 
     # Need to work around some old option defaults with the implementation of
-    # mando
+    # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "bootstrap"
     lnames = tsutils.make_list(legend_names)

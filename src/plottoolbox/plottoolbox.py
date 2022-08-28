@@ -6,7 +6,7 @@ import os.path
 import sys
 import warnings
 
-from mando import command, main
+from cltoolbox import command, main
 
 from .functions.autocorrelation import autocorrelation
 from .functions.bar import bar
@@ -40,13 +40,13 @@ warnings.filterwarnings("ignore")
 @command()
 def about():
     """Display version number and system information."""
-    from tstoolbox import tsutils
+    from toolbox_utils import tsutils
 
     tsutils.about(__name__)
 
 
 def lmain():
-    """Set debug and run mando.main function."""
+    """Set debug and run cltoolbox.main function."""
     if not os.path.exists("debug_plottoolbox"):
         sys.tracebacklimit = 0
     main()

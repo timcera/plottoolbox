@@ -5,13 +5,13 @@
 import os
 import warnings
 
-import mando
+import cltoolbox
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from mando.rst_text_formatter import RSTHelpFormatter
-from tstoolbox import tsutils
+from cltoolbox.rst_text_formatter import RSTHelpFormatter
+from toolbox_utils import tsutils
 
 from .. import plotutils
 
@@ -20,7 +20,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
-@mando.command("heatmap", formatter_class=RSTHelpFormatter, doctype="numpy")
+@cltoolbox.command("heatmap", formatter_class=RSTHelpFormatter)
 @tsutils.doc(plotutils.ldocstrings)
 def heatmap_cli(
     input_ts="-",
@@ -208,7 +208,7 @@ def heatmap(
     )
 
     # Need to work around some old option defaults with the implementation of
-    # mando
+    # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "heatmap"
     lnames = tsutils.make_list(legend_names)
