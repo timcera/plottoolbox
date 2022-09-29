@@ -1,9 +1,7 @@
 [project]
 name = "plottoolbox"
-dynamic = ["version"]
-readme = "README.rst"
-description = "Command line script and Python library to manipulate time series."
-requires-python = ">=3.7.1"
+dynamic = ["readme", "version"]
+description = "Command line script and Python library to make plots from data files."
 dependencies = [
     "dateparser",
     "tabulate",
@@ -28,11 +26,10 @@ dependencies = [
     "odfpy",
     "HydroErr",
     "plottoolbox >= 101.6.2",
-    "wdmtoolbox",
-    "hspfbintoolbox",
     "toolbox_utils",
+    "hspf_reader < 1.0.0",
     ]
-license = {file = "LICENSE.txt"}
+license = {text = "BSD-3-Clause"}
 authors = [
     {name = "Tim Cera", email = "tim@cerazone.net"}
     ]
@@ -89,9 +86,11 @@ github = "https://github.com/timcera/plottoolbox"
 bitbucket = "https://bitbucket.org/timcera/plottoolbox/src/main/"
 
 [tool.setuptools]
+license-files = ["LICENSE.txt"]
 include-package-data = true
 
 [tool.setuptools.dynamic]
+readme = {file = "README.rst"}
 version = {file = "VERSION"}
 
 [tool.setuptools.packages.find]
@@ -106,13 +105,12 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-[tool]
-  [tool.check-manifest]
-    ignore = [".travis.yml", "docs/_function_autosummary/*"]
+[tool.check-manifest]
+  ignore = [".travis.yml", "docs/_function_autosummary/*"]
 
-  [tool.commitizen]
-    name = "cz_conventional_commits"
-    tag_format = "v$version"
-    update_changelog_on_bump = true
-    version = "101.6.3"
-    version_files = ["VERSION"]
+[tool.commitizen]
+  name = "cz_conventional_commits"
+  tag_format = "v$version"
+  update_changelog_on_bump = true
+  version = "101.6.3"
+  version_files = ["VERSION"]
