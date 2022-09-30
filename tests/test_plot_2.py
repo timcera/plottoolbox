@@ -5,21 +5,20 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
-from tstoolbox import tstoolbox
+from toolbox_utils import tsutils
 
 from plottoolbox import plottoolbox
 
 # Pull this in once.
-df = tstoolbox.aggregate(
-    agg_interval="D", clean=True, input_ts="tests/02234500_65_65.csv"
-)
-# Pull this in once.
-dfa = tstoolbox.aggregate(
-    agg_interval="A", clean=True, input_ts="tests/02234500_65_65.csv"
-)
-dfa = tstoolbox.equation(
-    "x1*120@x2", input_ts=dfa, output_names=["Elevation::mean", "Flow::mean"]
-)
+idf = tsutils.common_kwds(input_tsd="tests/02234500_65_65.csv", clean=True)
+
+df = idf.resample("D").agg("mean")
+
+ndfa = idf.resample("A").agg("mean")
+
+dfa = pd.DataFrame()
+dfa["Elevation::mean"] = ndfa.iloc[:, 0] * 120
+dfa["Flow::mean"] = ndfa.iloc[:, 1]
 
 
 @pytest.mark.mpl_image_compare(tolerance=6)

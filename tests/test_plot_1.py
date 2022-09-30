@@ -4,18 +4,16 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pytest
-from tstoolbox import tstoolbox
+from toolbox_utils import tsutils
 
 from plottoolbox import plottoolbox
 
 # Pull this in once.
-df = tstoolbox.aggregate(
-    agg_interval="D", clean=True, input_ts="tests/02234500_65_65.csv"
-)
-# Pull this in once.
-dfa = tstoolbox.aggregate(
-    agg_interval="A", clean=True, input_ts="tests/02234500_65_65.csv"
-)
+idf = tsutils.common_kwds(input_tsd="tests/02234500_65_65.csv", clean=True)
+
+df = idf.resample("D").agg("mean")
+
+dfa = idf.resample("A").agg("mean")
 
 
 @pytest.mark.mpl_image_compare(tolerance=6)

@@ -13,7 +13,7 @@ from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
 from .. import plotutils
-from ..skill_metrics import bias, centered_rms_dev, rmsd, target_diagram
+from .. import skill_metrics as sm
 
 matplotlib.use("Agg")
 
@@ -24,6 +24,8 @@ warnings.filterwarnings("ignore")
 @cltoolbox.command("target", formatter_class=RSTHelpFormatter)
 @tsutils.doc(plotutils.ldocstrings)
 def target_cli(
+    obs_col=None,
+    sim_col=None,
     input_ts="-",
     columns=None,
     start_date=None,
@@ -33,8 +35,6 @@ def target_cli(
     index_type="datetime",
     names=None,
     ofilename="plot.png",
-    xtitle="",
-    ytitle="",
     title="",
     figsize="10,6.0",
     legend=None,
@@ -43,24 +43,11 @@ def target_cli(
     linestyles="auto",
     markerstyles=" ",
     style="auto",
-    grid=False,
     por=False,
-    invert_xaxis=False,
-    invert_yaxis=False,
     round_index=None,
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    hlines_y=None,
-    hlines_xmin=None,
-    hlines_xmax=None,
-    hlines_colors=None,
-    hlines_linestyles="-",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
 ):
     r"""Creates a "target" diagram to plot goodness of fit.
 
@@ -72,6 +59,15 @@ def target_cli(
 
     Parameters
     ----------
+    obs_col
+        If integer represents the column number of standard input. Can be
+        If integer represents the column number of standard input. Can be
+        a csv, wdm, hdf or xlsx file following format specified in
+        'tstoolbox read ...'.
+    sim_col
+        If integer represents the column number of standard input. Can be
+        a csv, wdm, hdf or xlsx file following format specified in
+        'tstoolbox read ...'.
     ${input_ts}
     ${columns}
     ${start_date}
@@ -81,8 +77,6 @@ def target_cli(
     ${index_type}
     ${names}
     ${ofilename}
-    ${xtitle}
-    ${ytitle}
     ${title}
     ${figsize}
     ${legend}
@@ -91,26 +85,17 @@ def target_cli(
     ${linestyles}
     ${markerstyles}
     ${style}
-    ${grid}
     ${por}
-    ${invert_xaxis}
-    ${invert_yaxis}
     ${round_index}
     ${source_units}
     ${target_units}
     ${plot_styles}
-    ${hlines_y}
-    ${hlines_xmin}
-    ${hlines_xmax}
-    ${hlines_colors}
-    ${hlines_linestyles}
-    ${vlines_x}
-    ${vlines_ymin}
-    ${vlines_ymax}
-    ${vlines_colors}
-    ${vlines_linestyles}
     """
+    obs_col = obs_col or 1
+    sim_col = sim_col or 2
     target(
+        obs_col=None,
+        sim_col=None,
         input_ts=input_ts,
         columns=columns,
         start_date=start_date,
@@ -120,8 +105,6 @@ def target_cli(
         index_type=index_type,
         names=names,
         ofilename=ofilename,
-        xtitle=xtitle,
-        ytitle=ytitle,
         title=title,
         figsize=figsize,
         legend=legend,
@@ -130,28 +113,17 @@ def target_cli(
         linestyles=linestyles,
         markerstyles=markerstyles,
         style=style,
-        grid=grid,
         por=por,
-        invert_xaxis=invert_xaxis,
-        invert_yaxis=invert_yaxis,
         round_index=round_index,
         source_units=source_units,
         target_units=target_units,
         plot_styles=plot_styles,
-        hlines_y=hlines_y,
-        hlines_xmin=hlines_xmin,
-        hlines_xmax=hlines_xmax,
-        hlines_colors=hlines_colors,
-        hlines_linestyles=hlines_linestyles,
-        vlines_x=vlines_x,
-        vlines_ymin=vlines_ymin,
-        vlines_ymax=vlines_ymax,
-        vlines_colors=vlines_colors,
-        vlines_linestyles=vlines_linestyles,
     )
 
 
 def target(
+    obs_col=1,
+    sim_col=2,
     input_ts="-",
     columns=None,
     start_date=None,
@@ -161,8 +133,6 @@ def target(
     index_type="datetime",
     names=None,
     ofilename="plot.png",
-    xtitle="",
-    ytitle="",
     title="",
     figsize="10,6.0",
     legend=None,
@@ -171,51 +141,42 @@ def target(
     linestyles="auto",
     markerstyles=" ",
     style="auto",
-    grid=False,
     por=False,
-    invert_xaxis=False,
-    invert_yaxis=False,
     round_index=None,
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    hlines_y=None,
-    hlines_xmin=None,
-    hlines_xmax=None,
-    hlines_colors=None,
-    hlines_linestyles="-",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
     **kwds,
 ):
     r"""Plot data."""
 
     # set up dataframe
+    # Use dropna='no' to get the lengths of both time-series.
     tsd = tsutils.common_kwds(
-        input_ts,
-        skiprows=skiprows,
-        names=names,
+        [tsutils.make_list(obs_col), tsutils.make_list(sim_col)],
+        input_ts=input_ts,
         index_type=index_type,
         start_date=start_date,
         end_date=end_date,
-        pick=columns,
         round_index=round_index,
-        dropna="all",
+        dropna="no",
         source_units=source_units,
         target_units=target_units,
         clean=clean,
-        por=por,
     )
+    if len(tsd.columns) != 2:
+        raise ValueError(
+            tsutils.error_wrapper(
+                """
+The "target" requires only two time-series, the first one is the observed values
+and the second is the simulated.  """
+            )
+        )
 
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "target"
-    lnames = tsutils.make_list(legend_names)
-    tsd, lnames = plotutils.check_column_legend(plottype, tsd, lnames)
 
     # process styles: colors, linestyles, markerstyles
     (
@@ -246,48 +207,38 @@ def target(
     figsize = tsutils.make_list(figsize, n=2)
     _, ax = plt.subplots(figsize=figsize)
 
-    biases = []
-    rmsds = []
-    crmsds = []
-    ref = tsd.iloc[:, 0].values
-    for col in range(1, len(tsd.columns)):
-        biases.append(bias(tsd.iloc[:, col].values, ref))
-        crmsds.append(centered_rms_dev(tsd.iloc[:, col].values, ref))
-        rmsds.append(rmsd(tsd.iloc[:, col].values, ref))
-    target_diagram(np.array(biases), np.array(crmsds), np.array(rmsds))
+    # Calculate statistics for target diagram
+    target_stats1 = sm.target_statistics(data["pred1"], data["ref"], "data")
+    target_stats2 = sm.target_statistics(data["pred2"], data["ref"], "data")
+    target_stats3 = sm.target_statistics(data["pred3"], data["ref"], "data")
 
-    if hlines_y is not None:
-        hlines_y = tsutils.make_list(hlines_y)
-        hlines_xmin = tsutils.make_list(hlines_xmin)
-        hlines_xmax = tsutils.make_list(hlines_xmax)
-        hlines_colors = tsutils.make_list(hlines_colors)
-        hlines_linestyles = tsutils.make_list(hlines_linestyles)
-        nxlim = ax.get_xlim()
-        if hlines_xmin is None:
-            hlines_xmin = nxlim[0]
-        if hlines_xmax is None:
-            hlines_xmax = nxlim[1]
-    if vlines_x is not None:
-        vlines_x = tsutils.make_list(vlines_x)
-        vlines_ymin = tsutils.make_list(vlines_ymin)
-        vlines_ymax = tsutils.make_list(vlines_ymax)
-        vlines_colors = tsutils.make_list(vlines_colors)
-        vlines_linestyles = tsutils.make_list(vlines_linestyles)
-        nylim = ax.get_ylim()
-        if vlines_ymin is None:
-            vlines_ymin = nylim[0]
-        if vlines_ymax is None:
-            vlines_ymax = nylim[1]
+    # Store statistics in arrays
+    bias = np.array(
+        [target_stats1["bias"], target_stats2["bias"], target_stats3["bias"]]
+    )
+    crmsd = np.array(
+        [target_stats1["crmsd"], target_stats2["crmsd"], target_stats3["crmsd"]]
+    )
+    rmsd = np.array(
+        [target_stats1["rmsd"], target_stats2["rmsd"], target_stats3["rmsd"]]
+    )
 
-    plt.xlabel(xtitle)
-    plt.ylabel(ytitle)
+    """
+    Produce the target diagram
 
-    if invert_xaxis is True:
-        plt.gca().invert_xaxis()
-    if invert_yaxis is True:
-        plt.gca().invert_yaxis()
-
-    plt.grid(grid)
+    Reference circles are plotted at the maximum range of the axes and at 0.7
+    times the maximum range by default.
+    """
+    sm.target_diagram(bias, crmsd, rmsd)
+    #     biases = []
+    #     rmsds = []
+    #     crmsds = []
+    #     ref = tsd.iloc[:, 0].values
+    #     for col in range(1, len(tsd.columns)):
+    #         biases.append(bias(tsd.iloc[:, col].values, ref))
+    #         crmsds.append(centered_rms_dev(tsd.iloc[:, col].values, ref))
+    #         rmsds.append(rmsd(tsd.iloc[:, col].values, ref))
+    #     target_diagram(np.array(biases), np.array(crmsds), np.array(rmsds))
 
     plt.title(title)
     plt.tight_layout()

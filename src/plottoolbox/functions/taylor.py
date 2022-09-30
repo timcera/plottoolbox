@@ -33,8 +33,6 @@ def taylor_cli(
     index_type="datetime",
     names=None,
     ofilename="plot.png",
-    xtitle="",
-    ytitle="",
     title="",
     figsize="10,6.0",
     legend=None,
@@ -43,24 +41,11 @@ def taylor_cli(
     linestyles="auto",
     markerstyles=" ",
     style="auto",
-    grid=False,
     por=False,
-    invert_xaxis=False,
-    invert_yaxis=False,
     round_index=None,
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    hlines_y=None,
-    hlines_xmin=None,
-    hlines_xmax=None,
-    hlines_colors=None,
-    hlines_linestyles="-",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
 ):
     r"""Taylor diagram to plot goodness of fit.
 
@@ -120,8 +105,6 @@ def taylor_cli(
         index_type=index_type,
         names=names,
         ofilename=ofilename,
-        xtitle=xtitle,
-        ytitle=ytitle,
         title=title,
         figsize=figsize,
         legend=legend,
@@ -130,24 +113,11 @@ def taylor_cli(
         linestyles=linestyles,
         markerstyles=markerstyles,
         style=style,
-        grid=grid,
         por=por,
-        invert_xaxis=invert_xaxis,
-        invert_yaxis=invert_yaxis,
         round_index=round_index,
         source_units=source_units,
         target_units=target_units,
         plot_styles=plot_styles,
-        hlines_y=hlines_y,
-        hlines_xmin=hlines_xmin,
-        hlines_xmax=hlines_xmax,
-        hlines_colors=hlines_colors,
-        hlines_linestyles=hlines_linestyles,
-        vlines_x=vlines_x,
-        vlines_ymin=vlines_ymin,
-        vlines_ymax=vlines_ymax,
-        vlines_colors=vlines_colors,
-        vlines_linestyles=vlines_linestyles,
     )
 
 
@@ -161,8 +131,6 @@ def taylor(
     index_type="datetime",
     names=None,
     ofilename="plot.png",
-    xtitle="",
-    ytitle="",
     title="",
     figsize="10,6.0",
     legend=None,
@@ -171,24 +139,11 @@ def taylor(
     linestyles="auto",
     markerstyles=" ",
     style="auto",
-    grid=False,
     por=False,
-    invert_xaxis=False,
-    invert_yaxis=False,
     round_index=None,
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    hlines_y=None,
-    hlines_xmin=None,
-    hlines_xmax=None,
-    hlines_colors=None,
-    hlines_linestyles="-",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
     **kwds,
 ):
     r"""Plot data."""
@@ -254,40 +209,8 @@ def taylor(
         std.append(np.std(tsd.iloc[:, col]))
         ccoef.append(np.corrcoef(tsd.iloc[:, col], ref)[0][1])
         crmsd.append(centered_rms_dev(tsd.iloc[:, col].values, ref.values))
+
     taylor_diagram(np.array(std), np.array(crmsd), np.array(ccoef))
-
-    if hlines_y is not None:
-        hlines_y = tsutils.make_list(hlines_y)
-        hlines_xmin = tsutils.make_list(hlines_xmin)
-        hlines_xmax = tsutils.make_list(hlines_xmax)
-        hlines_colors = tsutils.make_list(hlines_colors)
-        hlines_linestyles = tsutils.make_list(hlines_linestyles)
-        nxlim = ax.get_xlim()
-        if hlines_xmin is None:
-            hlines_xmin = nxlim[0]
-        if hlines_xmax is None:
-            hlines_xmax = nxlim[1]
-    if vlines_x is not None:
-        vlines_x = tsutils.make_list(vlines_x)
-        vlines_ymin = tsutils.make_list(vlines_ymin)
-        vlines_ymax = tsutils.make_list(vlines_ymax)
-        vlines_colors = tsutils.make_list(vlines_colors)
-        vlines_linestyles = tsutils.make_list(vlines_linestyles)
-        nylim = ax.get_ylim()
-        if vlines_ymin is None:
-            vlines_ymin = nylim[0]
-        if vlines_ymax is None:
-            vlines_ymax = nylim[1]
-
-    plt.xlabel(xtitle)
-    plt.ylabel(ytitle)
-
-    if invert_xaxis is True:
-        plt.gca().invert_xaxis()
-    if invert_yaxis is True:
-        plt.gca().invert_yaxis()
-
-    plt.grid(grid)
 
     plt.title(title)
     plt.tight_layout()
