@@ -3,12 +3,9 @@
 
 
 import itertools
-import os
 import warnings
 
-import mando
 import typic
-from mando.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
 warnings.filterwarnings("ignore")

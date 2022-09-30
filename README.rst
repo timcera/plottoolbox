@@ -39,8 +39,6 @@ Requirements
 * pandas - on Windows this is part scientific Python distributions like
   Python(x,y), Anaconda, or Enthought.
 
-* mando - command line parser
-
 Installation
 ------------
 Should be as easy as running ``pip install plottoolbox`` or ``easy_install
