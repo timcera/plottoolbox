@@ -100,16 +100,16 @@ def test_xy_multiple_traces():
     )
 
 
-@pytest.mark.mpl_image_compare(tolerance=6)
-def test_xy_multiple_traces_logy():
-    plt.close("all")
-    return plottoolbox.xy(
-        columns=[2, 3, 3, 2],
-        yaxis="log",
-        input_ts="tests/data_daily_sample.csv",
-        ofilename=None,
-        plot_styles="classic",
-    )
+# @pytest.mark.mpl_image_compare(tolerance=6)
+# def test_xy_multiple_traces_logy():
+#    plt.close("all")
+#    return plottoolbox.xy(
+#        columns=[2, 3, 3, 2],
+#        yaxis="log",
+#        input_ts="tests/data_daily_sample.csv",
+#        ofilename=None,
+#        plot_styles="classic",
+#    )
 
 
 # @pytest.mark.mpl_image_compare(tolerance=6)
