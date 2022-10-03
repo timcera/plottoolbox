@@ -787,8 +787,8 @@ def hv_lines(
     hlines_colors=None,
     hlines_linestyles=None,
     vlines_x=None,
-    vlines_xmin=None,
-    vlines_xmax=None,
+    vlines_ymin=None,
+    vlines_ymax=None,
     vlines_colors=None,
     vlines_linestyles=None,
 ):
@@ -798,7 +798,7 @@ def hv_lines(
         hlines_xmax = tsutils.make_list(hlines_xmax)
         hlines_colors = tsutils.make_list(hlines_colors)
         hlines_linestyles = tsutils.make_list(hlines_linestyles)
-        nxlim = ax.get_xlim()
+        nxlim = plt.get_xlim()
         if hlines_xmin is None:
             hlines_xmin = nxlim[0]
         if hlines_xmax is None:
@@ -809,7 +809,7 @@ def hv_lines(
         vlines_ymax = tsutils.make_list(vlines_ymax)
         vlines_colors = tsutils.make_list(vlines_colors)
         vlines_linestyles = tsutils.make_list(vlines_linestyles)
-        nylim = ax.get_ylim()
+        nylim = plt.get_ylim()
         if vlines_ymin is None:
             vlines_ymin = nylim[0]
         if vlines_ymax is None:

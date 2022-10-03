@@ -340,8 +340,8 @@ a datetime index.
         hlines_colors=hlines_colors,
         hlines_linestyles=hlines_linestyles,
         vlines_x=None,
-        vlines_xmin=None,
-        vlines_xmax=None,
+        vlines_ymin=None,
+        vlines_ymax=None,
         vlines_colors=None,
         vlines_linestyles=None,
     )
