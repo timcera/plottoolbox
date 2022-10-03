@@ -2,7 +2,6 @@
 def check_on_off(value):
     """
     Check whether variable contains a value of 'on', 'off', True, or False.
-
     Returns an error if neither for the first two, and sets True to 'on',
     and False to 'off'. The 'on' and 'off' can be provided in any combination
     of upper and lower case letters.
@@ -18,19 +17,21 @@ def check_on_off(value):
         www.thesymplectic.com
         prochford@thesymplectic.com
     """
+
     if isinstance(value, str):
         lowcase = value.lower()
         if lowcase == "off":
             return lowcase
-        if lowcase == "on":
+        elif lowcase == "on":
             return lowcase
-        raise ValueError(f"Invalid value: {str(value)}")
+        else:
+            raise ValueError("Invalid value: " + str(value))
     elif isinstance(value, bool):
-        if not value:
+        if value == False:
             value = "off"
-        elif value:
+        elif value == True:
             value = "on"
     else:
-        raise ValueError(f"Invalid value: {str(value)}")
+        raise ValueError("Invalid value: " + str(value))
 
     return value

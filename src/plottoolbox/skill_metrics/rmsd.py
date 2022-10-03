@@ -6,7 +6,7 @@ from . import utils
 
 def rmsd(predicted, reference):
     """
-    Calculate root-mean-square deviation (RMSD) between two variables.
+    Calculate root-mean-square deviation (RMSD) between two variables
 
     Calculates the root-mean-square deviation between two variables
     PREDICTED and REFERENCE. The RMSD is calculated using the
@@ -32,7 +32,7 @@ def rmsd(predicted, reference):
 
     Created on Dec 9, 2016
     """
-    # Check that dimensions of predicted and reference fields match
+
     utils.check_arrays(predicted, reference)
 
     # Calculate the RMSE

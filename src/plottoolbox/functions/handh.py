@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
+
+import os
+
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib import gridspec
+from toolbox_utils import tsutils
+
+from .. import plotutils
 
 
 @cltoolbox.command("handh", formatter_class=RSTHelpFormatter)
@@ -199,22 +204,10 @@ def handh(
     grid=False,
     drawstyle="default",
     por=False,
-    invert_xaxis=False,
-    invert_yaxis=False,
     round_index=None,
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    hlines_y=None,
-    hlines_xmin=None,
-    hlines_xmax=None,
-    hlines_colors=None,
-    hlines_linestyles="-",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
 ):
     r"""Plot data."""
 

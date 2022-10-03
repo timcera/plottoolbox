@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
+import math
+
+import matplotlib
 import matplotlib.pyplot as plt
-from matplotlib import ticker
+from matplotlib import rcParams, ticker
 
 
-def plot_pattern_diagram_colorbar(X, Y, Z, option):
+def plot_pattern_diagram_colorbar(
+    ax: matplotlib.axes.Axes, X, Y, Z, option: dict
+) -> None:
     """
-    Plot color markers on a pattern diagram shaded to a supplied value.
+    Plots color markers on a pattern diagram shaded according to a
+    supplied value.
 
     Values are indicated via a color bar on the plot.
 
@@ -14,17 +20,21 @@ def plot_pattern_diagram_colorbar(X, Y, Z, option):
     plot in (X,Y) with the colors of each point specified using Z as a
     vector.
 
-    The color range is controlled by option['nonRMSDz'].
+    The color range is controlled by option['cmapzdata'].
     option['colormap'] = 'on' :
         the scatter function maps the elements in Z to colors in the
         current colormap
     option['colormap']= 'off' : the color axis is mapped to the range
         [min(Z) max(Z)]
+    option.locationColorBar   : location for the colorbar, 'NorthOutside'
+                                or 'eastoutside'
 
     The color bar is titled using the content of option['titleColorBar']
     (if non-empty string).
 
     INPUTS:
+    ax     : matplotlib.axes.Axes object in which the Taylor diagram will be
+             plotted
     x : x-coordinates of markers
     y : y-coordinates of markers
     z : z-coordinates of markers (used for color shading)
@@ -37,50 +47,121 @@ def plot_pattern_diagram_colorbar(X, Y, Z, option):
     None.
 
     Created on Nov 30, 2016
+    Revised on Jan 1, 2019
 
     Author: Peter A. Rochford
         Symplectic, LLC
         www.thesymplectic.com
         prochford@thesymplectic.com
     """
-    # Plot color shaded data points using scatter plot
-    # Keyword s defines marker size in points^2
-    #         c defines the sequence of numbers to be mapped to colors
-    #           using the cmap and norm
-    _ = plt.scatter(X, Y, s=50, c=Z, marker="d", edgecolors="none")
+
+    """
+    Plot color shaded data points using scatter plot
+    Keyword s defines marker size in points^2
+            c defines the sequence of numbers to be mapped to colors
+              using the cmap and norm
+    """
+    fontSize = rcParams.get("font.size")
+    cxscale = fontSize / 10  # scale color bar by font size
+    markerSize = option["markersize"] ** 2
+
+    hp = ax.scatter(
+        X,
+        Y,
+        s=markerSize,
+        c=Z,
+        marker=option["cmap_marker"],
+        cmap=option["cmap"],
+        vmin=option["cmap_vmin"],
+        vmax=option["cmap_vmax"],
+    )
+
+    hp.set_facecolor(hp.get_edgecolor())
+
+    # Set parameters for color bar location
+    location = option["locationcolorbar"].lower()
+    xscale = 1.0
+    labelpad = -25
+    if location == "northoutside":
+        orientation = "horizontal"
+        aspect = 6
+        fraction = 0.04
+    elif location == "eastoutside":
+        orientation = "vertical"
+        aspect = 25
+        fraction = 0.15
+        if "checkstats" in option:
+            # Taylor diagram
+            xscale = 0.5
+            cxscale = 6 * fontSize / 10
+            labelpad = -30
+    else:
+        raise ValueError("Invalid color bar location: " + option["locationcolorbar"])
 
     # Add color bar to plot
     if option["colormap"] == "on":
-        hc = plt.colorbar(orientation="horizontal", aspect=6, fraction=0.04, pad=0.04)
+        # map color shading of markers to colormap
+        hc = plt.colorbar(
+            hp,
+            orientation=orientation,
+            aspect=aspect,
+            fraction=fraction,
+            pad=0.06,
+            ax=ax,
+        )
+
+        # Limit number of ticks on color bar to reasonable number
+        if orientation == "horizontal":
+            _setColorBarTicks(hc, 5, 20)
 
     elif option["colormap"] == "off":
+        # map color shading of markers to min to max range of Z values
         if len(Z) > 1:
-            plt.clim(min(Z), max(Z))
-            hc = plt.colorbar(
-                orientation="horizontal", aspect=6, fraction=0.04, pad=0.04
+            ax.clim(min(Z), max(Z))
+            hc = ax.colorbar(
+                hp,
+                orientation=orientation,
+                aspect=aspect,
+                fraction=fraction,
+                pad=0.06,
+                ticks=[min(Z), max(Z)],
+                ax=ax,
             )
-            #                 hc.set_ticks([min(Z), max(Z)])
-            hc.set_ticklabels("Min. RMSD", "Max. RMSD")
+
+            # Label just min/max range
+            hc.set_ticklabels(["Min.", "Max."])
     else:
-        raise ValueError(f"Invalid option for option.colormap: {option['colormap']}")
+        raise ValueError("Invalid option for option.colormap: " + option["colormap"])
 
-    # Set desired properties of color bar
-    location = _getColorBarLocation(hc, option, xscale=0.75, yscale=7.5, cxscale=1.0)
+    if orientation == "horizontal":
+        location = _getColorBarLocation(
+            hc, option, xscale=xscale, yscale=7.5, cxscale=cxscale
+        )
+    else:
+        location = _getColorBarLocation(
+            hc, option, xscale=xscale, yscale=1.0, cxscale=cxscale
+        )
+
     hc.ax.set_position(location)  # set new position
-    hc.ax.tick_params(labelsize="medium")  # set tick labels to medium
-
-    # Limit number of ticks on colar bar to 4
-    hc.locator = ticker.MaxNLocator(nbins=5)
-    hc.update_ticks()
+    hc.ax.tick_params(labelsize=fontSize)  # set tick label size
 
     hc.ax.xaxis.set_ticks_position("top")
     hc.ax.xaxis.set_label_position("top")
 
     # Title the color bar
     if option["titlecolorbar"]:
-        hc.set_label(option["titlecolorbar"])
+        if orientation == "horizontal":
+            hc.set_label(option["titlecolorbar"], fontsize=fontSize)
+        else:
+            hc.set_label(
+                option["titlecolorbar"],
+                fontsize=fontSize,
+                labelpad=labelpad,
+                y=1.05,
+                rotation=0,
+            )
     else:
-        hc.set_label(hc, "Color Scale")
+        hc.set_label(hc, "Color Scale", fontsize=fontSize)
 
 
 def _getColorBarLocation(hc, option, **kwargs):
@@ -89,7 +170,7 @@ def _getColorBarLocation(hc, option, **kwargs):
 
     Determines location to place color bar for type of plot:
     target diagram and Taylor diagram. Optional scale arguments
-    (xscale,cxscale) can be supplied to adjust the placement of
+    (xscale,yscale,cxscale) can be supplied to adjust the placement of
     the colorbar to accommodate different situations.
 
     INPUTS:
@@ -106,20 +187,30 @@ def _getColorBarLocation(hc, option, **kwargs):
     yscale  : scale factor to adjust y-position of color bar
     cxscale : scale factor to adjust thickness of color bar
     """
+
     # Check for optional arguments and set defaults if required
-    xscale = kwargs.get("xscale", 1.0)
-    yscale = kwargs.get("yscale", 1.0)
-    cxscale = kwargs.get("cxscale", 1.0)
+    if "xscale" in kwargs:
+        xscale = kwargs["xscale"]
+    else:
+        xscale = 1.0
+    if "yscale" in kwargs:
+        yscale = kwargs["yscale"]
+    else:
+        yscale = 1.0
+    if "cxscale" in kwargs:
+        cxscale = kwargs["cxscale"]
+    else:
+        cxscale = 1.0
 
-    # Get current position of color bar
-    cp = hc.ax.get_position()
+    # Get original position of color bar and not modified position
+    # because of Axes.apply_aspect being called.
+    cp = hc.ax.get_position(original=True)
 
-    # ToDo: Find better way of determining location
-    # Calculate location
-    if "checkSTATS" in option:
+    # Calculate location : [left, bottom, width, height]
+    if "checkstats" in option:
         # Taylor diagram
         location = [
-            cp.x0 + xscale * 0.8 * cp.width,
+            cp.x0 + xscale * 0.5 * (1 + math.cos(math.radians(45))) * cp.width,
             yscale * cp.y0,
             cxscale * cp.width / 6,
             cp.height,
@@ -127,10 +218,47 @@ def _getColorBarLocation(hc, option, **kwargs):
     else:
         # target diagram
         location = [
-            cp.x0 + xscale * cp.width,
+            cp.x0 + xscale * 0.5 * (1 + math.cos(math.radians(60))) * cp.width,
             yscale * cp.y0,
             cxscale * cp.width / 6,
-            cp.height,
+            cxscale * cp.height,
         ]
 
     return location
+
+
+def _setColorBarTicks(hc, numBins, lenTick):
+    """
+    Determine number of ticks for color bar.
+
+    Determines number of ticks for colorbar so tick labels do not
+    overlap.
+
+    INPUTS:
+    hc      : handle of colorbar
+    numBins : number of bins to use for determining number of
+              tick values using ticker.MaxNLocator
+    lenTick : maximum number of characters for all the tick labels
+
+    OUTPUTS:
+    None
+
+    """
+
+    maxChar = 10
+    lengthTick = lenTick
+    while lengthTick > maxChar:
+        # Limit number of ticks on color bar to numBins-1
+        hc.locator = ticker.MaxNLocator(nbins=numBins, prune="both")
+        hc.update_ticks()
+
+        # Check number of characters in tick labels is
+        # acceptable, otherwise reduce number of bins
+        locs = str(hc.get_ticks())
+        locs = locs[1:-1].split()
+        lengthTick = 0
+        for tick in locs:
+            tickStr = str(tick).rstrip(".")
+            lengthTick += len(tickStr)
+        if lengthTick > maxChar:
+            numBins -= 1

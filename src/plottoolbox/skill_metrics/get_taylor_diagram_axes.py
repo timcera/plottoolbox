@@ -4,7 +4,7 @@ import matplotlib.ticker as ticker
 import numpy as np
 
 
-def get_taylor_diagram_axes(rho, option):
+def get_taylor_diagram_axes(ax, rho, option) -> dict:
     """
     Get axes value for taylor_diagram function.
 
@@ -13,9 +13,10 @@ def get_taylor_diagram_axes(rho, option):
     the GET_TAYLOR_DIAGRAM_OPTIONS function.
 
     INPUTS:
+    ax     : the matplotlib.axes.Axes to receive the plot
     rho    : radial coordinate
     option : dictionary containing option values. (Refer to
-             GET_TAYLOR_DIAGRAM_OPTIONS function for more information.)
+             get_taylor_diagram_subplot_options() function for more information.)
 
     OUTPUTS:
     axes         : dictionary containing axes information for Taylor diagram
@@ -25,20 +26,22 @@ def get_taylor_diagram_axes(rho, option):
     axes['rmax'] : maximum value for radial coordinate
     axes['rmin'] : minimum value for radial coordinate
     axes['tc']   : color for x-axis
-    option       : dictionary containing updated option values
+    Also modifies the input variables 'ax' and 'option'
 
-    Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
-        prochford@thesymplectic.com
+    Authors: Peter A. Rochford
+        rochford.peter1@gmail.com
 
-    Created on Dec 3, 2016
+    Andre D. L. Zanchetta (adapting Peter A. Rochford's code)
+        adlzanchetta@gmail.com
+
+    Created on Nov 25, 2016
+    Revised on Aug 14, 2022
     """
+
     axes = {}
     axes["dx"] = rho[0]
 
-    cax = plt.gca()
-    axes["tc"] = cax.xaxis.label.get_color()
+    axes["tc"] = option["colframe"]
     axes["next"] = "replace"  # needed?
 
     # make a radial grid
@@ -48,13 +51,15 @@ def get_taylor_diagram_axes(rho, option):
         maxrho = option["axismax"]
 
     # Determine default number of tick marks
-    yticks = ticker.AutoLocator().tick_values(-1.0 * maxrho, maxrho)
-    ticks = np.sum(yticks >= 0)
+    if option["overlay"] == "off":
+        ax.set_xlim(-maxrho, maxrho)
+    xt = ax.get_xticks()
+    ticks = sum(xt >= 0)
 
     # Check radial limits and ticks
     axes["rmin"] = 0
     if option["axismax"] == 0.0:
-        axes["rmax"] = yticks[-1]
+        axes["rmax"] = xt[-1]
         option["axismax"] = axes["rmax"]
     else:
         axes["rmax"] = option["axismax"]
@@ -76,4 +81,4 @@ def get_taylor_diagram_axes(rho, option):
         option["tickstd"] = tick
         option["rincstd"] = axes["rinc"]
 
-    return axes, cax
+    return axes

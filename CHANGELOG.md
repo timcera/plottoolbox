@@ -1,3 +1,9 @@
+## v101.6.5 (2022-10-03)
+
+### Fix
+
+- fixed vlines_ymin and vlines_ymax
+
 ## v101.6.4 (2022-09-29)
 
 ### Refactor

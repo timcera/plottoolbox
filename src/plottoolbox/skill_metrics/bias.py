@@ -6,7 +6,8 @@ from . import utils
 
 def bias(predicted, reference):
     """
-    Calculate the bias between PREDICTED and REFERENCE.
+    Calculate the bias (B) between two variables PREDICTED and
+    REFERENCE (E'). The latter is calculated using the formula:
 
     B = mean(p) - mean(r)
 
@@ -27,10 +28,10 @@ def bias(predicted, reference):
 
     Created on Dec 9, 2016
     """
-    # Check that dimensions of predicted and reference fields match
+
     utils.check_arrays(predicted, reference)
 
-    # Calculate bias in means
+    # Calculate means
     b = np.mean(predicted) - np.mean(reference)
 
     return b

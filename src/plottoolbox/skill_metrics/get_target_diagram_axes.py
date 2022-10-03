@@ -1,15 +1,41 @@
 # -*- coding: utf-8 -*-
+from math import floor, log10
+
 import matplotlib.ticker as ticker
 import numpy as np
 
+from .get_axis_tick_label import get_axis_tick_label
+from .use_sci_notation import use_sci_notation
 
-def get_target_diagram_axes(x, y, option):
+
+def find_exp(number) -> int:
+    base10 = log10(abs(number))
+    return floor(base10)
+
+
+def blank_at_zero(tick, label):
+    tolerance = 1.0e-14
+    if type(tick) is np.ndarray:
+        index = np.where(abs(tick) < tolerance)
+    else:
+        temp = np.array(tick)
+        index = np.where(abs(temp) < tolerance)
+        del temp
+
+    if np.size(index) == 0:
+        raise ValueError("Array must span negative to positive values tick=", tick)
+    else:
+        index = index[0].item()
+        label[index] = ""
+
+
+def get_target_diagram_axes(x, y, option) -> dict:
     """
     Get axes value for target_diagram function.
 
-    Determines the axes information for a target diagram given the axis values
-    (X,Y) and the options in the data structure OPTION returned by the
-    GET_TARGET_DIAGRAM_OPTIONS function.
+    Determines the axes information for a target diagram given the axis
+    values (X,Y) and the options in the data structure OPTION returned by
+    the GET_TARGET_DIAGRAM_OPTIONS function.
 
     INPUTS:
     x      : values for x-axis
@@ -23,16 +49,13 @@ def get_target_diagram_axes(x, y, option):
     axes['ytick']  : y-values at which to place tick marks
     axes['xlabel'] : labels for xtick values
     axes['ylabel'] : labels for ytick values
-    option : dictionary containing updated option values
+    Also modifies the input variables 'ax' and 'option'
 
     Author: Peter A. Rochford
-        Symplectic, LLC
-        www.thesymplectic.com
-        prochford@thesymplectic.com
+        rochford.peter1@gmail.com
 
     Created on Nov 25, 2016
-
-    @author: rochfordp
+    Revised on Aug 14, 2022
     """
     # Specify max/min for axes
     foundmax = 1 if option["axismax"] != 0.0 else 0
@@ -83,9 +106,9 @@ def get_target_diagram_axes(x, y, option):
             nxticks = nyticks
 
     # Convert to integer if whole number
-    if isinstance(maxx, float) and maxx.is_integer():
+    if type(maxx) is float and maxx.is_integer():
         maxx = int(round(maxx))
-    if isinstance(maxx, float) and maxy.is_integer():
+    if type(maxx) is float and maxy.is_integer():
         maxy = int(round(maxy))
     minx = -maxx
     miny = -maxy
@@ -106,6 +129,23 @@ def get_target_diagram_axes(x, y, option):
     if len(option["yticklabelpos"]) == 0:
         option["yticklabelpos"] = ytick
 
+    # define x offset
+    thexoffset = find_exp(maxx)
+    if use_sci_notation(maxx):
+        ixsoffset = True
+        xsoffset_str = "$\tx\\mathdefault{10^{" + str(thexoffset) + r"}}\mathdefault{}$"
+    else:
+        ixsoffset = False
+        xsoffset_str = "None"
+
+    theyoffset = find_exp(maxy)
+    if use_sci_notation(maxy):
+        iysoffset = True
+        ysoffset_str = "$\tx\\mathdefault{10^{" + str(theyoffset) + r"}}\mathdefault{}$"
+    else:
+        iysoffset = False
+        ysoffset_str = "None"
+
     # Set tick labels using provided tick label positions
     xlabel = []
     ylabel = []
@@ -114,27 +154,37 @@ def get_target_diagram_axes(x, y, option):
     for i in range(len(xtick)):
         index = np.where(option["xticklabelpos"] == xtick[i])
         if len(index) > 0:
-            xlabel.append(str(xtick[i]))
+            thevalue = xtick[i]
+            if ixsoffset:
+                thevalue = xtick[i] * (10 ** (-1 * thexoffset))
+                label = get_axis_tick_label(thevalue)
+                xlabel.append(label)
+            else:
+                label = get_axis_tick_label(xtick[i])
+                xlabel.append(label)
         else:
             xlabel.append("")
 
     # Set tick labels at 0 to blank
-    index = np.where(abs(xtick) < 1.0e-7)
-    index = np.asscalar(index[0])
-    xlabel[index] = ""
+    blank_at_zero(xtick, xlabel)
 
     # Set y tick labels
     for i in range(len(ytick)):
-        index = np.where(option["xticklabelpos"] == xtick[i])
+        index = np.where(option["yticklabelpos"] == ytick[i])
         if len(index) > 0:
-            ylabel.append(str(ytick[i]))
+            thevalue = ytick[i]
+            if iysoffset:
+                thevalue = ytick[i] * (10 ** (-1 * theyoffset))
+                label = get_axis_tick_label(thevalue)
+                ylabel.append(label)
+            else:
+                label = get_axis_tick_label(ytick[i])
+                ylabel.append(label)
         else:
             ylabel.append("")
 
     # Set tick labels at 0 to blank
-    index = np.where(abs(ytick) < 1.0e-7)
-    index = np.asscalar(index[0])
-    ylabel[index] = ""
+    blank_at_zero(ytick, ylabel)
 
     # Store output variables in data structure
     axes = {}
@@ -142,5 +192,7 @@ def get_target_diagram_axes(x, y, option):
     axes["ytick"] = ytick
     axes["xlabel"] = xlabel
     axes["ylabel"] = ylabel
+    axes["xoffset"] = xsoffset_str
+    axes["yoffset"] = ysoffset_str
 
     return axes

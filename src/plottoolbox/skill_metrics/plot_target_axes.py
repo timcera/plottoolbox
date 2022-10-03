@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
+from matplotlib import rcParams
+from matplotlib.ticker import ScalarFormatter
 
 
-def plot_target_axes(axes):
+def plot_target_axes(ax: matplotlib.axes.Axes, axes: dict) -> list:
     """
     Plot axes for target diagram.
 
@@ -21,45 +23,83 @@ def plot_target_axes(axes):
         Symplectic, LLC
         www.thesymplectic.com
         prochford@thesymplectic.com
+        Hello
     """
-    xtick = axes["xtick"]
-    ytick = axes["ytick"]
 
-    # Draw axis lines
-    plt.plot([xtick[0], xtick[-1]], [0, 0], "k")  # x-axis
-    plt.plot([0, 0], [ytick[0], ytick[-1]], "k")  # y-axis
+    class ScalarFormatterClass(ScalarFormatter):
+        def _set_format(self):
+            self.format = "%1.1f"
 
-    # Get offsets
-    gca = plt.gca()
-    Xoff = np.diff(gca.get_xlim())[0] / 40
-    Yoff = np.diff(gca.get_ylim())[0] / 40
+    class Labeloffset:
+        def __init__(self, ax, label="", axis="y"):
+            self.axis = {"y": ax.yaxis, "x": ax.xaxis}[axis]
+            self.label = label
+            ax.callbacks.connect(axis + "lim_changed", self.update)
+            ax.figure.canvas.draw()
+            self.update(None)
 
-    # Plot new ticks with labels
-    y = -2.0 * Yoff
-    for i, x in enumerate(xtick):
-        plt.plot([x, x], [0, Yoff], "-k")
-        plt.text(x, y, axes["xlabel"][i], horizontalalignment="center")
+    def update(self, lim):
+        fmt = self.axis.get_major_formatter()
+        self.axis.offsetText.set_visible(False)
+        self.axis.set_label_text(self.label + " (" + fmt.get_offset() + ")")
+        print(fmt.get_offset())
 
-    x = -1.0 * Xoff
-    for i, y in enumerate(ytick):
-        if i > 0:
-            plt.plot([Xoff, 0], [y, y], "-k")
-        else:
-            plt.plot([Xoff, 0], [y - 0.01 * Yoff, y - 0.01 * Yoff], "-k")
+    axes_handles = []
+    fontFamily = rcParams.get("font.family")
 
-        plt.text(x, y - 0.5 * Yoff, axes["ylabel"][i], horizontalalignment="right")
+    # Center axes location by moving spines of bounding box
+    # Note: Center axes location not available in matplotlib
+    ax.spines["left"].set_position("zero")
+    ax.spines["bottom"].set_position("zero")
+    ax.spines["right"].set_color("none")
+    ax.spines["top"].set_color("none")
 
-    # Label x-axis with text at end of axis
-    xpos = xtick[-1] + 3 * xtick[-1] / 30
-    ypos = 0
-    plt.text(xpos, ypos, "uRMSD", color="k", horizontalalignment="left")
+    # Make axes square
+    ax.set_aspect("equal")
 
-    # Label y-axis with text at end of axis
+    # Set new ticks and tick labels
+    ax.set_xticks(axes["xtick"])
+    ax.set_xticklabels(axes["xlabel"], fontfamily=fontFamily)
+    ax.set_yticks(axes["ytick"])
+    ax.set_yticklabels(axes["ylabel"], fontfamily=fontFamily)
+
+    # Set axes limits
+    axislim = [axes["xtick"][0], axes["xtick"][-1], axes["ytick"][0], axes["ytick"][-1]]
+    ax.set_xlim(axislim[0:2])
+    ax.set_ylim(axislim[2:])
+
+    # Label x-axis
+    fontSize = matplotlib.rcParams.get("font.size")
+    xpos = axes["xtick"][-1] + 2 * axes["xtick"][-1] / 30
+    ypos = axes["xtick"][-1] / 30
+    if axes["xoffset"] == "None":
+        ax.set_xlabel("uRMSD", fontsize=fontSize)
+    else:
+        ax.set_xlabel("uRMSD" + "\n(" + axes["xoffset"] + ")", fontsize=fontSize)
+
+    xlabelh = ax.xaxis.get_label()
+    xlabelh.set_horizontalalignment("left")
+    ax.xaxis.set_label_coords(xpos, ypos, transform=ax.transData)
+    ax.tick_params(axis="x", direction="in")  # have ticks above axis
+
+    # Label y-axis
     xpos = 0
-    ypos = ytick[-1] + 3 * ytick[-1] / 30
-    plt.text(xpos, ypos, "Bias", color="k", horizontalalignment="center")
+    ypos = axes["ytick"][-1] + 2 * axes["ytick"][-1] / 30
+    if axes["yoffset"] == "None":
+        ax.set_ylabel("Bias ", fontsize=fontSize, rotation=0)
+    else:
+        ax.set_ylabel(
+            "Bias " + "(" + axes["yoffset"] + ")", fontsize=fontSize, rotation=0
+        )
 
-    plt.setp(gca, frame_on=False)
-    plt.axis("equal")
-    plt.axis("off")
-    plt.gcf().patch.set_facecolor("w")
+    ylabelh = ax.yaxis.get_label()
+    ylabelh.set_horizontalalignment("center")
+    ax.yaxis.set_label_coords(xpos, ypos, transform=ax.transData)
+    ax.tick_params(axis="y", direction="in")  # have ticks on right side of axis
+
+    # Set axes line width
+    lineWidth = rcParams.get("lines.linewidth")
+    ax.spines["left"].set_linewidth(lineWidth)
+    ax.spines["bottom"].set_linewidth(lineWidth)
+
+    return axes_handles

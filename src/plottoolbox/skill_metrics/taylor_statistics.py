@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
-import numpy as np
-
-from . import centered_rms_dev, utils
+from skill_metrics import error_check_stats
 
 
 def taylor_statistics(predicted, reference, field=""):
     """
-    Calculate the statistics needed to create a Taylor diagram.
-
-    Described in Taylor (2001) using the data provided in the predicted
+    Calculates the statistics needed to create a Taylor diagram as
+    described in Taylor (2001) using the data provided in the predicted
     field (PREDICTED) and the reference field (REFERENCE).
 
     The statistics are returned in the STATS dictionary.
@@ -54,37 +51,10 @@ def taylor_statistics(predicted, reference, field=""):
 
     Created on Dec 3, 2016
     """
-    # Check for valid arguments
-    if isinstance(predicted, dict):
-        if field == "":
-            raise ValueError("FIELD argument not supplied.")
-        if field in predicted:
-            p = predicted[field]
-        else:
-            raise ValueError(f"Field is not in PREDICTED dictionary: {field}")
-    elif isinstance(predicted, list):
-        p = np.array(predicted)
-    elif isinstance(predicted, np.ndarray):
-        p = predicted
-    else:
-        raise ValueError("PREDICTED argument must be a dictionary.")
+    import numpy as np
+    from skill_metrics import centered_rms_dev
 
-    if isinstance(reference, dict):
-        if field == "":
-            raise ValueError("FIELD argument not supplied.")
-        if field in reference:
-            r = reference[field]
-        else:
-            raise ValueError(f"Field is not in REFERENCE dictionary: {field}")
-    elif isinstance(reference, list):
-        r = np.array(reference)
-    elif isinstance(reference, np.ndarray):
-        r = reference
-    else:
-        raise ValueError("REFERENCE argument must be a dictionary.")
-
-    # Check that dimensions of predicted and reference fields match
-    utils.check_arrays(predicted, reference)
+    p, r = error_check_stats(predicted, reference, field)
 
     # Calculate correlation coefficient
     ccoef = np.corrcoef(p, r)
