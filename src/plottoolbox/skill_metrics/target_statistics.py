@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from skill_metrics import error_check_stats
 
 

@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 """Collection of functions for the manipulation of time series."""
 
 
 import itertools
 import warnings
 
-import typic
+from pydantic import validate_arguments
 from toolbox_utils import tsutils
 
 warnings.filterwarnings("ignore")
@@ -665,7 +664,7 @@ You have {nlim}.
     return nlim
 
 
-@typic.al
+@validate_arguments
 def check_column_legend(plottype, tsd, legend_names):
     # print("in ck_col_lg :", plottype, type(tsd), len(tsd.columns), type(legend_names), legend_names)
     # Check number of columns.

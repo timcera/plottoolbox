@@ -8,9 +8,9 @@ Python API Function Summary
 
     plottoolbox.plottoolbox.about
     plottoolbox.plottoolbox.autocorrelation
+    plottoolbox.plottoolbox.bar
     plottoolbox.plottoolbox.barh
     plottoolbox.plottoolbox.barh_stacked
-    plottoolbox.plottoolbox.bar
     plottoolbox.plottoolbox.bar_stacked
     plottoolbox.plottoolbox.bootstrap
     plottoolbox.plottoolbox.boxplot

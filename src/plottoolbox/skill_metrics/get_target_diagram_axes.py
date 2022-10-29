@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from math import floor, log10
 
 import matplotlib.ticker as ticker

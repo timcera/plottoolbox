@@ -1,33 +1,24 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel",
+    "oldest-supported-numpy",
+]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "plottoolbox"
 dynamic = ["readme", "version"]
 description = "Command line script and Python library to make plots from data files."
 dependencies = [
-    "dateparser",
-    "tabulate",
-    "docutils",
     "cltoolbox >= 1.0.0",
-    "rst2ansi >= 0.1.5",
-    "python-dateutil >= 2.1",
     "numpy",
     "scipy",
     "pandas",
-    "pint-pandas",
-    "xlsxwriter",
-    "scikit-learn",
-    "statsmodels",
-    "setuptools",
-    "setuptools_scm",
-    "typical>=2.6.0",
+    "pydantic",
     "typing-extensions",
-    "pyaf",
-    "xlrd >= 1.0.0",
-    "openpyxl",
-    "odfpy",
-    "HydroErr",
-    "plottoolbox >= 101.6.2",
     "toolbox_utils",
-    "hspf_reader < 1.0.0",
+    "matplotlib",
     ]
 license = {text = "BSD-3-Clause"}
 authors = [
@@ -80,10 +71,22 @@ dev = [
 [project.scripts]
 plottoolbox = "plottoolbox.plottoolbox:main"
 
-[project_urls]
+[project.urls]
 documentation = "https://timcera.bitbucket.io/plottoolbox/docs/index.html#plottoolbox-documentation"
 github = "https://github.com/timcera/plottoolbox"
 bitbucket = "https://bitbucket.org/timcera/plottoolbox/src/main/"
+
+[tool]
+
+[tool.check-manifest]
+ignore = [".travis.yml", "docs/_function_autosummary/*"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+update_changelog_on_bump = true
+version = "101.6.5"
+version_files = ["VERSION"]
 
 [tool.setuptools]
 license-files = ["LICENSE.txt"]
@@ -96,21 +99,3 @@ version = {file = "VERSION"}
 [tool.setuptools.packages.find]
 where = ["src"]
 exclude = ["examples*", "tools*", "docs*", "plottoolbox.tests*"]
-
-[build-system]
-requires = [
-    "setuptools",
-    "wheel",
-    "oldest-supported-numpy",
-]
-build-backend = "setuptools.build_meta"
-
-[tool.check-manifest]
-  ignore = [".travis.yml", "docs/_function_autosummary/*"]
-
-[tool.commitizen]
-  name = "cz_conventional_commits"
-  tag_format = "v$version"
-  update_changelog_on_bump = true
-  version = "101.6.5"
-  version_files = ["VERSION"]

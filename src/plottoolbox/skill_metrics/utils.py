@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Library of utilities to support the SkillMetrics package
 """

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import matplotlib
 import numpy as np
 from matplotlib import rcParams
