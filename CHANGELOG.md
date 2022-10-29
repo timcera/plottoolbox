@@ -1,3 +1,9 @@
+## v102.0.0 (2022-10-29)
+
+### Feat
+
+- change all toolboxes to use pydantic instead of typical
+
 ## v101.6.5 (2022-10-03)
 
 ### Fix

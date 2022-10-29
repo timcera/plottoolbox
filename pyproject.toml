@@ -85,7 +85,7 @@ ignore = [".travis.yml", "docs/_function_autosummary/*"]
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
-version = "101.6.5"
+version = "102.0.0"
 version_files = ["VERSION"]
 
 [tool.setuptools]
