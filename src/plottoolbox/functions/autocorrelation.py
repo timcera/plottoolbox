@@ -3,10 +3,8 @@
 
 import warnings
 
-import cltoolbox
 import matplotlib
 import matplotlib.pyplot as plt
-from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from pandas.plotting import autocorrelation_plot
 from toolbox_utils import tsutils
 
@@ -16,9 +14,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
-@cltoolbox.command("autocorrelation", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
-def autocorrelation_cli(
+def autocorrelation(
     input_ts="-",
     columns=None,
     start_date=None,
@@ -86,63 +82,6 @@ def autocorrelation_cli(
     ${target_units}
     ${plot_styles}
     """
-    autocorrelation(
-        input_ts=input_ts,
-        columns=columns,
-        start_date=start_date,
-        end_date=end_date,
-        clean=clean,
-        skiprows=skiprows,
-        index_type=index_type,
-        names=names,
-        ofilename=ofilename,
-        xtitle=xtitle,
-        ytitle=ytitle,
-        title=title,
-        figsize=figsize,
-        legend=legend,
-        legend_names=legend_names,
-        xlim=xlim,
-        ylim=ylim,
-        grid=grid,
-        xlabel_rotation=xlabel_rotation,
-        ylabel_rotation=ylabel_rotation,
-        por=por,
-        round_index=round_index,
-        source_units=source_units,
-        target_units=target_units,
-        plot_styles=plot_styles,
-    )
-
-
-def autocorrelation(
-    input_ts="-",
-    columns=None,
-    start_date=None,
-    end_date=None,
-    clean=False,
-    skiprows=None,
-    index_type="datetime",
-    names=None,
-    ofilename="plot.png",
-    xtitle="",
-    ytitle="",
-    title="",
-    figsize="10,6.0",
-    legend=None,
-    legend_names=None,
-    xlim=None,
-    ylim=None,
-    grid=False,
-    xlabel_rotation=0,
-    ylabel_rotation=0,
-    por=False,
-    round_index=None,
-    source_units=None,
-    target_units=None,
-    plot_styles="bright",
-):
-    r"""Plot data."""
 
     # set up dataframe
     tsd = tsutils.common_kwds(
@@ -204,6 +143,3 @@ def autocorrelation(
     if ofilename is not None:
         plt.savefig(ofilename)
     return plt
-
-
-autocorrelation.__doc__ = autocorrelation_cli.__doc__

@@ -626,11 +626,11 @@ def know_your_limits(xylimits, axis="arithmetic"):
             raise ValueError(
                 tsutils.error_wrapper(
                     f"""
-Both limits must be between 0 and 1 for the 'normal', 'lognormal', or 'weibull'
-axis.
+                    Both limits must be between 0 and 1 for the 'normal',
+                    'lognormal', or 'weibull' axis.
 
-Instead you have {nlim}.
-"""
+                    Instead you have {nlim}.
+                    """
                 )
             )
 
@@ -641,10 +641,10 @@ Instead you have {nlim}.
         raise ValueError(
             tsutils.error_wrapper(
                 f"""
-The second limit must be greater than the first.
+                The second limit must be greater than the first.
 
-You gave {nlim}.
-"""
+                You gave {nlim}.
+                """
             )
         )
 
@@ -654,10 +654,10 @@ You gave {nlim}.
         raise ValueError(
             tsutils.error_wrapper(
                 f"""
-If log plot cannot have limits less than or equal to 0.
+                If log plot cannot have limits less than or equal to 0.
 
-You have {nlim}.
-"""
+                You have {nlim}.
+                """
             )
         )
 
@@ -669,15 +669,16 @@ def check_column_legend(plottype, tsd, legend_names):
     # print("in ck_col_lg :", plottype, type(tsd), len(tsd.columns), type(legend_names), legend_names)
     # Check number of columns.
     if (
-        plottype in ["bootstrap", "heatmap", "autocorrelation", "lag_plot"]
+        plottype in ("bootstrap", "heatmap", "autocorrelation", "lag_plot")
         and len(tsd.columns) != 1
     ):
         raise ValueError(
             tsutils.error_wrapper(
                 f"""
-The '{plottype}' plot can only work with 1 time-series in the DataFrame.
-The DataFrame that you supplied has {len(tsd.columns)} time-series.
-"""
+                The '{plottype}' plot can only work with 1 time-series in the
+                DataFrame. The DataFrame that you supplied has
+                {len(tsd.columns)} time-series.
+                """
             )
         )
 
@@ -690,13 +691,13 @@ The DataFrame that you supplied has {len(tsd.columns)} time-series.
         raise ValueError(
             tsutils.error_wrapper(
                 """
-Each name in legend_names must be unique.
-"""
+                Each name in legend_names must be unique.
+                """
             )
         )
     if len(tsd.columns) == len(legend_names):
         renamedict = dict(list(zip(tsd.columns, legend_names)))
-    elif plottype in ["xy", "double_mass"] and (
+    elif plottype in ("xy", "double_mass") and (
         len(tsd.columns) // 2 == len(legend_names) or len(tsd.columns) == 1
     ):
         renamedict = dict(list(zip(tsd.columns[2::2], legend_names[1:])))
@@ -705,14 +706,15 @@ Each name in legend_names must be unique.
         raise ValueError(
             tsutils.error_wrapper(
                 f"""
-For 'legend_names' and most plot types you must have the same number of comma
-separated names as columns in the input data.  The input data has {len(tsd.columns)} where the
-number of 'legend_names' is {len(legend_names)}.
+                For 'legend_names' and most plot types you must have the same
+                number of comma separated names as columns in the input data.
+                The input data has {len(tsd.columns)} where the number of
+                'legend_names' is {len(legend_names)}.
 
-If `type` is 'xy' or 'double_mass' you need to have legend names as
-l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is the legend for x2,y2,
-...etc.
-"""
+                If `type` is 'xy' or 'double_mass' you need to have legend
+                names as l1,l2,l3,...  where l1 is the legend for x1,y1, l2 is
+                the legend for x2,y2, ...etc.
+                """
             )
         )
 
@@ -741,10 +743,10 @@ def prepare_styles(ntrace, style, colors, linestyles, markerstyles):
             raise ValueError(
                 tsutils.error_wrapper(
                     f"""
-You have to have the same number of style strings as traces to plot.
-You supplied '{style}' for style which has {len(nstyle)} style strings,
-but you have {ntrace} traces.
-"""
+                    You have to have the same number of style strings as traces
+                    to plot. You supplied '{style}' for style which has
+                    {len(nstyle)} style strings, but you have {ntrace} traces.
+                    """
                 )
             )
         colors = []
@@ -768,7 +770,7 @@ but you have {ntrace} traces.
     if linestyles is None:
         linestyles = [" "]
     else:
-        linestyles = [" " if i in ["  ", None] else i for i in linestyles]
+        linestyles = [" " if i in ("  ", None) else i for i in linestyles]
     markerstyles = [" " if i is None else i for i in markerstyles]
 
     icolors = itertools.cycle(colors) if colors is not None else None
