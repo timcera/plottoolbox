@@ -1,3 +1,13 @@
+## v102.1.0 (2023-01-16)
+
+### Feat
+
+- added new plot styles
+
+### Fix
+
+- replaced deprecated pandas feature
+
 ## v102.0.1 (2023-01-08)
 
 ## v102.0.0 (2022-10-29)
