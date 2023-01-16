@@ -156,8 +156,7 @@ def double_mass(
             ndf = tsd.iloc[:, colindex * 2 : colindex * 2 + 2]
 
         ndf = ndf.dropna()
-        ndf.iloc[:, 0] = ndf.iloc[:, 0].cumsum()
-        ndf.iloc[:, 1] = ndf.iloc[:, 1].cumsum()
+        ndf = ndf.cumsum()
         oxdata = np.array(ndf.iloc[:, 0])
         oydata = np.array(ndf.iloc[:, 1])
 
