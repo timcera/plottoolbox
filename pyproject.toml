@@ -18,7 +18,7 @@ dependencies = [
     "pandas",
     "pydantic",
     "typing-extensions",
-    "toolbox_utils",
+    "toolbox_utils >= 1.0.0, < 2.0.0",
     "matplotlib",
     ]
 license = {text = "BSD-3-Clause"}
