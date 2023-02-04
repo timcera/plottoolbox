@@ -1,3 +1,13 @@
+## v102.1.1 (2023-02-04)
+
+### Fix
+
+- bumped toolbox_utils version to make sure xlsxwriter is installed
+
+### Refactor
+
+- refactored everything to prevent individual functions showing up in tstoolbox help
+
 ## v102.1.0 (2023-01-16)
 
 ### Feat
