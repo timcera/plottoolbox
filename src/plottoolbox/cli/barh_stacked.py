@@ -7,18 +7,18 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.barh_stacked import barh_stacked
+from .. import _plotutils
+from .._functions.barh_stacked import barh_stacked
 
 matplotlib.use("Agg")
 
 warnings.filterwarnings("ignore")
 
-plotutils.HATCH_LIST = ["/", "\\", "|", "-", "+", "x", "o", "O", ".", "*"]
+_plotutils.HATCH_LIST = ["/", "\\", "|", "-", "+", "x", "o", "O", ".", "*"]
 
 
 @cltoolbox.command("barh_stacked", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def barh_stacked_cli(
     input_ts="-",
     columns=None,

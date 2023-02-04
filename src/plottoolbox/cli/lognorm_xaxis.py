@@ -7,8 +7,8 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.lognorm_xaxis import lognorm_xaxis
+from .. import _plotutils
+from .._functions.lognorm_xaxis import lognorm_xaxis
 
 matplotlib.use("Agg")
 
@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("lognorm_xaxis", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def lognorm_xaxis_cli(
     input_ts="-",
     columns=None,

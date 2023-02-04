@@ -7,8 +7,8 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.target import target
+from .. import _plotutils
+from .._functions.target import target
 
 matplotlib.use("Agg")
 
@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("target", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def target_cli(
     obs_col=None,
     sim_col=None,

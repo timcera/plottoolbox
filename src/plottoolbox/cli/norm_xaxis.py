@@ -7,15 +7,15 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.norm_xaxis import norm_xaxis
+from .. import _plotutils
+from .._functions.norm_xaxis import norm_xaxis
 
 matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("norm_xaxis", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def norm_xaxis_cli(
     input_ts="-",
     columns=None,

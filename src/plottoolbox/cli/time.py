@@ -7,15 +7,15 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.time import time
+from .. import _plotutils
+from .._functions.time import time
 
 matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("time", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def _time_cli(
     input_ts="-",
     columns=None,

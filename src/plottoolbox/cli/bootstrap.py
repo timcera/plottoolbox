@@ -7,8 +7,8 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.bootstrap import bootstrap
+from .. import _plotutils
+from .._functions.bootstrap import bootstrap
 
 matplotlib.use("Agg")
 
@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("bootstrap", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def bootstrap_cli(
     input_ts="-",
     columns=None,

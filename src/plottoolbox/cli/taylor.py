@@ -7,8 +7,8 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.taylor import taylor
+from .. import _plotutils
+from .._functions.taylor import taylor
 
 matplotlib.use("Agg")
 
@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("taylor", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def taylor_cli(
     input_ts="-",
     columns=None,

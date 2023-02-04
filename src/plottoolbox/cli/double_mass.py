@@ -7,8 +7,8 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.double_mass import double_mass
+from .. import _plotutils
+from .._functions.double_mass import double_mass
 
 matplotlib.use("Agg")
 
@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("double_mass", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def double_mass_cli(
     input_ts="-",
     columns=None,

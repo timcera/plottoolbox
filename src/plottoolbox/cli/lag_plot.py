@@ -7,8 +7,8 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.lag_plot import lag_plot
+from .. import _plotutils
+from .._functions.lag_plot import lag_plot
 
 matplotlib.use("Agg")
 
@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("lag_plot", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def lag_plot_cli(
     input_ts="-",
     columns=None,

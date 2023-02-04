@@ -7,8 +7,8 @@ import matplotlib
 from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.scatter_matrix import scatter_matrix
+from .. import _plotutils
+from .._functions.scatter_matrix import scatter_matrix
 
 matplotlib.use("Agg")
 
@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 
 @cltoolbox.command("scatter_matrix", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def scatter_matrix_cli(
     input_ts="-",
     columns=None,

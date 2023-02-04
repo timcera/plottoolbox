@@ -1,11 +1,11 @@
 from toolbox_utils import tsutils
 
-from .. import plotutils
-from ..functions.handh import handh
+from .. import _plotutils
+from .._functions.handh import handh
 
 
 @cltoolbox.command("handh", formatter_class=RSTHelpFormatter)
-@tsutils.doc(plotutils.ldocstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def handh_cli(
     input_ts="-",
     columns=None,

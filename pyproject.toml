@@ -18,7 +18,7 @@ dependencies = [
     "pandas",
     "pydantic",
     "typing-extensions",
-    "toolbox_utils >= 1.0.0, < 2.0.0",
+    "toolbox_utils >= 2.0.0, < 3.0.0",
     "matplotlib",
     ]
 license = {text = "BSD-3-Clause"}
@@ -71,7 +71,7 @@ dev = [
     ]
 
 [project.scripts]
-plottoolbox = "plottoolbox.plottoolbox:main"
+plottoolbox = "plottoolbox.plottoolbox:_main"
 
 [project.urls]
 documentation = "https://timcera.bitbucket.io/plottoolbox/docs/index.html#plottoolbox-documentation"
