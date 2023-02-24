@@ -3,10 +3,6 @@
 import os.path as _osp
 import sys as _sys
 
-from cltoolbox import command as _command
-from cltoolbox import main as _main
-from toolbox_utils.tsutils import about as _about
-
 from . import *
 
 __all__ = [
@@ -38,18 +34,47 @@ __all__ = [
 ]
 
 
-@_command()
-def about():
-    """Display version number and system information."""
-    _about(__name__)
-
-
-def _lmain():
+def _main():
     """Set debug and run cltoolbox.main function."""
     if not _osp.exists("debug_plottoolbox"):
         _sys.tracebacklimit = 0
-    _main()
+
+    import cltoolbox
+    from toolbox_utils.tsutils import about as _about
+
+    from .cli.autocorrelation import autocorrelation
+    from .cli.bar import bar
+    from .cli.bar_stacked import bar_stacked
+    from .cli.barh import barh
+    from .cli.barh_stacked import barh_stacked
+    from .cli.bootstrap import bootstrap
+    from .cli.boxplot import boxplot
+    from .cli.double_mass import double_mass
+    from .cli.heatmap import heatmap
+    from .cli.histogram import histogram
+    from .cli.kde import kde
+    from .cli.kde_time import kde_time
+    from .cli.lag_plot import lag_plot
+    from .cli.lognorm_xaxis import lognorm_xaxis
+    from .cli.lognorm_yaxis import lognorm_yaxis
+    from .cli.norm_xaxis import norm_xaxis
+    from .cli.norm_yaxis import norm_yaxis
+    from .cli.probability_density import probability_density
+    from .cli.scatter_matrix import scatter_matrix
+    from .cli.target import target
+    from .cli.taylor import taylor
+    from .cli.time import time
+    from .cli.weibull_xaxis import weibull_xaxis
+    from .cli.weibull_yaxis import weibull_yaxis
+    from .cli.xy import xy
+
+    @cltoolbox.command()
+    def about():
+        """Display version number and system information."""
+        _about(__name__)
+
+    cltoolbox.main()
 
 
 if __name__ == "__main__":
-    _lmain()
+    _main()

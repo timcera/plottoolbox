@@ -73,7 +73,6 @@ def target(
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
-    plottype = "target"
 
     # process styles: colors, linestyles, markerstyles
     (

@@ -279,7 +279,7 @@ def _ensure_np_array_or_die(v, label: str) -> np.ndarray:
     if isinstance(ret_v, numbers.Number):
         ret_v = np.array(v, ndmin=1)
     if not isinstance(ret_v, np.ndarray):
-        raise ValueError("Argument {} is not a numeric array: {}".format(label, v))
+        raise ValueError(f"Argument {label} is not a numeric array: {v}")
     return ret_v
 
 
@@ -303,7 +303,6 @@ def _get_taylor_diagram_arguments(*args):
     """
 
     # Check amount of values provided and display options list if needed
-    import numbers
 
     nargin = len(args)
     if nargin == 0:

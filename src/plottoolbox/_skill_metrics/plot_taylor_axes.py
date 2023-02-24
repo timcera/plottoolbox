@@ -85,8 +85,8 @@ def plot_taylor_axes(ax: matplotlib.axes.Axes, axes: dict, option: dict) -> list
                 c = np.fliplr([np.linspace(pos1 - DA, pos1 + DA, len(lab))])[0]
                 dd = 1.1 * axes["rmax"]
                 for ii, ith in enumerate(c):
-                    cur_x = dd * np.cos(ith * np.pi / 180)
-                    cur_y = dd * np.sin(ith * np.pi / 180)
+                    dd * np.cos(ith * np.pi / 180)
+                    dd * np.sin(ith * np.pi / 180)
                     # print("%s: %.03f, %.03f, %.03f" % (lab[ii], cur_x, cur_y, ith))
                     handle = ax.text(
                         dd * np.cos(ith * np.pi / 180),

@@ -63,7 +63,7 @@ def target_statistics(predicted, reference, field="", norm=False):
     rmsd = np.sqrt(np.sum(np.square(np.subtract(p, r))) / float(p.size))
 
     # Normalize if requested
-    if norm == True:
+    if norm is True:
         sigma_ref = np.std(r)
         bias = bias / sigma_ref
         crmsd = crmsd / sigma_ref
@@ -71,7 +71,7 @@ def target_statistics(predicted, reference, field="", norm=False):
 
     # Store statistics in a dictionary
     stats = {"bias": bias, "crmsd": crmsd, "rmsd": rmsd}
-    if norm == True:
+    if norm is True:
         stats["type"] = "normalized"
     else:
         stats["type"] = "unnormalized"

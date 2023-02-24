@@ -1,5 +1,4 @@
 import math
-import warnings
 
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
@@ -51,7 +50,6 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp=[]):
     """
 
     if type(markerLabel) is list:
-
         # Check for empty list of plot handles
         if len(hp) == 0:
             raise ValueError("Empty list of plot handles")
@@ -97,7 +95,6 @@ def add_legend(markerLabel, option, rgba, markerSize, fontSize, hp=[]):
             )
 
     elif type(markerLabel) is dict:
-
         # Add legend using labels provided as dictionary
 
         # Define legend elements

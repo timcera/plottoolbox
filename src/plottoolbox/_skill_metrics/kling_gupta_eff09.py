@@ -69,9 +69,7 @@ def kling_gupta_eff09(predicted, reference, sr=1.0, salpha=1.0, sbeta=1.0):
 
     for name, term in [("sr", sr), ("salpha", salpha), ("sbeta", sbeta)]:
         if term > 1 or term < 0:
-            raise ValueError(
-                "'{}' must be between 0 and 1, you gave {}".format(name, term)
-            )
+            raise ValueError(f"'{name}' must be between 0 and 1, you gave {term}")
 
     std_ref = np.std(reference)
     if std_ref == 0:

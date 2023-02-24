@@ -1,11 +1,8 @@
-import numpy as np
-
 from . import brier_score, utils
 
 
 def skill_score_brier(forecast, reference, observed):
     """
-
         Calculate Brier skill score (BSS) between two variables
     %Calculate non-dimensional skill score (SS) between two variables using
         definition of Murphy (1988)
@@ -51,6 +48,6 @@ def skill_score_brier(forecast, reference, observed):
 
     utils.check_arrays(forecast, reference)
 
-    #% Calculate skill score
+    # % Calculate skill score
     bss = 1 - brier_score(forecast, observed) / brier_score(reference, observed)
     return bss

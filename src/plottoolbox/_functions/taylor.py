@@ -3,11 +3,9 @@
 import os
 import warnings
 
-import cltoolbox
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-from cltoolbox.rst_text_formatter import RSTHelpFormatter
 from toolbox_utils import tsutils
 
 from .. import _plotutils

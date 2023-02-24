@@ -22,7 +22,7 @@ def _check_dict_with_keys(
     # check if every key provided is valid
     for key in dict_obj.keys():
         if key not in accepted_keys:
-            raise ValueError("Unrecognized option of {}: {}".format(variable_name, key))
+            raise ValueError(f"Unrecognized option of {variable_name}: {key}")
         del key
 
     return None
@@ -179,7 +179,7 @@ def get_target_diagram_options(**kwargs):
         if optname == "nonrmsdz":
             raise ValueError("nonrmsdz is an obsolete option. Use cmapzdata instead.")
 
-        if not optname in option:
+        if optname not in option:
             raise ValueError("Unrecognized option: " + optname)
         else:
             # Replace option value with that from arguments

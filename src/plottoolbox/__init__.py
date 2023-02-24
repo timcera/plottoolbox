@@ -2,31 +2,31 @@
 
 from toolbox_utils.tsutils import about as _about
 
-from .cli.autocorrelation import autocorrelation
-from .cli.bar import bar
-from .cli.bar_stacked import bar_stacked
-from .cli.barh import barh
-from .cli.barh_stacked import barh_stacked
-from .cli.bootstrap import bootstrap
-from .cli.boxplot import boxplot
-from .cli.double_mass import double_mass
-from .cli.heatmap import heatmap
-from .cli.histogram import histogram
-from .cli.kde import kde
-from .cli.kde_time import kde_time
-from .cli.lag_plot import lag_plot
-from .cli.lognorm_xaxis import lognorm_xaxis
-from .cli.lognorm_yaxis import lognorm_yaxis
-from .cli.norm_xaxis import norm_xaxis
-from .cli.norm_yaxis import norm_yaxis
-from .cli.probability_density import probability_density
-from .cli.scatter_matrix import scatter_matrix
-from .cli.target import target
-from .cli.taylor import taylor
-from .cli.time import time
-from .cli.weibull_xaxis import weibull_xaxis
-from .cli.weibull_yaxis import weibull_yaxis
-from .cli.xy import xy
+from ._functions.autocorrelation import autocorrelation
+from ._functions.bar import bar
+from ._functions.bar_stacked import bar_stacked
+from ._functions.barh import barh
+from ._functions.barh_stacked import barh_stacked
+from ._functions.bootstrap import bootstrap
+from ._functions.boxplot import boxplot
+from ._functions.double_mass import double_mass
+from ._functions.heatmap import heatmap
+from ._functions.histogram import histogram
+from ._functions.kde import kde
+from ._functions.kde_time import kde_time
+from ._functions.lag_plot import lag_plot
+from ._functions.lognorm_xaxis import lognorm_xaxis
+from ._functions.lognorm_yaxis import lognorm_yaxis
+from ._functions.norm_xaxis import norm_xaxis
+from ._functions.norm_yaxis import norm_yaxis
+from ._functions.probability_density import probability_density
+from ._functions.scatter_matrix import scatter_matrix
+from ._functions.target import target
+from ._functions.taylor import taylor
+from ._functions.time import time
+from ._functions.weibull_xaxis import weibull_xaxis
+from ._functions.weibull_yaxis import weibull_yaxis
+from ._functions.xy import xy
 
 
 def about():

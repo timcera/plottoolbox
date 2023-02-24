@@ -181,8 +181,8 @@ def double_mass(
     if legend is True:
         ax.legend(loc="best")
 
-    xtitle = xtitle or "Cumulative {}".format(tsd.columns[0])
-    ytitle = ytitle or "Cumulative {}".format(tsd.columns[1])
+    xtitle = xtitle or f"Cumulative {tsd.columns[0]}"
+    ytitle = ytitle or f"Cumulative {tsd.columns[1]}"
 
     if hlines_y is not None:
         hlines_y = tsutils.make_list(hlines_y)

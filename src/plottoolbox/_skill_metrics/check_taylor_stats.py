@@ -51,7 +51,7 @@ def check_taylor_stats(STDs, CRMSDs, CORs, threshold=0.01):
             )
         else:
             raise ValueError(
-                "Incompatible data indices: {}".format(ii)
+                f"Incompatible data indices: {ii}"
                 + "\nYou must have:\nCRMSDs - sqrt(STDs.^2 + STDs[0]^2 - "
                 + "2*STDs*STDs[0].*CORs) = 0 !"
             )

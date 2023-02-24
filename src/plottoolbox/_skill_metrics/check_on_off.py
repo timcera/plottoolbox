@@ -26,9 +26,9 @@ def check_on_off(value):
         else:
             raise ValueError("Invalid value: " + str(value))
     elif isinstance(value, bool):
-        if value == False:
+        if value is False:
             value = "off"
-        elif value == True:
+        elif value is True:
             value = "on"
     else:
         raise ValueError("Invalid value: " + str(value))

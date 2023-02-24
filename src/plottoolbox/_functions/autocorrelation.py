@@ -121,7 +121,7 @@ def autocorrelation(
         except TypeError:
             pltfreq = str(tsd.index.freq).lower()
         beginstr = 3 if pltfreq.split(" ")[0][1:] == "1" else 1
-        short_freq = "" if pltfreq == None else f"({pltfreq[beginstr:-1]})"
+        short_freq = "" if pltfreq is None else f"({pltfreq[beginstr:-1]})"
     except AttributeError:
         short_freq = ""
     xtitle = xtitle or f"Time Lag {short_freq}"

@@ -85,8 +85,6 @@ def boxplot(
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    logx = xaxis == "log"
-    logy = yaxis == "log"
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
 

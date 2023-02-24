@@ -82,7 +82,6 @@ def handh(
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    logx = xaxis == "log"
     logy = yaxis == "log"
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
@@ -115,7 +114,7 @@ def handh(
 
     figsize = tsutils.make_list(figsize, n=2)
 
-    fig = plt.figure(figsize=figsize)
+    plt.figure(figsize=figsize)
 
     gs = gridspec.GridSpec(2, 1, height_ratios=[1, 2])
 

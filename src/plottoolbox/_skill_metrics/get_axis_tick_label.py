@@ -52,6 +52,6 @@ def get_axis_tick_label(value):
         # Round up the number to desired significant figures
         label = str(round(value, number_sigfig))
     else:
-        label = "{:.1e}".format(value)
+        label = f"{value:.1e}"
 
     return label
