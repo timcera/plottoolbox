@@ -14,6 +14,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def histogram(
     input_ts="-",
     columns=None,
@@ -56,7 +57,53 @@ def histogram(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[N columns] Histogram.
+
+    "histogram" will calculate and create a histogram plot.  See 'kde' for
+    a smooth representation of a histogram.
+
+    Parameters
+    ----------
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${sharex}
+    ${sharey}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${grid}
+    ${por}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
+    ${hlines_y}
+    ${hlines_xmin}
+    ${hlines_xmax}
+    ${hlines_colors}
+    ${hlines_linestyles}
+    ${vlines_x}
+    ${vlines_ymin}
+    ${vlines_ymax}
+    ${vlines_colors}
+    ${vlines_linestyles}
+    """
 
     # set up dataframe
     tsd = tsutils.common_kwds(

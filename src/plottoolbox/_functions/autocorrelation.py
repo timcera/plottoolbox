@@ -14,6 +14,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def autocorrelation(
     input_ts="-",
     columns=None,
@@ -41,7 +42,7 @@ def autocorrelation(
     target_units=None,
     plot_styles="bright",
 ):
-    r"""Autocorrelation plot.
+    r"""[time index, 1 column] Autocorrelation plot.
 
     The "autocorrelation" creates an autocorrelation plot.
 

@@ -15,6 +15,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def xy(
     input_ts="-",
     columns=None,
@@ -61,7 +62,101 @@ def xy(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[x1, y1, x2, y2, x3, y3, ...] Creates an 'x,y' plot, also known as a scatter plot.
+
+    ${xydata}
+
+    Parameters
+    ----------
+    ${input_ts}
+
+    ${columns}
+
+    ${start_date}
+
+    ${end_date}
+
+    ${clean}
+
+    ${skiprows}
+
+    ${index_type}
+
+    ${names}
+
+    ${ofilename}
+
+    ${xtitle}
+
+    ${ytitle}
+
+    ${title}
+
+    ${figsize}
+
+    ${legend}
+
+    ${legend_names}
+
+    ${colors}
+
+    ${linestyles}
+
+    ${markerstyles}
+
+    ${style}
+
+    ${xaxis}
+
+    ${yaxis}
+
+    ${xlim}
+
+    ${ylim}
+
+    xy_match_line : str
+        [optional, defaults to ""]
+
+        The style string to use to plot the xy match line.
+
+    ${grid}
+
+    ${drawstyle}
+
+    ${por}
+
+    ${invert_xaxis}
+
+    ${invert_yaxis}
+
+    ${round_index}
+
+    ${source_units}
+
+    ${target_units}
+
+    ${plot_styles}
+
+    ${hlines_y}
+
+    ${hlines_xmin}
+
+    ${hlines_xmax}
+
+    ${hlines_colors}
+
+    ${hlines_linestyles}
+
+    ${vlines_x}
+
+    ${vlines_ymin}
+
+    ${vlines_ymax}
+
+    ${vlines_colors}
+
+    ${vlines_linestyles}
+    """
 
     # set up dataframe
     tsd = tsutils.common_kwds(
@@ -101,14 +196,8 @@ def xy(
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
+    logx = bool(xaxis == "log")
+    logy = bool(yaxis == "log")
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
 

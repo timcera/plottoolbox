@@ -17,6 +17,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def kde_time(
     input_ts="-",
     columns=None,
@@ -67,7 +68,63 @@ def kde_time(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[time index, N columns] A time-series plot with a kernel density estimation (KDE) plot.
+
+    This plot is an estimation of the probability density function based on the
+    data called kernel density estimation (KDE) combined with a time-series
+    plot.
+
+    Parameters
+    ----------
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${subplots}
+    ${sharex}
+    ${sharey}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${xaxis}
+    ${yaxis}
+    ${xlim}
+    ${ylim}
+    secondary_y
+        ${secondary}
+    ${mark_right}
+    ${grid}
+    ${drawstyle}
+    ${por}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
+    ${hlines_y}
+    ${hlines_xmin}
+    ${hlines_xmax}
+    ${hlines_colors}
+    ${hlines_linestyles}
+    ${vlines_x}
+    ${vlines_ymin}
+    ${vlines_ymax}
+    ${vlines_colors}
+    ${vlines_linestyles}
+    """
 
     # set up dataframe
     tsd = tsutils.common_kwds(

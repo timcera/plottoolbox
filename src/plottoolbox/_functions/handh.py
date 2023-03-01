@@ -7,6 +7,7 @@ from toolbox_utils import tsutils
 from .. import _plotutils
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def handh(
     input_ts="-",
     columns=None,
@@ -44,7 +45,67 @@ def handh(
     target_units=None,
     plot_styles="bright",
 ):
-    r"""Plot data."""
+    r"""[time index, Q, P] Hydrograph and hyetograph time-series plot.
+
+    "handh" creates a time series plot of a hydrograph (flow) and hyetograph
+    (precipitation).
+
+    Data must be organized as 'index,Q,P'.  The 'index' must be
+    a date/time and all data columns are plotted.  Legend names are taken from
+    the column names in the first row unless over-ridden by the `legend_names`
+    keyword.
+
+    Parameters
+    ----------
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${subplots}
+    ${sharex}
+    ${sharey}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${xaxis}
+    ${yaxis}
+    ${xlim}
+    ${ylim}
+    secondary_y
+        ${secondary}
+    ${mark_right}
+    ${grid}
+    ${drawstyle}
+    ${por}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
+    ${hlines_y}
+    ${hlines_xmin}
+    ${hlines_xmax}
+    ${hlines_colors}
+    ${hlines_linestyles}
+    ${vlines_x}
+    ${vlines_ymin}
+    ${vlines_ymax}
+    ${vlines_colors}
+    ${vlines_linestyles}
+    """
 
     # set up dataframe
     tsd = tsutils.common_kwds(

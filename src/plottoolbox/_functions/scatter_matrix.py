@@ -15,6 +15,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def scatter_matrix(
     input_ts="-",
     columns=None,
@@ -56,7 +57,95 @@ def scatter_matrix(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[N columns] Plots all columns against each other in matrix of plots.
+
+    "scatter_matrix" will plots all columns against each other in a matrix,
+    with the diagonal plots either histogram or KDE probability distribution
+    depending on `scatter_matrix_diagonal` keyword.
+
+    ${ydata}
+
+    Parameters
+    ----------
+    ${input_ts}
+
+    ${columns}
+
+    ${start_date}
+
+    ${end_date}
+
+    ${clean}
+
+    ${skiprows}
+
+    ${index_type}
+
+    ${names}
+
+    ${ofilename}
+
+    ${xtitle}
+
+    ${ytitle}
+
+    ${title}
+
+    ${figsize}
+
+    ${legend}
+
+    ${legend_names}
+
+    ${colors}
+
+    ${linestyles}
+
+    ${markerstyles}
+
+    ${style}
+
+    scatter_matrix_diagonal : bool
+        [optional, defaults to "kde"]
+
+        What to plot on the diagonal of the scatter matrix.
+
+    ${grid}
+
+    ${por}
+
+    ${invert_xaxis}
+
+    ${invert_yaxis}
+
+    ${round_index}
+
+    ${source_units}
+
+    ${target_units}
+
+    ${plot_styles}
+
+    ${hlines_y}
+
+    ${hlines_xmin}
+
+    ${hlines_xmax}
+
+    ${hlines_colors}
+
+    ${hlines_linestyles}
+
+    ${vlines_x}
+
+    ${vlines_ymin}
+
+    ${vlines_ymax}
+
+    ${vlines_colors}
+
+    ${vlines_linestyles}
+    """
 
     # set up dataframe
     tsd = tsutils.common_kwds(

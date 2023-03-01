@@ -10,7 +10,9 @@ from ._functions.barh_stacked import barh_stacked
 from ._functions.bootstrap import bootstrap
 from ._functions.boxplot import boxplot
 from ._functions.double_mass import double_mass
+from ._functions.handh import handh
 from ._functions.heatmap import heatmap
+from ._functions.hexbin import hexbin
 from ._functions.histogram import histogram
 from ._functions.kde import kde
 from ._functions.kde_time import kde_time
@@ -44,7 +46,9 @@ __all__ = [
     "bootstrap",
     "boxplot",
     "double_mass",
+    "handh",
     "heatmap",
+    "hexbin",
     "histogram",
     "kde",
     "kde_time",

@@ -14,6 +14,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def probability_density(
     input_ts="-",
     columns=None,
@@ -62,7 +63,59 @@ def probability_density(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[N columns] Probability plot.
+
+    Probability plot.
+
+    Parameters
+    ----------
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${subplots}
+    ${sharex}
+    ${sharey}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${xaxis}
+    ${yaxis}
+    ${xlim}
+    ${ylim}
+    secondary_y
+        ${secondary}
+    ${grid}
+    ${por}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
+    ${hlines_y}
+    ${hlines_xmin}
+    ${hlines_xmax}
+    ${hlines_colors}
+    ${hlines_linestyles}
+    ${vlines_x}
+    ${vlines_ymin}
+    ${vlines_ymax}
+    ${vlines_colors}
+    ${vlines_linestyles}
+    """
 
     # set up dataframe
     tsd = tsutils.common_kwds(

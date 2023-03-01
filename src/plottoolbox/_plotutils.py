@@ -702,6 +702,17 @@ def check_column_legend(plottype, tsd, legend_names):
     ):
         renamedict = dict(list(zip(tsd.columns[2::2], legend_names[1:])))
         renamedict[tsd.columns[1]] = legend_names[0]
+    elif plottype in ("hexbin"):
+        if len(tsd.columns) != 2 and len(tsd.columns) != 3:
+            raise ValueError(
+                tsutils.error_wrapper(
+                    """
+                    For 'hexbin' you must have 2 columns for (x,y) and an
+                    optional third column representing the data value that
+                    a statistic will be calculated for each hexagon.
+                    """
+                )
+            )
     else:
         raise ValueError(
             tsutils.error_wrapper(

@@ -15,6 +15,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def norm_xaxis(
     input_ts="-",
     columns=None,
@@ -62,7 +63,58 @@ def norm_xaxis(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[N columns] Normal x-axis.
+
+    "norm_xaxis" will sort, calculate probabilities, and plot data against an
+    x axis normal distribution.
+
+    Parameters
+    ----------
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${xaxis}
+    ${yaxis}
+    ${xlim}
+    ${ylim}
+    ${grid}
+    ${drawstyle}
+    ${por}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${plotting_position}
+    ${prob_plot_sort_values}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
+    ${hlines_y}
+    ${hlines_xmin}
+    ${hlines_xmax}
+    ${hlines_colors}
+    ${hlines_linestyles}
+    ${vlines_x}
+    ${vlines_ymin}
+    ${vlines_ymax}
+    ${vlines_colors}
+    ${vlines_linestyles}
+    """
 
     # set up dataframe
     tsd = tsutils.common_kwds(

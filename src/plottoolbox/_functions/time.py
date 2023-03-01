@@ -13,6 +13,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def time(
     input_ts="-",
     columns=None,
@@ -63,7 +64,66 @@ def time(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[time index, N columns] Time-series plot.
+
+    "time" creates a standard time series plot.
+
+    Data must be organized as 'index,y1,y2,y3,...,yN'.  The 'index' must be
+    a date/time and all data columns are plotted.  Legend names are taken from
+    the column names in the first row unless over-ridden by the `legend_names`
+    keyword.
+
+    Parameters
+    ----------
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${xtitle}
+    ${ytitle}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${subplots}
+    ${sharex}
+    ${sharey}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${xaxis}
+    ${yaxis}
+    ${xlim}
+    ${ylim}
+    secondary_y
+        ${secondary}
+    ${mark_right}
+    ${grid}
+    ${drawstyle}
+    ${por}
+    ${invert_xaxis}
+    ${invert_yaxis}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
+    ${hlines_y}
+    ${hlines_xmin}
+    ${hlines_xmax}
+    ${hlines_colors}
+    ${hlines_linestyles}
+    ${vlines_x}
+    ${vlines_ymin}
+    ${vlines_ymax}
+    ${vlines_colors}
+    ${vlines_linestyles}
+    """
 
     import matplotlib.pyplot as plt
 

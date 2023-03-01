@@ -89,6 +89,17 @@ def test_xy():
 
 
 @pytest.mark.mpl_image_compare(tolerance=6)
+def test_hexbin():
+    plt.close("all")
+    return plottoolbox.hexbin(
+        clean=True,
+        input_ts="tests/02234500_65_65.csv",
+        ofilename=None,
+        plot_styles="classic",
+    )
+
+
+@pytest.mark.mpl_image_compare(tolerance=6)
 def test_xy_multiple_traces():
     plt.close("all")
     return plottoolbox.xy(

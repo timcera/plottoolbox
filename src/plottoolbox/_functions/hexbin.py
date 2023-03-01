@@ -5,18 +5,20 @@ import warnings
 
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 from toolbox_utils import tsutils
 
 from .. import _plotutils
 
 matplotlib.use("Agg")
-
 warnings.filterwarnings("ignore")
 
 
 @tsutils.doc(_plotutils.ldocstrings)
-def boxplot(
+def hexbin(
     input_ts="-",
+    reduce_C_function=np.mean,
+    gridsize=100,
     columns=None,
     start_date=None,
     end_date=None,
@@ -31,45 +33,47 @@ def boxplot(
     figsize="10,6.0",
     legend=None,
     legend_names=None,
-    colors="auto",
-    linestyles="auto",
-    markerstyles=" ",
-    style="auto",
     xaxis="arithmetic",
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
-    grid=False,
+    xlabel_rotation=0,
+    ylabel_rotation=0,
     por=False,
     invert_xaxis=False,
     invert_yaxis=False,
-    round_index=None,
     source_units=None,
     target_units=None,
     plot_styles="bright",
-    hlines_y=None,
-    hlines_xmin=None,
-    hlines_xmax=None,
-    hlines_colors=None,
-    hlines_linestyles="-",
-    vlines_x=None,
-    vlines_ymin=None,
-    vlines_ymax=None,
-    vlines_colors=None,
-    vlines_linestyles="-",
-    **kwds,
 ):
-    r"""[N columns] Box and whiskers plot.
+    r"""[x, y, optional third data column] Hexbin plot.
 
-    Box extends from lower to upper quartile, with line at the median.
-    Depending on the statistics, the wiskers represent the range of the data or
-    1.5 times the inter-quartile range (Q3 - Q1).
+    Only available for a single x,y pair with an additional, optional data
+    column.
 
-    ${ydata}
+    If the data column is not provided, the number of points in each bin is
+    shown.
+
+    If the data column is provided, the `reduce_C_function` is applied to all
+    values within each hexagon cell.
 
     Parameters
     ----------
     ${input_ts}
+
+    reduce_C_function : callable, default np.mean
+        Function of one argument that reduces all the values in a bin to
+        a single number.  The available options at the command line are
+        "np.mean", "np.max", "np.sum", "np.std".  Using the Python API can use
+        any callable.
+
+    gridsize: int or tuple of (int, int), default 100
+        The number of hexagons in the x-direction. The corresponding number of
+        hexagons in the y-direction is chosen in a way that the hexagons are
+        approximately regular. Alternatively, gridsize can be a tuple with two
+        elements specifying the number of hexagons in the x-direction and the
+        y-direction.
+
     ${columns}
     ${start_date}
     ${end_date}
@@ -84,34 +88,18 @@ def boxplot(
     ${figsize}
     ${legend}
     ${legend_names}
-    ${colors}
-    ${linestyles}
-    ${markerstyles}
-    ${style}
-    ${xaxis}
-    ${yaxis}
     ${xlim}
     ${ylim}
     ${grid}
+    ${xlabel_rotation}
+    ${ylabel_rotation}
     ${por}
     ${invert_xaxis}
     ${invert_yaxis}
-    ${round_index}
     ${source_units}
     ${target_units}
     ${plot_styles}
-    ${hlines_y}
-    ${hlines_xmin}
-    ${hlines_xmax}
-    ${hlines_colors}
-    ${hlines_linestyles}
-    ${vlines_x}
-    ${vlines_ymin}
-    ${vlines_ymax}
-    ${vlines_colors}
-    ${vlines_linestyles}
     """
-
     # set up dataframe
     tsd = tsutils.common_kwds(
         input_ts,
@@ -121,7 +109,6 @@ def boxplot(
         start_date=start_date,
         end_date=end_date,
         pick=columns,
-        round_index=round_index,
         dropna="all",
         source_units=source_units,
         target_units=target_units,
@@ -132,77 +119,63 @@ def boxplot(
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
     legend = legend == "" or legend == "True" or legend is None or legend is True
-    plottype = "boxplot"
+    plottype = "hexbin"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
+    logx = bool(xaxis == "log")
+    logy = bool(yaxis == "log")
+    loglog = logx and logy
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
-
-    # process styles: colors, linestyles, markerstyles
-    (
-        style,
-        colors,
-        linestyles,
-        markerstyles,
-        icolors,
-        ilinestyles,
-        imarkerstyles,
-    ) = _plotutils.prepare_styles(
-        len(tsd.columns), style, colors, linestyles, markerstyles
-    )
 
     plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
     style_loc = os.path.join(
         os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
     )
     plot_styles = [
-        os.path.join(style_loc, f"{i}.mplstyle")
-        if os.path.exists(os.path.join(style_loc, f"{i}.mplstyle"))
+        os.path.join(style_loc, i + ".mplstyle")
+        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
         else i
         for i in plot_styles
     ]
-
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)
     _, ax = plt.subplots(figsize=figsize)
 
-    tsd.boxplot(figsize=figsize)
-
-    if hlines_y is not None:
-        hlines_y = tsutils.make_list(hlines_y)
-        hlines_xmin = tsutils.make_list(hlines_xmin)
-        hlines_xmax = tsutils.make_list(hlines_xmax)
-        hlines_colors = tsutils.make_list(hlines_colors)
-        hlines_linestyles = tsutils.make_list(hlines_linestyles)
-        nxlim = ax.get_xlim()
-        if hlines_xmin is None:
-            hlines_xmin = nxlim[0]
-        if hlines_xmax is None:
-            hlines_xmax = nxlim[1]
-    if vlines_x is not None:
-        vlines_x = tsutils.make_list(vlines_x)
-        vlines_ymin = tsutils.make_list(vlines_ymin)
-        vlines_ymax = tsutils.make_list(vlines_ymax)
-        vlines_colors = tsutils.make_list(vlines_colors)
-        vlines_linestyles = tsutils.make_list(vlines_linestyles)
-        nylim = ax.get_ylim()
-        if vlines_ymin is None:
-            vlines_ymin = nylim[0]
-        if vlines_ymax is None:
-            vlines_ymax = nylim[1]
+    data_col = 2 if len(tsd.columns) == 3 else None
+    ax = tsd.plot.hexbin(
+        0,
+        1,
+        C=data_col,
+        reduce_C_function=reduce_C_function,
+        gridsize=gridsize,
+        ax=ax,
+        loglog=loglog,
+        logx=logx,
+        logy=logy,
+        xlim=xlim,
+        ylim=ylim,
+        title=title,
+        xlabel=xtitle,
+        ylabel=ytitle,
+    )
 
     plt.xlabel(xtitle)
     plt.ylabel(ytitle)
+
+    plt.xticks(rotation=xlabel_rotation)
+    plt.yticks(rotation=ylabel_rotation)
+
+    plt.xlim(xlim)
+    plt.ylim(ylim)
 
     if invert_xaxis is True:
         plt.gca().invert_xaxis()
     if invert_yaxis is True:
         plt.gca().invert_yaxis()
-
-    plt.grid(grid)
 
     plt.title(title)
     plt.tight_layout()

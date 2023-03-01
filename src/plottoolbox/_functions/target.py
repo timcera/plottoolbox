@@ -17,6 +17,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(_plotutils.ldocstrings)
 def target(
     obs_col=1,
     sim_col=2,
@@ -44,7 +45,48 @@ def target(
     plot_styles="bright",
     **kwds,
 ):
-    r"""Plot data."""
+    r"""[obs column, sim N columns] Creates a "target" diagram to plot goodness of fit.
+
+    "target" creates a target diagram that compares three goodness of fit
+    statistics on one plot.  The three goodness of fit statistics calculated
+    and displayed are bias, root mean square deviation, and centered root mean
+    square deviation.  The data columns have to be organized as
+    'observed,simulated1,simulated2,simulated3,...etc.'
+
+    Parameters
+    ----------
+    obs_col
+        If integer represents the column number of standard input. Can be
+        If integer represents the column number of standard input. Can be
+        a csv, wdm, hdf or xlsx file following format specified in
+        'tstoolbox read ...'.
+    sim_col
+        If integer represents the column number of standard input. Can be
+        a csv, wdm, hdf or xlsx file following format specified in
+        'tstoolbox read ...'.
+    ${input_ts}
+    ${columns}
+    ${start_date}
+    ${end_date}
+    ${clean}
+    ${skiprows}
+    ${index_type}
+    ${names}
+    ${ofilename}
+    ${title}
+    ${figsize}
+    ${legend}
+    ${legend_names}
+    ${colors}
+    ${linestyles}
+    ${markerstyles}
+    ${style}
+    ${por}
+    ${round_index}
+    ${source_units}
+    ${target_units}
+    ${plot_styles}
+    """
 
     # set up dataframe
     # Use dropna='no' to get the lengths of both time-series.
