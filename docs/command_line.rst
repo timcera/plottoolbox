@@ -52,9 +52,19 @@ double_mass
 .. program-output:: plottoolbox double_mass --help
    :prompt:
 
+handh
+~~~~~
+.. program-output:: plottoolbox handh --help
+   :prompt:
+
 heatmap
 ~~~~~~~
 .. program-output:: plottoolbox heatmap --help
+   :prompt:
+
+hexbin
+~~~~~~
+.. program-output:: plottoolbox hexbin --help
    :prompt:
 
 histogram

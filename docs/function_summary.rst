@@ -15,7 +15,9 @@ Python API Function Summary
     plottoolbox.plottoolbox.bootstrap
     plottoolbox.plottoolbox.boxplot
     plottoolbox.plottoolbox.double_mass
+    plottoolbox.plottoolbox.handh
     plottoolbox.plottoolbox.heatmap
+    plottoolbox.plottoolbox.hexbin
     plottoolbox.plottoolbox.histogram
     plottoolbox.plottoolbox.kde
     plottoolbox.plottoolbox.kde_time
