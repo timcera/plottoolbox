@@ -1,5 +1,3 @@
-import os
-
 import gitmodules
 import matplotlib.pyplot as plt
 import scienceplots

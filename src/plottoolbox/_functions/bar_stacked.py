@@ -1,7 +1,6 @@
 """Collection of functions for the manipulation of time series."""
 
 import itertools
-import os
 import warnings
 
 import gitmodules
