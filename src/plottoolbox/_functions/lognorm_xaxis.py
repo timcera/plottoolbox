@@ -3,9 +3,11 @@
 import os
 import warnings
 
+import gitmodules
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+import scienceplots
 from matplotlib.ticker import FixedLocator
 from toolbox_utils import tsutils
 
@@ -16,6 +18,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
+@tsutils.doc(tsutils.docstrings)
 def lognorm_xaxis(
     input_ts="-",
     columns=None,
@@ -98,9 +101,9 @@ def lognorm_xaxis(
     ${por}
     ${invert_xaxis}
     ${invert_yaxis}
+    ${round_index}
     ${plotting_position}
     ${prob_plot_sort_values}
-    ${round_index}
     ${source_units}
     ${target_units}
     ${plot_styles}
@@ -178,15 +181,6 @@ def lognorm_xaxis(
     )
 
     plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
-    style_loc = os.path.join(
-        os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
-    )
-    plot_styles = [
-        os.path.join(style_loc, i + ".mplstyle")
-        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
-        else i
-        for i in plot_styles
-    ]
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)

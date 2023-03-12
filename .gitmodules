@@ -1,0 +1,3 @@
+[submodule "src/plottoolbox/SciencePlots"]
+	path = src/plottoolbox/SciencePlots
+	url = git@github.com:timcera/SciencePlots.git

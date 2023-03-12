@@ -3,10 +3,12 @@
 import os
 import warnings
 
+import gitmodules
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scienceplots
 from toolbox_utils import tsutils
 
 from .. import _plotutils
@@ -142,15 +144,6 @@ def heatmap(
     )
 
     plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
-    style_loc = os.path.join(
-        os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
-    )
-    plot_styles = [
-        os.path.join(style_loc, i + ".mplstyle")
-        if os.path.exists(os.path.join(style_loc, i + ".mplstyle"))
-        else i
-        for i in plot_styles
-    ]
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)

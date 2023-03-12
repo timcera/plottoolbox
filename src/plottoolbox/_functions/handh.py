@@ -1,6 +1,8 @@
 import os
 
+import gitmodules
 import matplotlib.pyplot as plt
+import scienceplots
 from matplotlib import gridspec
 from toolbox_utils import tsutils
 
@@ -161,16 +163,6 @@ def handh(
     )
 
     plot_styles = tsutils.make_list(plot_styles) + ["no-latex"]
-    style_loc = os.path.join(
-        os.path.dirname(__file__), os.pardir, "SciencePlots_styles"
-    )
-    plot_styles = [
-        os.path.join(style_loc, f"{i}.mplstyle")
-        if os.path.exists(os.path.join(style_loc, f"{i}.mplstyle"))
-        else i
-        for i in plot_styles
-    ]
-
     plt.style.use(plot_styles)
 
     figsize = tsutils.make_list(figsize, n=2)

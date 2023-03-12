@@ -13,6 +13,7 @@ dynamic = ["readme", "version"]
 description = "Command line script and Python library to make plots from data files."
 dependencies = [
     "cltoolbox >= 1.0.0",
+    "gitmodules",
     "numpy",
     "scipy",
     "pandas",

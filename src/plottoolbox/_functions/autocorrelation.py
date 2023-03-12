@@ -3,8 +3,10 @@
 
 import warnings
 
+import gitmodules
 import matplotlib
 import matplotlib.pyplot as plt
+import scienceplots
 from pandas.plotting import autocorrelation_plot
 from toolbox_utils import tsutils
 
