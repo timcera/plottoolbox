@@ -103,8 +103,12 @@ include-package-data = true
 readme = {file = "README.rst"}
 version = {file = "VERSION"}
 
+[tool.setuptools.package-data]
+"SciencePlots.scienceplots" = ["**/*.mplstyle"]
+
 [tool.setuptools.packages.find]
-where = ["src"]
 exclude = ["examples*", "tools*", "docs*", "plottoolbox.tests*"]
+namespaces = true
+where = ["src"]
 
 [tool.setuptools_scm]

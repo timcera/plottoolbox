@@ -153,23 +153,23 @@ def test_autocorrelation():
     )
 
 
-# @pytest.mark.mpl_image_compare(tolerance=6)
-# def test_taylor():
-#     plt.close("all")
-#     return plottoolbox.taylor(
-#         clean=True,
-#         input_ts="tests/02234500_65_65.csv",
-#         ofilename=None,
-#         plot_styles="classic",
-#     )
-#
-#
-# @pytest.mark.mpl_image_compare(tolerance=6)
-# def test_target():
-#     plt.close("all")
-#     return plottoolbox.target(
-#         clean=True,
-#         input_ts="tests/02234500_65_65.csv",
-#         ofilename=None,
-#         plot_styles="classic",
-#     )
+@pytest.mark.mpl_image_compare(tolerance=6)
+def test_taylor():
+    plt.close("all")
+    return plottoolbox.taylor(
+        clean=True,
+        input_ts="tests/02234500_65_65.csv",
+        ofilename=None,
+        plot_styles="classic",
+    )
+
+
+@pytest.mark.mpl_image_compare(tolerance=6)
+def test_target():
+    plt.close("all")
+    return plottoolbox.target(
+        clean=True,
+        input_ts="tests/02234500_65_65.csv",
+        ofilename=None,
+        plot_styles="classic",
+    )
