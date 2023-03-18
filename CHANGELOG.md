@@ -1,3 +1,14 @@
+## v104.2.0 (2023-03-17)
+
+### Feat
+
+- finished target and taylor plots including tests
+
+### Refactor
+
+- moved SkillMetrics and SciencePlots to use from git submodules
+- removed unused os imports
+
 ## v104.1.0 (2023-03-01)
 
 ### Feat
