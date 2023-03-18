@@ -1,10 +1,14 @@
-import gitmodules
+import sys
+from pathlib import Path
+
 import matplotlib.pyplot as plt
-import scienceplots
 from matplotlib import gridspec
 from toolbox_utils import tsutils
 
 from .. import _plotutils
+
+sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
+import scienceplots
 
 
 @tsutils.doc(_plotutils.ldocstrings)

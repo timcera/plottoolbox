@@ -1,16 +1,19 @@
 """Collection of functions for the manipulation of time series."""
 
+import sys
 import warnings
+from pathlib import Path
 
-import gitmodules
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import scienceplots
 from toolbox_utils import tsutils
 
 from .. import _plotutils
-from .. import _skill_metrics as sm
+from ..SkillMetrics import skill_metrics as sm
+
+sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
+import scienceplots
 
 matplotlib.use("Agg")
 
@@ -20,8 +23,6 @@ warnings.filterwarnings("ignore")
 
 @tsutils.doc(_plotutils.ldocstrings)
 def target(
-    obs_col=1,
-    sim_col=2,
     input_ts="-",
     columns=None,
     start_date=None,
@@ -34,7 +35,6 @@ def target(
     title="",
     figsize="10,6.0",
     legend=None,
-    legend_names=None,
     colors="auto",
     linestyles="auto",
     markerstyles=" ",
@@ -91,24 +91,33 @@ def target(
 
     # set up dataframe
     # Use dropna='no' to get the lengths of both time-series.
-    tsd = tsutils.common_kwds(
-        [tsutils.make_list(obs_col), tsutils.make_list(sim_col)],
-        input_ts=input_ts,
-        index_type=index_type,
-        start_date=start_date,
-        end_date=end_date,
-        round_index=round_index,
-        dropna="no",
-        source_units=source_units,
-        target_units=target_units,
-        clean=clean,
+    # set up dataframe
+    tsd = (
+        tsutils.common_kwds(
+            input_ts,
+            skiprows=skiprows,
+            names=names,
+            index_type=index_type,
+            start_date=start_date,
+            end_date=end_date,
+            pick=columns,
+            round_index=round_index,
+            dropna="all",
+            source_units=source_units,
+            target_units=target_units,
+            clean=clean,
+            por=por,
+        )
+        .astype(float)
+        .dropna(how="any")
     )
-    if len(tsd.columns) != 2:
+
+    if len(tsd.columns) < 2:
         raise ValueError(
             tsutils.error_wrapper(
                 """
-                The "target" requires only two time-series, the first one is
-                the observed values and the second is the simulated.
+                The "target" requires two or more two time-series, the first
+                one is the observed values and the remaining are the simulated.
                 """
             )
         )
@@ -137,37 +146,20 @@ def target(
     _, ax = plt.subplots(figsize=figsize)
 
     # Calculate statistics for target diagram
-    target_stats1 = sm.target_statistics(data["pred1"], data["ref"], "data")
-    target_stats2 = sm.target_statistics(data["pred2"], data["ref"], "data")
-    target_stats3 = sm.target_statistics(data["pred3"], data["ref"], "data")
+    bias = []
+    crmsd = []
+    rmsd = []
+    for col in tsd.columns:
+        data = tsd[col].values
+        ref = tsd.iloc[:, 0].values
+        target_stats = sm.target_statistics(data, ref, "data")
 
-    # Store statistics in arrays
-    bias = np.array(
-        [target_stats1["bias"], target_stats2["bias"], target_stats3["bias"]]
-    )
-    crmsd = np.array(
-        [target_stats1["crmsd"], target_stats2["crmsd"], target_stats3["crmsd"]]
-    )
-    rmsd = np.array(
-        [target_stats1["rmsd"], target_stats2["rmsd"], target_stats3["rmsd"]]
-    )
+        # Store statistics in arrays
+        bias.append(target_stats["bias"])
+        crmsd.append(target_stats["crmsd"])
+        rmsd.append(target_stats["rmsd"])
 
-    """
-    Produce the target diagram
-
-    Reference circles are plotted at the maximum range of the axes and at 0.7
-    times the maximum range by default.
-    """
-    sm.target_diagram(bias, crmsd, rmsd)
-    #     biases = []
-    #     rmsds = []
-    #     crmsds = []
-    #     ref = tsd.iloc[:, 0].values
-    #     for col in range(1, len(tsd.columns)):
-    #         biases.append(bias(tsd.iloc[:, col].values, ref))
-    #         crmsds.append(centered_rms_dev(tsd.iloc[:, col].values, ref))
-    #         rmsds.append(rmsd(tsd.iloc[:, col].values, ref))
-    #     target_diagram(np.array(biases), np.array(crmsds), np.array(rmsds))
+    sm.target_diagram(np.array(bias), np.array(crmsd), np.array(rmsd))
 
     plt.title(title)
     plt.tight_layout()

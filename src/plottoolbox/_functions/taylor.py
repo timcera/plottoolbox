@@ -1,16 +1,19 @@
 """Collection of functions for the manipulation of time series."""
 
+import sys
 import warnings
+from pathlib import Path
 
-import gitmodules
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import scienceplots
 from toolbox_utils import tsutils
 
 from .. import _plotutils
-from .._skill_metrics import centered_rms_dev, taylor_diagram
+from ..SkillMetrics.skill_metrics import centered_rms_dev, taylor_diagram
+
+sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
+import scienceplots
 
 matplotlib.use("Agg")
 
@@ -108,7 +111,7 @@ def taylor(
         target_units=target_units,
         clean=clean,
         por=por,
-    )
+    ).astype(float)
 
     # Need to work around some old option defaults with the implementation of
     # cltoolbox

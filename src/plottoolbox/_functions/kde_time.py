@@ -1,17 +1,20 @@
 """Collection of functions for the manipulation of time series."""
 
 import itertools
+import sys
 import warnings
+from pathlib import Path
 
-import gitmodules
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import scienceplots
 from scipy.stats import gaussian_kde
 from toolbox_utils import tsutils
 
 from .. import _plotutils
+
+sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
+import scienceplots
 
 matplotlib.use("Agg")
 

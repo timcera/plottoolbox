@@ -1,14 +1,17 @@
 """Collection of functions for the manipulation of time series."""
 
+import sys
 import warnings
+from pathlib import Path
 
-import gitmodules
 import matplotlib
 import pandas as pd
-import scienceplots
 from toolbox_utils import tsutils
 
 from .. import _plotutils
+
+sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
+import scienceplots
 
 matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
