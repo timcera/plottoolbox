@@ -26,6 +26,7 @@ from ._functions.scatter_matrix import scatter_matrix
 from ._functions.target import target
 from ._functions.taylor import taylor
 from ._functions.time import time
+from ._functions.waterfall import waterfall
 from ._functions.weibull_xaxis import weibull_xaxis
 from ._functions.weibull_yaxis import weibull_yaxis
 from ._functions.xy import xy
@@ -62,6 +63,7 @@ __all__ = [
     "target",
     "taylor",
     "time",
+    "waterfall",
     "weibull_xaxis",
     "weibull_yaxis",
     "xy",

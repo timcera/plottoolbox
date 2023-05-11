@@ -31,6 +31,7 @@ Python API Function Summary
     plottoolbox.plottoolbox.target
     plottoolbox.plottoolbox.taylor
     plottoolbox.plottoolbox.time
+    plottoolbox.plottoolbox.waterfall
     plottoolbox.plottoolbox.weibull_xaxis
     plottoolbox.plottoolbox.weibull_yaxis
     plottoolbox.plottoolbox.xy

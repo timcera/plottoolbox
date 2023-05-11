@@ -173,3 +173,21 @@ def test_target():
         ofilename=None,
         plot_styles="classic",
     )
+
+
+@pytest.mark.mpl_image_compare(tolerance=6)
+def test_waterfall():
+    plt.close("all")
+    df = (
+        pd.read_csv(
+            "tests/02234500_65_65.csv", index_col=0, parse_dates=True, usecols=[0, 1]
+        )
+        .resample("Y")
+        .agg("mean")
+    )
+    return plottoolbox.waterfall(
+        clean=True,
+        input_ts=df,
+        ofilename=None,
+        plot_styles="classic",
+    )

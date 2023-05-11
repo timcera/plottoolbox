@@ -559,10 +559,10 @@ ldocstrings[
         various time-series automatically."""
 ldocstrings[
     "plotting_position"
-] = """plotting_position : str
+] = f"""plotting_position : str
         [optional, default is 'weibull']
 
-        {plotting_position_table}
+        {tsutils.docstrings["plotting_position_table"]}
 
         Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
         lognorm_yaxis, weibull_xaxis, and weibull_yaxis."""
@@ -669,7 +669,7 @@ def check_column_legend(plottype, tsd, legend_names):
     # print("in ck_col_lg :", plottype, type(tsd), len(tsd.columns), type(legend_names), legend_names)
     # Check number of columns.
     if (
-        plottype in ("bootstrap", "heatmap", "autocorrelation", "lag_plot")
+        plottype in ("bootstrap", "heatmap", "autocorrelation", "lag_plot", "waterfall")
         and len(tsd.columns) != 1
     ):
         raise ValueError(

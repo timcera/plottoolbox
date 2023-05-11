@@ -132,6 +132,11 @@ time
 .. program-output:: plottoolbox time --help
    :prompt:
 
+waterfall
+~~~~~~~~~
+.. program-output:: plottoolbox waterfall --help
+   :prompt:
+
 weibull_xaxis
 ~~~~~~~~~~~~~
 .. program-output:: plottoolbox weibull_xaxis --help
