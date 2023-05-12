@@ -51,6 +51,7 @@ def xy(
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
+    dropna="all",
     source_units=None,
     target_units=None,
     plot_styles="bright",
@@ -73,92 +74,51 @@ def xy(
     Parameters
     ----------
     ${input_ts}
-
     ${columns}
-
     ${start_date}
-
     ${end_date}
-
     ${clean}
-
     ${skiprows}
-
     ${index_type}
-
     ${names}
-
     ${ofilename}
-
     ${xtitle}
-
     ${ytitle}
-
     ${title}
-
     ${figsize}
-
     ${legend}
-
     ${legend_names}
-
     ${colors}
-
     ${linestyles}
-
     ${markerstyles}
-
     ${style}
-
     ${xaxis}
-
     ${yaxis}
-
     ${xlim}
-
     ${ylim}
-
     xy_match_line : str
         [optional, defaults to ""]
 
         The style string to use to plot the xy match line.
-
     ${grid}
-
     ${drawstyle}
-
     ${por}
-
     ${invert_xaxis}
-
     ${invert_yaxis}
-
     ${round_index}
-
+    ${dropna}
     ${source_units}
-
     ${target_units}
-
     ${plot_styles}
-
     ${hlines_y}
-
     ${hlines_xmin}
-
     ${hlines_xmax}
-
     ${hlines_colors}
-
     ${hlines_linestyles}
-
     ${vlines_x}
-
     ${vlines_ymin}
-
     ${vlines_ymax}
-
     ${vlines_colors}
-
     ${vlines_linestyles}
     """
 
@@ -172,7 +132,7 @@ def xy(
         end_date=end_date,
         pick=columns,
         round_index=round_index,
-        dropna="all",
+        dropna=dropna,
         source_units=source_units,
         target_units=target_units,
         clean=clean,

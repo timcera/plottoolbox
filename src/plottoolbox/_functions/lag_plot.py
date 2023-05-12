@@ -45,6 +45,7 @@ def lag_plot(
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
+    dropna="all",
     source_units=None,
     target_units=None,
     lag_plot_lag=1,
@@ -117,35 +118,25 @@ def lag_plot(
 
     ${round_index}
 
+    ${dropna}
     ${source_units}
 
     ${target_units}
-
     lag_plot_lag : int
         Defaults to 1.
 
         The lag used in the plot.
 
     ${plot_styles}
-
     ${hlines_y}
-
     ${hlines_xmin}
-
     ${hlines_xmax}
-
     ${hlines_colors}
-
     ${hlines_linestyles}
-
     ${vlines_x}
-
     ${vlines_ymin}
-
     ${vlines_ymax}
-
     ${vlines_colors}
-
     ${vlines_linestyles}
     """
 
@@ -159,7 +150,7 @@ def lag_plot(
         end_date=end_date,
         pick=columns,
         round_index=round_index,
-        dropna="all",
+        dropna=dropna,
         source_units=source_units,
         target_units=target_units,
         clean=clean,

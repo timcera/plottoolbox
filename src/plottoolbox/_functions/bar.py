@@ -55,6 +55,7 @@ def bar(
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
+    dropna="all",
     source_units=None,
     target_units=None,
     plot_styles="bright",
@@ -108,6 +109,7 @@ def bar(
     ${invert_xaxis}
     ${invert_yaxis}
     ${round_index}
+    ${dropna}
     ${source_units}
     ${target_units}
     ${plot_styles}
@@ -133,7 +135,7 @@ def bar(
         end_date=end_date,
         pick=columns,
         round_index=round_index,
-        dropna="all",
+        dropna=dropna,
         source_units=source_units,
         target_units=target_units,
         clean=clean,

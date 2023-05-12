@@ -46,6 +46,7 @@ def hexbin(
     por=False,
     invert_xaxis=False,
     invert_yaxis=False,
+    dropna="all",
     source_units=None,
     target_units=None,
     plot_styles="bright",
@@ -100,6 +101,7 @@ def hexbin(
     ${por}
     ${invert_xaxis}
     ${invert_yaxis}
+    ${dropna}
     ${source_units}
     ${target_units}
     ${plot_styles}
@@ -113,7 +115,7 @@ def hexbin(
         start_date=start_date,
         end_date=end_date,
         pick=columns,
-        dropna="all",
+        dropna=dropna,
         source_units=source_units,
         target_units=target_units,
         clean=clean,

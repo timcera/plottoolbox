@@ -50,6 +50,7 @@ def norm_xaxis(
     invert_xaxis=False,
     invert_yaxis=False,
     round_index=None,
+    dropna="all",
     plotting_position="weibull",
     prob_plot_sort_values="descending",
     source_units=None,
@@ -105,6 +106,7 @@ def norm_xaxis(
     ${plotting_position}
     ${prob_plot_sort_values}
     ${round_index}
+    ${dropna}
     ${source_units}
     ${target_units}
     ${plot_styles}
@@ -130,7 +132,7 @@ def norm_xaxis(
         end_date=end_date,
         pick=columns,
         round_index=round_index,
-        dropna="all",
+        dropna=dropna,
         source_units=source_units,
         target_units=target_units,
         clean=clean,
