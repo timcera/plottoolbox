@@ -1,3 +1,10 @@
+## v104.3.0 (2023-05-11)
+
+### Feat
+
+- added dropna option to all plots
+- **waterfall**: added new waterfall plot but not particularly impressed - WIP
+
 ## v104.2.0 (2023-03-17)
 
 ### Feat
