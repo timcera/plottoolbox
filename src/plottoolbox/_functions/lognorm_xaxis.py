@@ -20,7 +20,7 @@ matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
 
 
-@tsutils.doc(tsutils.docstrings)
+@tsutils.doc(_plotutils.ldocstrings)
 def lognorm_xaxis(
     input_ts="-",
     columns=None,

@@ -41,10 +41,18 @@ Requirements
 
 Installation
 ------------
-Should be as easy as running ``pip install plottoolbox`` or ``easy_install
-plottoolbox`` at any command line.  Not sure on Windows whether this will bring
-in pandas, but as mentioned above, if you start with scientific Python
-distribution then you shouldn't have a problem.
+pip
+~~~
+.. code-block:: bash
+
+    pip install plottoolbox
+
+conda
+~~~~~
+.. code-block:: bash
+
+    conda install -c conda-forge plottoolbox
+
 
 Usage - Command Line
 --------------------
