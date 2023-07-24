@@ -17,7 +17,7 @@ dependencies = [
     "scipy",
     "pandas",
     "pydantic",
-    "toolbox_utils >= 3.0.0, < 4.0.0",
+    "toolbox_utils >= 5.0.0, < 6.0.0",
     "matplotlib"
 ]
 license = {text = "BSD-3-Clause"}

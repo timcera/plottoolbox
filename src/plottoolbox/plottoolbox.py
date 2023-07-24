@@ -2080,7 +2080,7 @@ def _main():
         yaxis="arithmetic",
         xlim=None,
         ylim=None,
-        secondary_y=False,
+        secondary_y=None,
         mark_right=True,
         grid=False,
         drawstyle="default",

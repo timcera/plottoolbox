@@ -5,6 +5,7 @@ import warnings
 from pathlib import Path
 
 import matplotlib
+import numpy as np
 import pandas as pd
 from toolbox_utils import tsutils
 
@@ -45,7 +46,7 @@ def time(
     yaxis="arithmetic",
     xlim=None,
     ylim=None,
-    secondary_y=False,
+    secondary_y=None,
     mark_right=True,
     grid=False,
     drawstyle="default",
@@ -193,6 +194,11 @@ def time(
     figsize = tsutils.make_list(figsize, n=2)
     _, ax = plt.subplots(figsize=figsize)
 
+    if secondary_y is not None:
+        secondary_y = np.array(
+            tsd.columns[tsutils.make_iloc(tsd.columns, tsutils.make_list(secondary_y))]
+        )
+
     ax = tsd.plot(
         legend=legend,
         subplots=subplots,
@@ -220,9 +226,6 @@ def time(
     plt.xlabel(xtitle)
     plt.ylabel(ytitle)
 
-    if legend:
-        plt.legend(loc="best")
-
     plt = _plotutils.hv_lines(
         plt,
         hlines_y=hlines_y,
@@ -230,11 +233,11 @@ def time(
         hlines_xmax=hlines_xmax,
         hlines_colors=hlines_colors,
         hlines_linestyles=hlines_linestyles,
-        vlines_x=None,
-        vlines_ymin=None,
-        vlines_ymax=None,
-        vlines_colors=None,
-        vlines_linestyles=None,
+        vlines_x=vlines_x,
+        vlines_ymin=vlines_ymin,
+        vlines_ymax=vlines_ymax,
+        vlines_colors=vlines_colors,
+        vlines_linestyles=vlines_linestyles,
     )
 
     if invert_xaxis is True:
