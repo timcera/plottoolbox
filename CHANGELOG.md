@@ -1,3 +1,9 @@
+## v104.3.1 (2023-07-24)
+
+### Fix
+
+- fixed secondary_y option for the time plot
+
 ## v104.3.0 (2023-05-11)
 
 ### Feat
