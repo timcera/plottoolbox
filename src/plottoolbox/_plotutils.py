@@ -4,7 +4,10 @@
 import itertools
 import warnings
 
-from pydantic import validate_arguments
+try:
+    from pydantic import validate_call
+except ImportError:
+    from pydantic import validate_arguments as validate_call
 from toolbox_utils import tsutils
 
 warnings.filterwarnings("ignore")
@@ -664,7 +667,7 @@ def know_your_limits(xylimits, axis="arithmetic"):
     return nlim
 
 
-@validate_arguments
+@validate_call
 def check_column_legend(plottype, tsd, legend_names):
     # print("in ck_col_lg :", plottype, type(tsd), len(tsd.columns), type(legend_names), legend_names)
     # Check number of columns.
