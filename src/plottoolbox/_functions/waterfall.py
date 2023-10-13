@@ -6,7 +6,8 @@ from pathlib import Path
 
 import matplotlib
 import pandas as pd
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 from ..waterfall_ax import waterfall_ax

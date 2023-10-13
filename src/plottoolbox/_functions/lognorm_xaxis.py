@@ -8,7 +8,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import FixedLocator
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 
@@ -141,23 +142,16 @@ def lognorm_xaxis(
 
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "lognorm_xaxis"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
-
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xaxis = "normal"
-    if logx is True:
+    if logx:
         logx = False
         warnings.warn(
             tsutils.error_wrapper(
@@ -198,7 +192,7 @@ def lognorm_xaxis(
         (False, False): ax.plot,
     }
 
-    ppf = tsutils.set_ppf(plottype.split("_")[0])
+    ppf = tsutils.set_ppf(plottype.split("_", maxsplit=1)[0])
     ys = tsd.iloc[:, :]
 
     for colindex in range(colcnt):
@@ -212,10 +206,7 @@ def lognorm_xaxis(
         norm_axis = ax.xaxis
         oxdata = ppf(tsutils.set_plotting_position(n, plotting_position))
 
-        if icolors is not None:
-            c = next(icolors)
-        else:
-            c = None
+        c = next(icolors) if icolors is not None else None
         plotdict[(logx, logy)](
             oxdata,
             oydata,
@@ -251,7 +242,7 @@ def lognorm_xaxis(
     xtitle = xtitle or "Log Normal Distribution"
     ytitle = ytitle or tsd.columns[0]
 
-    if legend is True:
+    if legend:
         ax.legend(loc="best")
 
     if hlines_y is not None:

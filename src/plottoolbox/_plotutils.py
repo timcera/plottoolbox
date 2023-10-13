@@ -8,7 +8,7 @@ try:
     from pydantic import validate_call
 except ImportError:
     from pydantic import validate_arguments as validate_call
-from toolbox_utils import tsutils
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 warnings.filterwarnings("ignore")
 
@@ -706,7 +706,7 @@ def check_column_legend(plottype, tsd, legend_names):
         renamedict = dict(list(zip(tsd.columns[2::2], legend_names[1:])))
         renamedict[tsd.columns[1]] = legend_names[0]
     elif plottype in ("hexbin"):
-        if len(tsd.columns) != 2 and len(tsd.columns) != 3:
+        if len(tsd.columns) not in [2, 3]:
             raise ValueError(
                 tsutils.error_wrapper(
                     """

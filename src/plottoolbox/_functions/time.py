@@ -7,7 +7,8 @@ from pathlib import Path
 import matplotlib
 import numpy as np
 import pandas as pd
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 
@@ -199,7 +200,13 @@ def time(
             tsd.columns[tsutils.make_iloc(tsd.columns, tsutils.make_list(secondary_y))]
         )
 
+    for line in range(len(tsd.columns)):
+        c = next(icolors) if icolors is not None else None
+        m = next(imarkerstyles) if imarkerstyles is not None else None
+        l = next(ilinestyles) if ilinestyles is not None else None
+
     ax = tsd.plot(
+        kind="line",
         legend=legend,
         subplots=subplots,
         sharex=sharex,
@@ -212,16 +219,8 @@ def time(
         mark_right=mark_right,
         figsize=figsize,
         drawstyle=drawstyle,
+        color=c,
     )
-    for line in ax.lines:
-        c = next(icolors) if icolors is not None else None
-        m = next(imarkerstyles) if imarkerstyles is not None else None
-        l = next(ilinestyles) if ilinestyles is not None else None
-        if c is not None:
-            plt.setp(line, color=c)
-        plt.setp(line, marker=m)
-        plt.setp(line, linestyle=l)
-
     xtitle = xtitle or "Time"
     plt.xlabel(xtitle)
     plt.ylabel(ytitle)

@@ -7,7 +7,8 @@ from pathlib import Path
 
 import matplotlib
 import matplotlib.pyplot as plt
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 

@@ -7,3 +7,6 @@
 [submodule "src/plottoolbox/waterfall_ax"]
 	path = src/plottoolbox/waterfall_ax
 	url = git@github.com:timcera/waterfall_ax.git
+[submodule "src/plottoolbox/toolbox_utils"]
+	path = src/plottoolbox/toolbox_utils
+	url = git@github.com:timcera/toolbox_utils.git

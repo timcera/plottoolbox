@@ -3,7 +3,8 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 
@@ -49,6 +50,16 @@ def handh(
     source_units=None,
     target_units=None,
     plot_styles="bright",
+    hlines_y=None,
+    hlines_xmin=None,
+    hlines_xmax=None,
+    hlines_colors=None,
+    hlines_linestyles=None,
+    vlines_x=None,
+    vlines_ymin=None,
+    vlines_ymax=None,
+    vlines_colors=None,
+    vlines_linestyles=None,
 ):
     r"""[time index, Q, P] Hydrograph and hyetograph time-series plot.
 

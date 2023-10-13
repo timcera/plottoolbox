@@ -7,7 +7,8 @@ from pathlib import Path
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 
@@ -139,29 +140,28 @@ def xy(
         por=por,
     )
     # check dataframe
-    if tsd.shape[1] > 1:
-        if tsd.shape[1] % 2 != 0:
-            raise AttributeError(
-                tsutils.error_wrapper(
-                    f"""
-                    The 'xy' type must have an even number of columns arranged
-                    as x,y pairs or an x-index and one y data column.  You
-                    supplied {len(tsd.columns)} columns.
-                    """
-                )
+    if tsd.shape[1] > 1 and tsd.shape[1] % 2 != 0:
+        raise AttributeError(
+            tsutils.error_wrapper(
+                f"""
+                The 'xy' type must have an even number of columns arranged
+                as x,y pairs or an x-index and one y data column.  You
+                supplied {len(tsd.columns)} columns.
+                """
             )
+        )
     colcnt = tsd.shape[1] // 2
 
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "xy"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    logx = bool(xaxis == "log")
-    logy = bool(yaxis == "log")
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
 
@@ -204,14 +204,8 @@ def xy(
         oxdata = np.array(ndf.iloc[:, 0])
         oydata = np.array(ndf.iloc[:, 1])
 
-        if icolors is not None:
-            c = next(icolors)
-        else:
-            c = None
-        if ilinestyles is not None:
-            ls = next(ilinestyles)
-        else:
-            ls = None
+        c = next(icolors) if icolors is not None else None
+        ls = next(ilinestyles) if ilinestyles is not None else None
         plotdict[(logx, logy)](
             oxdata,
             oydata,
@@ -227,7 +221,7 @@ def xy(
         if ylim is not None:
             ax.set_ylim(ylim)
 
-        if legend is True:
+        if legend:
             ax.legend(loc="best")
 
     if hlines_y is not None:
@@ -270,10 +264,7 @@ def xy(
         )
 
     if xy_match_line:
-        if isinstance(xy_match_line, str):
-            xymsty = xy_match_line
-        else:
-            xymsty = "g--"
+        xymsty = xy_match_line if isinstance(xy_match_line, str) else "g--"
         nxlim = ax.get_xlim()
         nylim = ax.get_ylim()
         maxt = max(nxlim[1], nylim[1])

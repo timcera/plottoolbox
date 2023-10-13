@@ -9,7 +9,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import gaussian_kde
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 

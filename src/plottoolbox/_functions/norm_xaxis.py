@@ -8,7 +8,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import FixedLocator
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 
@@ -191,7 +192,7 @@ def norm_xaxis(
         (False, False): ax.plot,
     }
 
-    ppf = tsutils.set_ppf(plottype.split("_")[0])
+    ppf = tsutils.set_ppf(plottype.split("_", maxsplit=1)[0])
     ys = tsd.iloc[:, :]
 
     for colindex in range(colcnt):

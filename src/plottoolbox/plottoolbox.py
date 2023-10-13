@@ -47,7 +47,8 @@ def _main():
     from cltoolbox.rst_text_formatter import (  # W: E402 module level import not at top of file
         RSTHelpFormatter,
     )
-    from toolbox_utils import tsutils
+
+    from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
     @cltoolbox.command("autocorrelation", formatter_class=RSTHelpFormatter)
     @tsutils.copy_doc(autocorrelation)
@@ -103,7 +104,7 @@ def _main():
             ylabel_rotation=ylabel_rotation,
             por=por,
             round_index=round_index,
-            dropna=dropna, 
+            dropna=dropna,
             source_units=source_units,
             target_units=target_units,
             plot_styles=plot_styles,
@@ -868,8 +869,6 @@ def _main():
             grid=grid,
             drawstyle=drawstyle,
             por=por,
-            invert_xaxis=invert_xaxis,
-            invert_yaxis=invert_yaxis,
             round_index=round_index,
             dropna=dropna,
             source_units=source_units,

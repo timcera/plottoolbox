@@ -7,7 +7,8 @@ from pathlib import Path
 import matplotlib
 import matplotlib.pyplot as plt
 from pandas.plotting import autocorrelation_plot
-from toolbox_utils import tsutils
+
+from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
 
@@ -127,7 +128,7 @@ def autocorrelation(
             pltfreq = str(tsd.index.freq, "utf-8").lower()
         except TypeError:
             pltfreq = str(tsd.index.freq).lower()
-        beginstr = 3 if pltfreq.split(" ")[0][1:] == "1" else 1
+        beginstr = 3 if pltfreq.split(" ", maxsplit=1)[0][1:] == "1" else 1
         short_freq = "" if pltfreq is None else f"({pltfreq[beginstr:-1]})"
     except AttributeError:
         short_freq = ""
