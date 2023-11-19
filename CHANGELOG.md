@@ -1,3 +1,9 @@
+## v104.4.0 (2023-11-18)
+
+### Feat
+
+- moved to toolbox_utils as a git submodule instead of a dependency
+
 ## v104.3.2 (2023-08-08)
 
 ## v104.3.1 (2023-07-24)
