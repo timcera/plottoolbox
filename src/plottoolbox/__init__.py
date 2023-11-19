@@ -1,6 +1,6 @@
 """Define plottoolbox package."""
 
-from toolbox_utils.tsutils import about as _about
+from plottoolbox.toolbox_utils.src.toolbox_utils.tsutils import about as _about
 
 from ._functions.autocorrelation import autocorrelation
 from ._functions.bar import bar
