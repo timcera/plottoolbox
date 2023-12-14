@@ -131,8 +131,8 @@ def hexbin(
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    logx = bool(xaxis == "log")
-    logy = bool(yaxis == "log")
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     loglog = logx and logy
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)

@@ -200,7 +200,7 @@ def time(
             tsd.columns[tsutils.make_iloc(tsd.columns, tsutils.make_list(secondary_y))]
         )
 
-    for line in range(len(tsd.columns)):
+    for _ in range(len(tsd.columns)):
         c = next(icolors) if icolors is not None else None
         m = next(imarkerstyles) if imarkerstyles is not None else None
         l = next(ilinestyles) if ilinestyles is not None else None

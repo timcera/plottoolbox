@@ -137,35 +137,28 @@ def double_mass(
         por=por,
     )
     # check dataframe
-    if tsd.shape[1] > 1:
-        if tsd.shape[1] % 2 != 0:
-            raise AttributeError(
-                tsutils.error_wrapper(
-                    """
-                    The 'double_mass' type must have an even number of columns
-                    arranged as x,y pairs or an x-index and one y data column.
-                    You supplied {len(tsd.columns)} columns.
-                    """
-                )
+    if tsd.shape[1] > 1 and tsd.shape[1] % 2 != 0:
+        raise AttributeError(
+            tsutils.error_wrapper(
+                """
+                The 'double_mass' type must have an even number of columns
+                arranged as x,y pairs or an x-index and one y data column.
+                You supplied {len(tsd.columns)} columns.
+                """
             )
+        )
     colcnt = tsd.shape[1] // 2
 
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "double_mass"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
 
@@ -209,11 +202,7 @@ def double_mass(
         oxdata = np.array(ndf.iloc[:, 0])
         oydata = np.array(ndf.iloc[:, 1])
 
-        if icolors is not None:
-            c = next(icolors)
-        else:
-            c = None
-
+        c = next(icolors) if icolors is not None else None
         plotdict[(logx, logy)](
             oxdata,
             oydata,
@@ -227,7 +216,7 @@ def double_mass(
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
 
-    if legend is True:
+    if legend:
         ax.legend(loc="best")
 
     xtitle = xtitle or f"Cumulative {tsd.columns[0]}"

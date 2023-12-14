@@ -4,11 +4,12 @@ Capture function
 
 """
 
+
 import sys
 
 try:
     from cStringIO import StringIO
-except:
+except Exception:
     from io import StringIO
 
 
@@ -18,6 +19,6 @@ def capture(func, *args, **kwds):
     out = sys.stdout.getvalue()  # release output
     try:
         out = bytes(out, "utf8")
-    except:
+    except Exception:
         pass
     return out

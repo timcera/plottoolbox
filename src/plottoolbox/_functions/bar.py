@@ -145,20 +145,14 @@ def bar(
 
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "bar"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
 
@@ -190,7 +184,7 @@ def bar(
     stacked = False
     kind = "bar"
     if icolors is not None:
-        c = [next(icolors) for i in range(len(tsd.columns))]
+        c = [next(icolors) for _ in range(len(tsd.columns))]
     else:
         c = None
     tsd.plot(
@@ -207,7 +201,7 @@ def bar(
         color=c,
     )
 
-    hatches = [next(ibar_hatchstyles) for i in range(len(tsd.columns))]
+    hatches = [next(ibar_hatchstyles) for _ in range(len(tsd.columns))]
     hatches = "".join(h * len(tsd.index) for h in hatches)
     for patch, hatch in zip(ax.patches, hatches):
         patch.set_hatch(hatch)
@@ -234,7 +228,7 @@ def bar(
         taxis.set_ticklabels(nticklabels)
         plt.setp(taxis.get_majorticklabels(), rotation=label_rotation)
 
-    if legend is True:
+    if legend:
         plt.legend(loc="best")
 
     if hlines_y is not None:

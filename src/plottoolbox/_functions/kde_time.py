@@ -152,20 +152,14 @@ def kde_time(
 
     # Need to work around some old option defaults with the implementation of
     # cltoolbox
-    legend = bool(legend == "" or legend == "True" or legend is None or legend is True)
+    legend = legend == "" or legend == "True" or legend is None or legend is True
     plottype = "kde_time"
     lnames = tsutils.make_list(legend_names)
     tsd, lnames = _plotutils.check_column_legend(plottype, tsd, lnames)
 
     # check axis scales
-    if xaxis == "log":
-        logx = True
-    else:
-        logx = False
-    if yaxis == "log":
-        logy = True
-    else:
-        logy = False
+    logx = xaxis == "log"
+    logy = yaxis == "log"
     xlim = _plotutils.know_your_limits(xlim, axis=xaxis)
     ylim = _plotutils.know_your_limits(ylim, axis=yaxis)
 
@@ -211,18 +205,9 @@ def kde_time(
         ax=ax1,
     )
     for _, line in enumerate(ax1.lines):
-        if icolors is not None:
-            c = next(icolors)
-        else:
-            c = None
-        if imarkerstyles is not None:
-            m = next(imarkerstyles)
-        else:
-            m = None
-        if ilinestyles is not None:
-            l = next(ilinestyles)
-        else:
-            l = None
+        c = next(icolors) if icolors is not None else None
+        m = next(imarkerstyles) if imarkerstyles is not None else None
+        l = next(ilinestyles) if ilinestyles is not None else None
         if c is not None:
             plt.setp(line, color=c)
         plt.setp(line, marker=m)
@@ -232,10 +217,7 @@ def kde_time(
     ny = np.linspace(ylimits[0], ylimits[1], 1000)
 
     # reset to beginning of iterator
-    if icolors is not None:
-        icolors = itertools.cycle(colors)
-    else:
-        icolors = None
+    icolors = itertools.cycle(colors) if icolors is not None else None
     imarkerstyles = itertools.cycle(markerstyles)
     ilinestyles = itertools.cycle(linestyles)
     for col in range(len(tsd.columns)):
