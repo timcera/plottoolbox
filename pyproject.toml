@@ -1,7 +1,7 @@
 [build-system]
 requires = [
-    "setuptools>=45",
-    "setuptools_scm[toml]>=6.2",
+    "setuptools>=60",
+    "setuptools_scm>=8.0",
     "wheel",
     "oldest-supported-numpy"
 ]
@@ -107,7 +107,7 @@ readme = {file = "README.rst"}
 version = {file = "VERSION"}
 
 [tool.setuptools.package-data]
-"SciencePlots.scienceplots" = ["**/*.mplstyle"]
+"plottoolbox.SciencePlots.scienceplots.styles" = ["**/*.mplstyle"]
 
 [tool.setuptools.packages.find]
 exclude = ["tests*", "docs*", "plottoolbox.tests*"]
