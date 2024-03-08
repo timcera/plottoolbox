@@ -1,6 +1,5 @@
 """Collection of functions for the manipulation of time series."""
 
-
 import itertools
 import warnings
 
@@ -26,9 +25,9 @@ ldocstrings[
             ignored and all data columns are plotted.  The "columns" keyword
             can be used to duplicate or change the order of all the data
             columns."""
-ldocstrings[
-    "yone"
-] = """Data must be organized as 'index,y1'.  Can only plot one series."""
+ldocstrings["yone"] = (
+    """Data must be organized as 'index,y1'.  Can only plot one series."""
+)
 ldocstrings[
     "ofilename"
 ] = """ofilename : str

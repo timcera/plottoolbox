@@ -4,7 +4,6 @@ Capture function
 
 """
 
-
 import sys
 
 try:
