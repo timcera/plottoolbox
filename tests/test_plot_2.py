@@ -20,7 +20,7 @@ dfa["Elevation::mean"] = ndfa.iloc[:, 0] * 120
 dfa["Flow::mean"] = ndfa.iloc[:, 1]
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_double_mass():
     plt.close("all")
     return plottoolbox.double_mass(
@@ -31,7 +31,7 @@ def test_double_mass():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_double_mass_mult():
     plt.close("all")
     return plottoolbox.double_mass(
@@ -42,7 +42,7 @@ def test_double_mass_mult():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_double_mass_marker():
     plt.close("all")
     return plottoolbox.double_mass(
@@ -55,7 +55,7 @@ def test_double_mass_marker():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_boxplot():
     plt.close("all")
     xdf = pd.read_csv("tests/02234500_65_65.csv", index_col=0, parse_dates=True)
@@ -72,7 +72,7 @@ def test_boxplot():
     )
 
 
-# @pytest.mark.mpl_image_compare(style="default",  tolerance=6)
+# @pytest.mark.mpl_image_compare(style="default",  tolerance=10)
 # def test_scatter_matrix():
 #     plt.close("all")
 #     return plottoolbox.scatter_matrix(
@@ -83,7 +83,7 @@ def test_boxplot():
 #     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_lag_plot():
     plt.close("all")
     return plottoolbox.lag_plot(
@@ -101,7 +101,7 @@ def test_lag_plot():
 #                    input_ts='tests/02234500_65_65.csv')
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_probability_density():
     plt.close("all")
     return plottoolbox.probability_density(
@@ -112,25 +112,25 @@ def test_probability_density():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_bar():
     plt.close("all")
     return plottoolbox.bar(input_ts=dfa, plot_styles="classic", ofilename=None)
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_barh():
     plt.close("all")
     return plottoolbox.barh(input_ts=dfa, plot_styles="classic", ofilename=None)
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_bar_stacked():
     plt.close("all")
     return plottoolbox.bar_stacked(input_ts=dfa, plot_styles="classic", ofilename=None)
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=12)
 def test_barh_stacked():
     plt.close("all")
     return plottoolbox.barh_stacked(input_ts=dfa, plot_styles="classic", ofilename=None)

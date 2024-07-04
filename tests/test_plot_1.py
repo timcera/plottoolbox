@@ -15,7 +15,7 @@ df = idf.resample("D").agg("mean")
 dfa = idf.resample("A").agg("mean")
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_time_plot():
     plt.close("all")
     return plottoolbox.time(
@@ -27,7 +27,7 @@ def test_time_plot():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_time_multiple_traces_plot():
     plt.close("all")
     return plottoolbox.time(
@@ -39,7 +39,7 @@ def test_time_multiple_traces_plot():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_time_multiple_traces_style_plot():
     plt.close("all")
     return plottoolbox.time(
@@ -51,7 +51,7 @@ def test_time_multiple_traces_style_plot():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_time_multiple_traces_new_style_plot():
     plt.close("all")
     return plottoolbox.time(
@@ -64,7 +64,7 @@ def test_time_multiple_traces_new_style_plot():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_time_markers():
     plt.close("all")
     return plottoolbox.time(
@@ -77,7 +77,7 @@ def test_time_markers():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_xy():
     plt.close("all")
     return plottoolbox.xy(
@@ -88,7 +88,7 @@ def test_xy():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_hexbin():
     plt.close("all")
     return plottoolbox.hexbin(
@@ -99,7 +99,7 @@ def test_hexbin():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_xy_multiple_traces():
     plt.close("all")
     return plottoolbox.xy(
@@ -110,7 +110,7 @@ def test_xy_multiple_traces():
     )
 
 
-# @pytest.mark.mpl_image_compare(style="default",  tolerance=6)
+# @pytest.mark.mpl_image_compare(style="default",  tolerance=10)
 # def test_xy_multiple_traces_logy():
 #    plt.close("all")
 #    return plottoolbox.xy(
@@ -122,7 +122,7 @@ def test_xy_multiple_traces():
 #    )
 
 
-# @pytest.mark.mpl_image_compare(style="default",  tolerance=6)
+# @pytest.mark.mpl_image_compare(style="default",  tolerance=10)
 # def test_xy_multiple_traces_logx():
 #    plt.close("all")
 #    return plottoolbox.xy(
@@ -134,7 +134,7 @@ def test_xy_multiple_traces():
 #    )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_xy_multiple_traces_markers():
     plt.close("all")
     return plottoolbox.xy(

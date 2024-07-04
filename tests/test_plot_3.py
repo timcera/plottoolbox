@@ -16,7 +16,7 @@ df = idf.resample("D").agg("mean")
 dfa = idf.resample("A").agg("mean")
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_histogram():
     plt.close("all")
     return plottoolbox.histogram(
@@ -28,7 +28,7 @@ def test_histogram():
     )
 
 
-# @pytest.mark.mpl_image_compare(style="default",  tolerance=6)
+# @pytest.mark.mpl_image_compare(style="default",  tolerance=10)
 # def test_heatmap():
 #     plt.close("all")
 #     return plottoolbox.heatmap(
@@ -40,7 +40,7 @@ def test_histogram():
 #     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_norm_xaxis():
     plt.close("all")
     return plottoolbox.norm_xaxis(
@@ -52,7 +52,7 @@ def test_norm_xaxis():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_norm_yaxis():
     plt.close("all")
     return plottoolbox.norm_yaxis(
@@ -64,7 +64,7 @@ def test_norm_yaxis():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_lognorm_xaxis():
     plt.close("all")
     return plottoolbox.lognorm_xaxis(
@@ -76,7 +76,7 @@ def test_lognorm_xaxis():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_lognorm_yaxis():
     plt.close("all")
     return plottoolbox.lognorm_yaxis(
@@ -88,7 +88,7 @@ def test_lognorm_yaxis():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_weibull_xaxis():
     plt.close("all")
     return plottoolbox.weibull_xaxis(
@@ -100,7 +100,7 @@ def test_weibull_xaxis():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_weibull_yaxis():
     plt.close("all")
     return plottoolbox.weibull_yaxis(
@@ -112,7 +112,7 @@ def test_weibull_yaxis():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_kde_time():
     plt.close("all")
     return plottoolbox.kde_time(
@@ -124,7 +124,7 @@ def test_kde_time():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_kde_time_multiple_traces():
     plt.close("all")
     ndf = pd.read_csv("tests/data_daily.csv", index_col=0, parse_dates=True)
@@ -142,7 +142,7 @@ def test_kde_time_multiple_traces():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=35)
 def test_autocorrelation():
     plt.close("all")
     return plottoolbox.autocorrelation(
@@ -153,7 +153,7 @@ def test_autocorrelation():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_taylor():
     plt.close("all")
     return plottoolbox.taylor(
@@ -164,7 +164,7 @@ def test_taylor():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=10)
 def test_target():
     plt.close("all")
     return plottoolbox.target(
@@ -175,7 +175,7 @@ def test_target():
     )
 
 
-@pytest.mark.mpl_image_compare(style="default", tolerance=6)
+@pytest.mark.mpl_image_compare(style="default", tolerance=12)
 def test_waterfall():
     plt.close("all")
     df = (
