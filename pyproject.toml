@@ -2,7 +2,6 @@
 requires = [
     "setuptools>=60",
     "setuptools_scm>=8.0",
-    "wheel",
     "oldest-supported-numpy"
 ]
 build-backend = "setuptools.build_meta"
@@ -55,26 +54,6 @@ keywords = [
     "filter"
 ]
 
-[project.optional-dependencies]
-dev = [
-    "black",
-    "cleanpy",
-    "twine",
-    "pytest",
-    "coverage",
-    "flake8",
-    "pytest-cov",
-    "pytest-mpl",
-    "pre-commit",
-    "black-nbconvert",
-    "blacken-docs",
-    "velin",
-    "isort",
-    "pyroma",
-    "pyupgrade",
-    "commitizen"
-]
-
 [project.scripts]
 plottoolbox = "plottoolbox.plottoolbox:_main"
 
@@ -96,9 +75,6 @@ extend-exclude = '''
 )
 '''
 
-[tool.check-manifest]
-ignore = [".travis.yml", "docs/_function_autosummary/*"]
-
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "v$version"
@@ -108,6 +84,9 @@ version_files = ["VERSION"]
 
 [tool.isort]
 profile = "black"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.setuptools]
 license-files = ["LICENSE.txt"]
@@ -121,7 +100,6 @@ version = {file = "VERSION"}
 "plottoolbox.SciencePlots.scienceplots.styles" = ["**/*.mplstyle"]
 
 [tool.setuptools.packages.find]
-exclude = ["tests*", "docs*", "plottoolbox.tests*"]
 namespaces = true
 where = ["src"]
 
