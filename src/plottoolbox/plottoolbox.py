@@ -3,7 +3,36 @@
 import os.path as _osp
 import sys as _sys
 
-from . import *
+from . import (
+    autocorrelation,
+    bar,
+    bar_stacked,
+    barh,
+    barh_stacked,
+    bootstrap,
+    boxplot,
+    double_mass,
+    handh,
+    heatmap,
+    hexbin,
+    histogram,
+    kde,
+    kde_time,
+    lag_plot,
+    lognorm_xaxis,
+    lognorm_yaxis,
+    norm_xaxis,
+    norm_yaxis,
+    probability_density,
+    scatter_matrix,
+    target,
+    taylor,
+    time,
+    waterfall,
+    weibull_xaxis,
+    weibull_yaxis,
+    xy,
+)
 
 __all__ = [
     "autocorrelation",

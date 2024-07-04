@@ -5,7 +5,7 @@ import warnings
 from pathlib import Path
 
 import matplotlib
-import pandas as pd
+import pandas as pd  # noqa: F401
 
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
@@ -13,7 +13,7 @@ from .. import _plotutils
 from ..waterfall_ax import waterfall_ax
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
-import scienceplots
+import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
@@ -199,7 +199,7 @@ def waterfall(
         last_step_label=last_step_label,
     )
 
-    ax = wf.plot_waterfall(
+    ax = wf.plot_waterfall(  # noqa: F841
         title="Change Styles and Labels",
         bar_labels=bar_labels,
         bar_kwargs=bar_kwargs,

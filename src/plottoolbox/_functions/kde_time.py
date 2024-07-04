@@ -15,7 +15,7 @@ from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 from .. import _plotutils
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
-import scienceplots
+import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
 
@@ -207,7 +207,7 @@ def kde_time(
     for _, line in enumerate(ax1.lines):
         c = next(icolors) if icolors is not None else None
         m = next(imarkerstyles) if imarkerstyles is not None else None
-        l = next(ilinestyles) if ilinestyles is not None else None
+        l = next(ilinestyles) if ilinestyles is not None else None  # noqa: E741
         if c is not None:
             plt.setp(line, color=c)
         plt.setp(line, marker=m)

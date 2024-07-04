@@ -13,7 +13,7 @@ from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 from .. import _plotutils
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
-import scienceplots
+import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
 warnings.filterwarnings("ignore")
@@ -202,10 +202,10 @@ def time(
 
     for _ in range(len(tsd.columns)):
         c = next(icolors) if icolors is not None else None
-        m = next(imarkerstyles) if imarkerstyles is not None else None
-        l = next(ilinestyles) if ilinestyles is not None else None
+        m = next(imarkerstyles) if imarkerstyles is not None else None  # noqa: F841
+        l = next(ilinestyles) if ilinestyles is not None else None  # noqa: E741, F841
 
-    ax = tsd.plot(
+    ax = tsd.plot(  # noqa: F841
         kind="line",
         legend=legend,
         subplots=subplots,

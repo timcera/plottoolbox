@@ -12,9 +12,7 @@ from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 warnings.filterwarnings("ignore")
 
 ldocstrings = tsutils.docstrings
-ldocstrings[
-    "xydata"
-] = """If the input 'x,y' dataset(s) is organized as
+ldocstrings["xydata"] = """If the input 'x,y' dataset(s) is organized as
             'index,x1,y1,x2,y2,x3,y3,...,xN,yN' then the 'index' is ignored.
             If there is one 'x,y' dataset then it can be organized as 'index,y'
             where 'index' is used for 'x'.  The "columns" keyword can be used
@@ -28,9 +26,7 @@ ldocstrings[
 ldocstrings["yone"] = (
     """Data must be organized as 'index,y1'.  Can only plot one series."""
 )
-ldocstrings[
-    "ofilename"
-] = """ofilename : str
+ldocstrings["ofilename"] = """ofilename : str
         [optional, defaults to 'plot.png']
 
         Output filename for the plot.  Extension defines
@@ -39,51 +35,35 @@ ldocstrings[
         If used within Python, and `ofilename` is None will return the
         Matplotlib figure that can then be changed or added to as
         needed."""
-ldocstrings[
-    "xtitle"
-] = """xtitle : str
+ldocstrings["xtitle"] = """xtitle : str
         [optional, default depends on type]
 
         Title of x-axis."""
-ldocstrings[
-    "ytitle"
-] = """ytitle : str
+ldocstrings["ytitle"] = """ytitle : str
         [optional, default depends on type]
 
         Title of y-axis."""
-ldocstrings[
-    "title"
-] = """title : str
+ldocstrings["title"] = """title : str
         [optional, defaults to '']
 
         Title of chart."""
-ldocstrings[
-    "figsize"
-] = """figsize : str
+ldocstrings["figsize"] = """figsize : str
         [optional, defaults to '10,6.5']
 
         The 'width,height' of plot in inches."""
-ldocstrings[
-    "subplots"
-] = """subplots
+ldocstrings["subplots"] = """subplots
         [optional, defaults to False]
 
         Make separate subplots for each time series."""
-ldocstrings[
-    "sharex"
-] = """sharex
+ldocstrings["sharex"] = """sharex
         [optional, default to True]
 
         In case subplots=True, share x axis."""
-ldocstrings[
-    "sharey"
-] = """sharey
+ldocstrings["sharey"] = """sharey
         [optional, default to False]
 
         In case subplots=True, share y axis."""
-ldocstrings[
-    "colors"
-] = """colors
+ldocstrings["colors"] = """colors
         [optional, default is 'auto']
 
         The default 'auto' will cycle through matplotlib colors in the chosen
@@ -100,23 +80,23 @@ ldocstrings[
         2. Single character code from the table
         below.
 
-            +------+---------+
-            | Code | Color   |
-            +======+=========+
-            | b    | blue    |
-            +------+---------+
-            | g    | green   |
-            +------+---------+
-            | r    | red     |
-            +------+---------+
-            | c    | cyan    |
-            +------+---------+
-            | m    | magenta |
-            +------+---------+
-            | y    | yellow  |
-            +------+---------+
-            | k    | black   |
-            +------+---------+
+        +------+---------+
+        | Code | Color   |
+        +======+=========+
+        | b    | blue    |
+        +------+---------+
+        | g    | green   |
+        +------+---------+
+        | r    | red     |
+        +------+---------+
+        | c    | cyan    |
+        +------+---------+
+        | m    | magenta |
+        +------+---------+
+        | y    | yellow  |
+        +------+---------+
+        | k    | black   |
+        +------+---------+
 
         3. Number between 0 and 1 that represents the level of gray, where 0 is
         white an 1 is black.
@@ -124,23 +104,21 @@ ldocstrings[
         4. Any of the HTML color
         names.
 
-            +------------------+
-            | HTML Color Names |
-            +==================+
-            | red              |
-            +------------------+
-            | burlywood        |
-            +------------------+
-            | chartreuse       |
-            +------------------+
-            | ...etc.          |
-            +------------------+
+        +------------------+
+        | HTML Color Names |
+        +==================+
+        | red              |
+        +------------------+
+        | burlywood        |
+        +------------------+
+        | chartreuse       |
+        +------------------+
+        | ...etc.          |
+        +------------------+
 
         Color reference:
         http://matplotlib.org/api/colors_api.html"""
-ldocstrings[
-    "linestyles"
-] = """linestyles
+ldocstrings["linestyles"] = """linestyles
         [optional, default to 'auto']
 
         If 'auto' will iterate through the available matplotlib line types.
@@ -172,9 +150,7 @@ ldocstrings[
 
         Line reference:
         http://matplotlib.org/api/artist_api.html"""
-ldocstrings[
-    "markerstyles"
-] = """markerstyles
+ldocstrings["markerstyles"] = """markerstyles
         [optional, default to ' ']
 
         The default ' ' will not plot a marker.  If 'auto' will iterate through
@@ -238,9 +214,7 @@ ldocstrings[
 
         Marker reference:
         http://matplotlib.org/api/markers_api.html"""
-ldocstrings[
-    "style"
-] = """style
+ldocstrings["style"] = """style
         [optional, default is None]
 
         Still available, but if None is replaced by 'colors', 'linestyles', and
@@ -250,25 +224,19 @@ ldocstrings[
         Comma separated matplotlib style strings per time-series.  Just
         combine codes in 'ColorMarkerLine' order, for example 'r*--' is
         a red dashed line with star marker."""
-ldocstrings[
-    "xlim"
-] = """xlim
+ldocstrings["xlim"] = """xlim
         [optional, default is based on range of x values]
 
         Comma separated lower and upper limits for the x-axis of the
         plot.  For example, '--xlim 1,1000' would limit the plot from
         1 to 1000, where '--xlim ,1000' would base the lower limit on
         the data and set the upper limit to 1000."""
-ldocstrings[
-    "ylim"
-] = """ylim
+ldocstrings["ylim"] = """ylim
         [optional, default is based on range of y values]
 
         Comma separated lower and upper limits for the y-axis of the
         plot.  See `xlim` for examples."""
-ldocstrings[
-    "secondary"
-] = """[optional, default is False]
+ldocstrings["secondary"] = """[optional, default is False]
 
         * list/tuple: Give the column numbers or names to plot on secondary
           y-axis.
@@ -282,58 +250,40 @@ ldocstrings[
           will be do the inverse.  Python API only.
         * string: One of pre-built (callable, callable) combinations.  Can be
           one of "period"."""
-ldocstrings[
-    "mark_right"
-] = """mark_right
+ldocstrings["mark_right"] = """mark_right
         [optional, default is True]
 
         When using a secondary_y axis, should the legend label the axis of the
         various time-series automatically."""
-ldocstrings[
-    "grid"
-] = """grid
+ldocstrings["grid"] = """grid
         [optional, default is False]
 
         Whether to plot grid lines on the major ticks."""
-ldocstrings[
-    "label_rotation"
-] = """label_rotation : int
+ldocstrings["label_rotation"] = """label_rotation : int
         [optional]
 
         Rotation for major labels for bar plots."""
-ldocstrings[
-    "label_skip"
-] = """label_skip : int
+ldocstrings["label_skip"] = """label_skip : int
         [optional]
 
         Skip for major labels for bar plots."""
-ldocstrings[
-    "xlabel_rotation"
-] = """xlabel_rotation : int
+ldocstrings["xlabel_rotation"] = """xlabel_rotation : int
         [optional]
 
         Rotation for major x-axis labels for plots."""
-ldocstrings[
-    "xlabel_skip"
-] = """xlabel_skip : int
+ldocstrings["xlabel_skip"] = """xlabel_skip : int
         [optional]
 
         Skip for major x-axis labels for plots."""
-ldocstrings[
-    "ylabel_rotation"
-] = """ylabel_rotation : int
+ldocstrings["ylabel_rotation"] = """ylabel_rotation : int
         [optional]
 
         Rotation for major y-axis labels for plots."""
-ldocstrings[
-    "ylabel_skip"
-] = """ylabel_skip : int
+ldocstrings["ylabel_skip"] = """ylabel_skip : int
         [optional]
 
         Skip for major y-axis labels for plots."""
-ldocstrings[
-    "drawstyle"
-] = """drawstyle : str
+ldocstrings["drawstyle"] = """drawstyle : str
         [optional, default is 'default']
 
         'default' connects the points with lines. The
@@ -343,16 +293,12 @@ ldocstrings[
         ACCEPTS::
 
          ['default' | 'steps' | 'steps-pre' | 'steps-mid' | 'steps-post']"""
-ldocstrings[
-    "por"
-] = """por
+ldocstrings["por"] = """por
         [optional]
 
         Plot from first good value to last good value.  Strips NANs
         from beginning and end."""
-ldocstrings[
-    "plot_styles"
-] = """plot_styles: str
+ldocstrings["plot_styles"] = """plot_styles: str
         [optional, default is "default"]
 
         Set the style of the plot.  One or more of Matplotlib styles "classic",
@@ -393,111 +339,85 @@ ldocstrings[
         white, nd gray.
 
         Matplotlib styles:
-            https://matplotlib.org/3.3.1/gallery/style_sheets/style_sheets_reference.html
+        https://matplotlib.org/3.3.1/gallery/style_sheets/style_sheets_reference.html
 
         SciencePlots styles:
-            https://github.com/garrettj403/SciencePlots"""
-ldocstrings[
-    "legend"
-] = """legend: bool
+        https://github.com/garrettj403/SciencePlots"""
+ldocstrings["legend"] = """legend: bool
         [optional, default is True]
 
         Whether to create a legend or not."""
-ldocstrings[
-    "legend_names"
-] = """legend_names:
+ldocstrings["legend_names"] = """legend_names:
         [optional, default is None]
 
         If the default of None will take legend names from columns tiles in the
         input dataset.  Otherwise will take names from the `legend_names`
         list."""
-ldocstrings[
-    "hlines_y"
-] = """hlines_y:
+ldocstrings["hlines_y"] = """hlines_y:
         [optional, defaults to None]
 
         Number or list of y values where to place a horizontal line."""
-ldocstrings[
-    "hlines_xmin"
-] = """hlines_xmin:
+ldocstrings["hlines_xmin"] = """hlines_xmin:
         [optional, defaults to None]
 
         List of minimum x values to start the horizontal line.  If a list must
         be same length as `hlines_y`.  If a single number will be used as the
         minimum x values for all horizontal lines.  A missing value or None
         will start at the minimum x value for the entire plot."""
-ldocstrings[
-    "hlines_xmax"
-] = """hlines_xmax:
+ldocstrings["hlines_xmax"] = """hlines_xmax:
         [optional, defaults to None]
 
         List of maximum x values to end each horizontal line.  If a list must
         be same length as `hlines_y`.  If a single number will be the maximum
         x value for all horizontal lines.  A missing value or None will end at
         the maximum x value for the entire plot."""
-ldocstrings[
-    "hlines_colors"
-] = """hlines_colors:
+ldocstrings["hlines_colors"] = """hlines_colors:
         [optional, defaults to None]
 
         List of colors for the horizontal lines.  If a single color then will
         be used as the color for all horizontal lines.  If a list must be same
         length as `hlines_y`.  If None will take from the color pallette in the
         current plot style."""
-ldocstrings[
-    "hlines_linestyles"
-] = """hlines_linestyles:
+ldocstrings["hlines_linestyles"] = """hlines_linestyles:
         [optional, defaults to None]
 
         List of linestyles for the horizontal lines.  If a single linestyle
         then will be used as the linestyle for all horizontal lines.  If a list
         must be same length as `hlines_y`.  If None will take for the standard
         linestyles list."""
-ldocstrings[
-    "vlines_x"
-] = """vlines_x:
+ldocstrings["vlines_x"] = """vlines_x:
         [optional, defaults to None]
 
         List of x values where to place a vertical line."""
-ldocstrings[
-    "vlines_ymin"
-] = """vlines_ymin:
+ldocstrings["vlines_ymin"] = """vlines_ymin:
         [optional, defaults to None]
 
         List of minimum y values to start the vertical line.  If a list must be
         same length as `vlines_x`.  If a single number will be used as the
         minimum x values for all vertical lines.  A missing value or None will
         start at the minimum x value for the entire plot."""
-ldocstrings[
-    "vlines_ymax"
-] = """vlines_ymax:
+ldocstrings["vlines_ymax"] = """vlines_ymax:
         [optional, defaults to None]
 
         List of maximum x values to end each vertical line.  If a list must be
         same length as `vlines_x`.  If a single number will be the maximum
         x value for all vertical lines.  A missing value or None will end at
         the maximum x value for the entire plot."""
-ldocstrings[
-    "vlines_colors"
-] = """vlines_colors:
+ldocstrings["vlines_colors"] = """vlines_colors:
         [optional, defaults to None]
 
         List of colors for the vertical lines.  If a single color then will be
         used as the color for all vertical lines.  If a list must be same
         length as `vlines_x`.  If None will take from the color pallette in the
         current plot style."""
-ldocstrings[
-    "vlines_linestyles"
-] = """vlines_linestyles:
+ldocstrings["vlines_linestyles"] = """vlines_linestyles:
         [optional, defaults to None]
 
         List of linestyles for the vertical lines.  If a single linestyle then
         will be used as the linestyle for all vertical lines.  If a list must
         be same length as `vlines_x`.  If None will take for the standard
         linestyles list."""
-ldocstrings[
-    "bar_hatchstyles"
-] = r"""bar_hatchstyles
+ldocstrings["bar_hatchstyles"] = r"""bar_hatchstyles
         [optional, default to "auto", only used if type equal to "bar", "barh",
         "bar_stacked", and "barh_stacked"]
 
@@ -528,49 +448,35 @@ ldocstrings[
         +-----------------+-------------------+
         | ``*``           | stars             |
         +-----------------+-------------------+"""
-ldocstrings[
-    "xaxis"
-] = """xaxis : str
+ldocstrings["xaxis"] = """xaxis : str
         [optional, default is 'arithmetic']
 
         Defines the type of the xaxis.  One of 'arithmetic', 'log'."""
-ldocstrings[
-    "yaxis"
-] = """yaxis : str
+ldocstrings["yaxis"] = """yaxis : str
         [optional, default is 'arithmetic']
 
         Defines the type of the yaxis.  One of 'arithmetic', 'log'."""
-ldocstrings[
-    "invert_xaxis"
-] = """invert_xaxis
+ldocstrings["invert_xaxis"] = """invert_xaxis
         [optional, default is False]
 
         Invert the x-axis."""
-ldocstrings[
-    "invert_yaxis"
-] = """invert_yaxis
+ldocstrings["invert_yaxis"] = """invert_yaxis
         [optional, default is False]
 
         Invert the y-axis."""
-ldocstrings[
-    "mark_right"
-] = """mark_right
+ldocstrings["mark_right"] = """mark_right
         [optional, default is True]
 
         When using a secondary_y axis, should the legend label the axis of the
         various time-series automatically."""
-ldocstrings[
-    "plotting_position"
-] = f"""plotting_position : str
+ldocstrings["plotting_position"] = f"""plotting_position : str
         [optional, default is 'weibull']
 
         {tsutils.docstrings["plotting_position_table"]}
 
         Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
         lognorm_yaxis, weibull_xaxis, and weibull_yaxis."""
-ldocstrings[
-    "prob_plot_sort_values"
-] = """prob_plot_sort_values : str
+ldocstrings["prob_plot_sort_values"] = """prob_plot_sort_values : str
         [optional, default is 'descending']
 
         How to sort the values for the probability plots.

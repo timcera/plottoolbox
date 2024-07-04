@@ -2,6 +2,7 @@ import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import pandas as pd
 from matplotlib import gridspec
 
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
@@ -9,7 +10,7 @@ from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 from .. import _plotutils
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
-import scienceplots
+import scienceplots  # noqa: F401
 
 
 @tsutils.doc(_plotutils.ldocstrings)
@@ -194,7 +195,7 @@ def handh(
     ax.tick_params(axis="y", colors="b")
     ax.xaxis.grid(b=True, which="major", color=".7", linestyle="-")
     ax.yaxis.grid(b=True, which="major", color=".7", linestyle="-")
-    ax.set_ylim(0, max(sQ) * 1.2)
+    ax.set_ylim(0, max(tsd[0]) * 1.2)
 
     # PRECIPITATION/HYETOGRAPH CHART
     ax2 = plt.subplot(gs[0])

@@ -1,8 +1,6 @@
 """Collection of functions for the manipulation of time series."""
 
-import sys
 import warnings
-from pathlib import Path
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -10,10 +8,7 @@ import matplotlib.pyplot as plt
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
-from ..SciencePlots import scienceplots
-
-sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
-import scienceplots
+from ..SciencePlots import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
 
@@ -193,7 +188,7 @@ def kde(
     for line in ax.lines:
         c = next(icolors) if icolors is not None else None
         m = next(imarkerstyles) if imarkerstyles is not None else None
-        l = next(ilinestyles) if ilinestyles is not None else None
+        l = next(ilinestyles) if ilinestyles is not None else None  # noqa: E741
         if c is not None:
             plt.setp(line, color=c)
         plt.setp(line, marker=m)

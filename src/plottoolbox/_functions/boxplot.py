@@ -12,7 +12,7 @@ from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 from .. import _plotutils
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
-import scienceplots
+import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
 

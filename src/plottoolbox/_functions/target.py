@@ -14,7 +14,7 @@ from .. import _plotutils
 from ..SkillMetrics import skill_metrics as sm
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
-import scienceplots
+import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
 
