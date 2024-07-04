@@ -39,7 +39,13 @@ jobs:
                   python -m pip install pytest pytest-cov pytest-mpl
                   python -m pip install -e .
 
-            - name: Test with pytest
+            - name: Test with pytest for 3.8
+              if: ${{ matrix.python-version == '3.8' }}
+              run: |
+                  python -m pytest --cov
+
+            - name: Test with pytest for greater than 3.8
+              if: ${{ matrix.python-version != '3.8' }}
               run: |
                   python -m pytest --cov --mpl
 
