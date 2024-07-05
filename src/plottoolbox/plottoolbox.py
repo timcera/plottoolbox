@@ -4,6 +4,7 @@ import os.path as _osp
 import sys as _sys
 
 from . import (
+    about,
     autocorrelation,
     bar,
     bar_stacked,
@@ -35,6 +36,7 @@ from . import (
 )
 
 __all__ = [
+    "about",
     "autocorrelation",
     "bar",
     "bar_stacked",
@@ -78,6 +80,14 @@ def _main():
     )
 
     from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
+
+    @cltoolbox.command("about", formatter_class=RSTHelpFormatter)
+    @tsutils.copy_doc(about)
+    def about_cli():
+        """docstring replaced by tsutils.copy_doc"""
+        import pprint
+
+        pprint.pprint(tsutils.about(__name__))
 
     @cltoolbox.command("autocorrelation", formatter_class=RSTHelpFormatter)
     @tsutils.copy_doc(autocorrelation)
@@ -2616,11 +2626,6 @@ def _main():
             vlines_colors=vlines_colors,
             vlines_linestyles=vlines_linestyles,
         )
-
-    @cltoolbox.command()
-    def about():
-        """Display version number and system information."""
-        tsutils.about(__name__)
 
     cltoolbox.main()
 
