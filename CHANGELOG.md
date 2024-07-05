@@ -1,3 +1,10 @@
+## v105.0.3 (2024-07-04)
+
+### Fix
+
+- another try to get python 3.8 through 3.12 working
+- shift to black color for default
+
 ## v105.0.2 (2024-03-31)
 
 ## v105.0.1 (2024-03-30)
