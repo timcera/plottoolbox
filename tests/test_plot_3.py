@@ -182,7 +182,7 @@ def test_waterfall():
         pd.read_csv(
             "tests/02234500_65_65.csv", index_col=0, parse_dates=True, usecols=[0, 1]
         )
-        .resample("YE")
+        .resample("A")
         .agg("mean")
     )
     return plottoolbox.waterfall(

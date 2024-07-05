@@ -219,7 +219,7 @@ def time(
         mark_right=mark_right,
         figsize=figsize,
         drawstyle=drawstyle,
-        color=c,
+        color="" if c is None else c,
     )
     xtitle = xtitle or "Time"
     plt.xlabel(xtitle)
