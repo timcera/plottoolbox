@@ -205,21 +205,39 @@ def time(
         m = next(imarkerstyles) if imarkerstyles is not None else None  # noqa: F841
         l = next(ilinestyles) if ilinestyles is not None else None  # noqa: E741, F841
 
-    ax = tsd.plot(  # noqa: F841
-        kind="line",
-        legend=legend,
-        subplots=subplots,
-        sharex=sharex,
-        sharey=sharey,
-        logx=logx,
-        logy=logy,
-        xlim=xlim,
-        ylim=ylim,
-        secondary_y=secondary_y,
-        mark_right=mark_right,
-        figsize=figsize,
-        drawstyle=drawstyle,
-        color="black" if c is None else c,
+    _ = (
+        tsd.plot(
+            kind="line",
+            legend=legend,
+            subplots=subplots,
+            sharex=sharex,
+            sharey=sharey,
+            logx=logx,
+            logy=logy,
+            xlim=xlim,
+            ylim=ylim,
+            secondary_y=secondary_y,
+            mark_right=mark_right,
+            figsize=figsize,
+            drawstyle=drawstyle,
+        )
+        if c is None
+        else tsd.plot(
+            kind="line",
+            legend=legend,
+            subplots=subplots,
+            sharex=sharex,
+            sharey=sharey,
+            logx=logx,
+            logy=logy,
+            xlim=xlim,
+            ylim=ylim,
+            secondary_y=secondary_y,
+            mark_right=mark_right,
+            figsize=figsize,
+            drawstyle=drawstyle,
+            color=c,
+        )
     )
     xtitle = xtitle or "Time"
     plt.xlabel(xtitle)
