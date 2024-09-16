@@ -1,7 +1,5 @@
 """Define plottoolbox package."""
 
-from plottoolbox.toolbox_utils.src.toolbox_utils.tsutils import about as _about
-
 from ._functions.autocorrelation import autocorrelation
 from ._functions.bar import bar
 from ._functions.bar_stacked import bar_stacked
@@ -30,6 +28,7 @@ from ._functions.waterfall import waterfall
 from ._functions.weibull_xaxis import weibull_xaxis
 from ._functions.weibull_yaxis import weibull_yaxis
 from ._functions.xy import xy
+from .toolbox_utils.src.toolbox_utils.tsutils import about as _about
 
 
 def about():
