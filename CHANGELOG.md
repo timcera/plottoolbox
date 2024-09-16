@@ -1,3 +1,13 @@
+## v105.1.0 (2024-09-15)
+
+### Fix
+
+- fixed import of toolbox_utils
+
+### Feat
+
+- reimplement about function and command line
+
 ## v105.0.3 (2024-07-04)
 
 ### Fix

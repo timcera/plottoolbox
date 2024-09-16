@@ -79,7 +79,7 @@ extend-exclude = '''
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
-version = "105.0.3"
+version = "105.1.0"
 version_files = ["VERSION"]
 
 [tool.isort]
