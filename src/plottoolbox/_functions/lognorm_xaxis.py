@@ -106,6 +106,7 @@ def lognorm_xaxis(
     ${invert_xaxis}
     ${invert_yaxis}
     ${round_index}
+    ${dropna}
     ${plotting_position}
     ${prob_plot_sort_values}
     ${source_units}
