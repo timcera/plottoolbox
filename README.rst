@@ -18,11 +18,6 @@
     :target: https://pypi.python.org/pypi/plottoolbox/
     :height: 20
 
-.. image:: https://img.shields.io/pypi/dd/plottoolbox.svg
-    :alt: plottoolbox downloads
-    :target: https://pypi.python.org/pypi/plottoolbox/
-    :height: 20
-
 .. image:: https://img.shields.io/pypi/pyversions/plottoolbox
     :alt: PyPI - Python Version
     :target: https://pypi.org/project/plottoolbox/
