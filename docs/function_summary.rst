@@ -6,6 +6,7 @@ Python API Function Summary
 .. autosummary::
     :toctree: _function_autosummary
 
+    plottoolbox.plottoolbox.about
     plottoolbox.plottoolbox.autocorrelation
     plottoolbox.plottoolbox.bar
     plottoolbox.plottoolbox.barh

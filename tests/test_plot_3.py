@@ -7,13 +7,14 @@ import pytest
 
 from plottoolbox import plottoolbox
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
+from plottoolbox.toolbox_utils.src.toolbox_utils.utils import pandas_offset_by_version
 
 # Pull this in once.
 idf = tsutils.common_kwds(input_tsd="tests/02234500_65_65.csv", clean=True)
 
 df = idf.resample("D").agg("mean")
 
-dfa = idf.resample("A").agg("mean")
+dfa = idf.resample(pandas_offset_by_version("YE")).agg("mean")
 
 
 @pytest.mark.mpl_image_compare(style="default", tolerance=10)
@@ -182,7 +183,7 @@ def test_waterfall():
         pd.read_csv(
             "tests/02234500_65_65.csv", index_col=0, parse_dates=True, usecols=[0, 1]
         )
-        .resample("A")
+        .resample(pandas_offset_by_version("YE"))
         .agg("mean")
     )
     return plottoolbox.waterfall(
