@@ -65,7 +65,8 @@ def kde(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Kernel density estimation of probability density function.
+    """
+    [N columns] Kernel density estimation of probability density function.
 
     "kde" will create a plot of estimation of the probability density function
     based on the data called kernel density estimation (KDE).

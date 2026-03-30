@@ -69,7 +69,8 @@ def norm_yaxis(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Normal y-axis.
+    """
+    [N columns] Normal y-axis.
 
     "norm_yaxis" will sort, calculate probabilities, and plot data against an
     y axis normal distribution.

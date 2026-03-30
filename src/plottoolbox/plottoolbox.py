@@ -73,15 +73,16 @@ def _main():
     if not _osp.exists("debug_plottoolbox"):
         _sys.tracebacklimit = 0
 
+    from argparse import (  # W: E402 module level import not at top of file
+        RawTextHelpFormatter,
+    )
+
     import cltoolbox
     import numpy as np
-    from cltoolbox.rst_text_formatter import (  # W: E402 module level import not at top of file
-        RSTHelpFormatter,
-    )
 
     from .toolbox_utils.src.toolbox_utils import tsutils
 
-    @cltoolbox.command("about", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("about", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(about)
     def about_cli():
         """docstring replaced by tsutils.copy_doc"""
@@ -89,7 +90,7 @@ def _main():
 
         pprint.pprint(tsutils.about(__name__))
 
-    @cltoolbox.command("autocorrelation", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("autocorrelation", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(autocorrelation)
     def autocorrelation_cli(
         input_ts="-",
@@ -149,7 +150,7 @@ def _main():
             plot_styles=plot_styles,
         )
 
-    @cltoolbox.command("bar", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("bar", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(bar)
     def bar_cli(
         input_ts="-",
@@ -249,7 +250,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("bar_stacked", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("bar_stacked", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(bar_stacked)
     def bar_stacked_cli(
         input_ts="-",
@@ -349,7 +350,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("barh", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("barh", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(barh)
     def barh_cli(
         input_ts="-",
@@ -449,7 +450,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("barh_stacked", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("barh_stacked", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(barh_stacked)
     def barh_stacked_cli(
         input_ts="-",
@@ -549,7 +550,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("bootstrap", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("bootstrap", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(bootstrap)
     def bootstrap_cli(
         input_ts="-",
@@ -637,7 +638,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("boxplot", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("boxplot", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(boxplot)
     def boxplot_cli(
         input_ts="-",
@@ -729,7 +730,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("double_mass", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("double_mass", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(double_mass)
     def double_mass_cli(
         input_ts="-",
@@ -823,7 +824,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("handh", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("handh", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(handh)
     def handh_cli(
         input_ts="-",
@@ -925,7 +926,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("heatmap", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("heatmap", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(heatmap)
     def heatmap_cli(
         input_ts="-",
@@ -1009,7 +1010,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("hexbin", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("hexbin", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(hexbin)
     def hexbin_cli(
         input_ts="-",
@@ -1063,7 +1064,7 @@ def _main():
             plot_styles=plot_styles,
         )
 
-    @cltoolbox.command("histogram", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("histogram", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(histogram)
     def histogram_cli(
         input_ts="-",
@@ -1151,7 +1152,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("kde", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("kde", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(kde)
     def kde_cli(
         input_ts="-",
@@ -1251,7 +1252,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("kde_time", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("kde_time", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(kde_time)
     def kde_time_cli(
         input_ts="-",
@@ -1355,7 +1356,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("lag_plot", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("lag_plot", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(lag_plot)
     def lag_plot_cli(
         input_ts="-",
@@ -1441,7 +1442,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("lognorm_xaxis", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("lognorm_xaxis", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(lognorm_xaxis)
     def lognorm_xaxis_cli(
         input_ts="-",
@@ -1539,7 +1540,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("lognorm_yaxis", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("lognorm_yaxis", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(lognorm_yaxis)
     def lognorm_yaxis_cli(
         input_ts="-",
@@ -1637,7 +1638,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("norm_xaxis", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("norm_xaxis", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(norm_xaxis)
     def norm_xaxis_cli(
         input_ts="-",
@@ -1735,7 +1736,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("norm_yaxis", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("norm_yaxis", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(norm_yaxis)
     def norm_yaxis_cli(
         input_ts="-",
@@ -1833,7 +1834,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("probability_density", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("probability_density", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(probability_density)
     def probability_density_cli(
         input_ts="-",
@@ -1933,7 +1934,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("scatter_matrix", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("scatter_matrix", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(scatter_matrix)
     def scatter_matrix_cli(
         input_ts="-",
@@ -2019,7 +2020,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("target", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("target", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(target)
     def target_cli(
         obs_col=None,
@@ -2079,7 +2080,7 @@ def _main():
             plot_styles=plot_styles,
         )
 
-    @cltoolbox.command("taylor", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("taylor", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(taylor)
     def taylor_cli(
         input_ts="-",
@@ -2133,9 +2134,9 @@ def _main():
             plot_styles=plot_styles,
         )
 
-    @cltoolbox.command("time", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("time", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(time)
-    def _time_cli(
+    def time_cli(
         input_ts="-",
         columns=None,
         start_date=None,
@@ -2237,7 +2238,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("waterfall", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("waterfall", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(waterfall)
     def waterfall_cli(
         input_ts="-",
@@ -2335,7 +2336,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("weibull_xaxis", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("weibull_xaxis", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(weibull_xaxis)
     def weibull_xaxis_cli(
         input_ts="-",
@@ -2433,7 +2434,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("weibull_yaxis", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("weibull_yaxis", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(weibull_yaxis)
     def weibull_yaxis_cli(
         input_ts="-",
@@ -2531,7 +2532,7 @@ def _main():
             vlines_linestyles=vlines_linestyles,
         )
 
-    @cltoolbox.command("xy", formatter_class=RSTHelpFormatter)
+    @cltoolbox.command("xy", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(xy)
     def xy_cli(
         input_ts="-",

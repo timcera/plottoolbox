@@ -62,7 +62,8 @@ def handh(
     vlines_colors=None,
     vlines_linestyles=None,
 ):
-    r"""[time index, Q, P] Hydrograph and hyetograph time-series plot.
+    """
+    [time index, Q, P] Hydrograph and hyetograph time-series plot.
 
     "handh" creates a time series plot of a hydrograph (flow) and hyetograph
     (precipitation).

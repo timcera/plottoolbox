@@ -69,7 +69,8 @@ def probability_density(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Probability plot.
+    """
+    [N columns] Probability plot.
 
     Probability plot.
 

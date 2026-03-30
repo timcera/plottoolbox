@@ -69,7 +69,8 @@ def norm_xaxis(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Normal x-axis.
+    """
+    [N columns] Normal x-axis.
 
     "norm_xaxis" will sort, calculate probabilities, and plot data against an
     x axis normal distribution.

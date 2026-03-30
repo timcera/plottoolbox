@@ -67,7 +67,8 @@ def double_mass(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[x1, y1, x2, y2, x3, y3, ...] Double mass curve - cumulative sum of x against cumulative sum of y.
+    """
+    [x1, y1, x2, y2, x3, y3, ...] Double mass curve - cumulative sum of x against cumulative sum of y.
 
     "double_mass" creates a 'x,y' plot of the cumulative sum of x and y.
 

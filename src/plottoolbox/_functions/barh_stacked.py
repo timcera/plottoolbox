@@ -72,7 +72,8 @@ def barh_stacked(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[category index, N columns] Horizontal stacked bar plot.
+    """
+    [category index, N columns] Horizontal stacked bar plot.
 
     "barh_stacked" makes a horizontal stacked bar plot.
 

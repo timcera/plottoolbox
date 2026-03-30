@@ -74,7 +74,8 @@ def kde_time(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[time index, N columns] A time-series plot with a kernel density estimation (KDE) plot.
+    """
+    [time index, N columns] A time-series plot with a kernel density estimation (KDE) plot.
 
     This plot is an estimation of the probability density function based on the
     data called kernel density estimation (KDE) combined with a time-series

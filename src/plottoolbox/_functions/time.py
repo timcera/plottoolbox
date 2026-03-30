@@ -71,7 +71,8 @@ def time(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[time index, N columns] Time-series plot.
+    """
+    [time index, N columns] Time-series plot.
 
     "time" creates a standard time series plot.
 

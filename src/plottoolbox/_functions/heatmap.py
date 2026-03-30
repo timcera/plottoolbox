@@ -64,7 +64,8 @@ def heatmap(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[time index(day), 1 column] 2D heatmap of daily data.
+    """
+    [time index(day), 1 column] 2D heatmap of daily data.
 
     "heatmap" creates a 2D heatmap of daily data, day of year x-axis, and year
     for y-axis.  Only available for a single, daily time-series.

@@ -48,7 +48,8 @@ def autocorrelation(
     target_units=None,
     plot_styles="bright",
 ):
-    r"""[time index, 1 column] Autocorrelation plot.
+    """
+    [time index, 1 column] Autocorrelation plot.
 
     The "autocorrelation" creates an autocorrelation plot.
 

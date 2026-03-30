@@ -47,7 +47,8 @@ def target(
     plot_styles="bright",
     **kwds,
 ):
-    r"""[obs column, sim N columns] Creates a "target" diagram to plot goodness of fit.
+    """
+    [obs column, sim N columns] Creates a "target" diagram to plot goodness of fit.
 
     "target" creates a target diagram that compares three goodness of fit
     statistics on one plot.  The three goodness of fit statistics calculated

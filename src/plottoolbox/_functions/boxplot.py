@@ -65,7 +65,8 @@ def boxplot(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Box and whiskers plot.
+    """
+    [N columns] Box and whiskers plot.
 
     Box extends from lower to upper quartile, with line at the median.
     Depending on the statistics, the wiskers represent the range of the data or

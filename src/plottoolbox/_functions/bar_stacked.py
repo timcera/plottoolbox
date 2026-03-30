@@ -72,7 +72,8 @@ def bar_stacked(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[category index, N columns] Stacked vertical bar, sometimes called a stacked column plot.
+    """
+    [category index, N columns] Stacked vertical bar, sometimes called a stacked column plot.
 
     "barh_stacked" creates a horizontal stacked bar plot.
 

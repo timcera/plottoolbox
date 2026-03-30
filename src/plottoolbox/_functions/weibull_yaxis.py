@@ -70,7 +70,8 @@ def weibull_yaxis(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Weibull y-axis.
+    """
+    [N columns] Weibull y-axis.
 
     "weibull_yaxis" will sort, calculate and plot data against an y axis
     weibull distribution.

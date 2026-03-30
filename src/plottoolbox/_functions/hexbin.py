@@ -52,7 +52,8 @@ def hexbin(
     target_units=None,
     plot_styles="bright",
 ):
-    r"""[x, y, optional third data column] Hexbin plot.
+    """
+    [x, y, optional third data column] Hexbin plot.
 
     Only available for a single x,y pair with an additional, optional data
     column.

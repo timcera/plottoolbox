@@ -236,7 +236,8 @@ ldocstrings["ylim"] = """ylim
 
         Comma separated lower and upper limits for the y-axis of the
         plot.  See `xlim` for examples."""
-ldocstrings["secondary"] = """[optional, default is False]
+ldocstrings["secondary"] = """secondary
+        [optional, default is False]
 
         * list/tuple: Give the column numbers or names to plot on secondary
           y-axis.
@@ -347,70 +348,70 @@ ldocstrings["legend"] = """legend: bool
         [optional, default is True]
 
         Whether to create a legend or not."""
-ldocstrings["legend_names"] = """legend_names:
+ldocstrings["legend_names"] = """legend_names
         [optional, default is None]
 
         If the default of None will take legend names from columns tiles in the
         input dataset.  Otherwise will take names from the `legend_names`
         list."""
-ldocstrings["hlines_y"] = """hlines_y:
+ldocstrings["hlines_y"] = """hlines_y
         [optional, defaults to None]
 
         Number or list of y values where to place a horizontal line."""
-ldocstrings["hlines_xmin"] = """hlines_xmin:
+ldocstrings["hlines_xmin"] = """hlines_xmin
         [optional, defaults to None]
 
         List of minimum x values to start the horizontal line.  If a list must
         be same length as `hlines_y`.  If a single number will be used as the
         minimum x values for all horizontal lines.  A missing value or None
         will start at the minimum x value for the entire plot."""
-ldocstrings["hlines_xmax"] = """hlines_xmax:
+ldocstrings["hlines_xmax"] = """hlines_xmax
         [optional, defaults to None]
 
         List of maximum x values to end each horizontal line.  If a list must
         be same length as `hlines_y`.  If a single number will be the maximum
         x value for all horizontal lines.  A missing value or None will end at
         the maximum x value for the entire plot."""
-ldocstrings["hlines_colors"] = """hlines_colors:
+ldocstrings["hlines_colors"] = """hlines_colors
         [optional, defaults to None]
 
         List of colors for the horizontal lines.  If a single color then will
         be used as the color for all horizontal lines.  If a list must be same
         length as `hlines_y`.  If None will take from the color pallette in the
         current plot style."""
-ldocstrings["hlines_linestyles"] = """hlines_linestyles:
+ldocstrings["hlines_linestyles"] = """hlines_linestyles
         [optional, defaults to None]
 
         List of linestyles for the horizontal lines.  If a single linestyle
         then will be used as the linestyle for all horizontal lines.  If a list
         must be same length as `hlines_y`.  If None will take for the standard
         linestyles list."""
-ldocstrings["vlines_x"] = """vlines_x:
+ldocstrings["vlines_x"] = """vlines_x
         [optional, defaults to None]
 
         List of x values where to place a vertical line."""
-ldocstrings["vlines_ymin"] = """vlines_ymin:
+ldocstrings["vlines_ymin"] = """vlines_ymin
         [optional, defaults to None]
 
         List of minimum y values to start the vertical line.  If a list must be
         same length as `vlines_x`.  If a single number will be used as the
         minimum x values for all vertical lines.  A missing value or None will
         start at the minimum x value for the entire plot."""
-ldocstrings["vlines_ymax"] = """vlines_ymax:
+ldocstrings["vlines_ymax"] = """vlines_ymax
         [optional, defaults to None]
 
         List of maximum x values to end each vertical line.  If a list must be
         same length as `vlines_x`.  If a single number will be the maximum
         x value for all vertical lines.  A missing value or None will end at
         the maximum x value for the entire plot."""
-ldocstrings["vlines_colors"] = """vlines_colors:
+ldocstrings["vlines_colors"] = """vlines_colors
         [optional, defaults to None]
 
         List of colors for the vertical lines.  If a single color then will be
         used as the color for all vertical lines.  If a list must be same
         length as `vlines_x`.  If None will take from the color pallette in the
         current plot style."""
-ldocstrings["vlines_linestyles"] = """vlines_linestyles:
+ldocstrings["vlines_linestyles"] = """vlines_linestyles
         [optional, defaults to None]
 
         List of linestyles for the vertical lines.  If a single linestyle then
@@ -469,10 +470,46 @@ ldocstrings["mark_right"] = """mark_right
 
         When using a secondary_y axis, should the legend label the axis of the
         various time-series automatically."""
-ldocstrings["plotting_position"] = f"""plotting_position : str
+ldocstrings["plotting_position"] = """plotting_position : str
         [optional, default is 'weibull']
 
-        {tsutils.docstrings["plotting_position_table"]}
+        +------------+--------+----------------------+--------------------+
+        | Name       | a      | Equation             | Description        |
+        |            |        | (i-a)/(n+1-2*a)      |                    |
+        +============+========+======================+====================+
+        | weibull    | 0      | i/(n+1)              | mean of sampling   |
+        | (default)  |        |                      | distribution       |
+        +------------+--------+----------------------+--------------------+
+        | filliben   | 0.3175 | (i-0.3175)/(n+0.365) |                    |
+        +------------+--------+----------------------+--------------------+
+        | yu         | 0.326  | (i-0.326)/(n+0.348)  |                    |
+        +------------+--------+----------------------+--------------------+
+        | tukey      | 1/3    | (i-1/3)/(n+1/3)      | approx. median of  |
+        |            |        |                      | sampling           |
+        |            |        |                      | distribution       |
+        +------------+--------+----------------------+--------------------+
+        | blom       | 0.375  | (i-0.375)/(n+0.25)   |                    |
+        +------------+--------+----------------------+--------------------+
+        | cunnane    | 2/5    | (i-2/5)/(n+1/5)      | subjective         |
+        +------------+--------+----------------------+--------------------+
+        | gringorton | 0.44   | (1-0.44)/(n+0.12)    |                    |
+        +------------+--------+----------------------+--------------------+
+        | hazen      | 1/2    | (i-1/2)/n            | midpoints of n     |
+        |            |        |                      | equal intervals    |
+        +------------+--------+----------------------+--------------------+
+        | larsen     | 0.567  | (i-0.567)/(n-0.134)  |                    |
+        +------------+--------+----------------------+--------------------+
+        | gumbel     | 1      | (i-1)/(n-1)          | mode of sampling   |
+        |            |        |                      | distribution       |
+        +------------+--------+----------------------+--------------------+
+        | california | NA     | i/n                  |                    |
+        +------------+--------+----------------------+--------------------+
+
+        Where 'i' is the sorted rank of the y value, and 'n' is the total
+        number of values to be plotted.
+
+        The 'blom' plotting position is also known as the 'Sevruk and
+        Geiger'.
 
         Only used for norm_xaxis, norm_yaxis, lognorm_xaxis,
         lognorm_yaxis, weibull_xaxis, and weibull_yaxis."""

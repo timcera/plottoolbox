@@ -72,7 +72,8 @@ def bar(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[category index, N columns] Bar plot, sometimes called a "column" plot.
+    """
+    [category index, N columns] Bar plot, sometimes called a "column" plot.
 
     "bar" make a bar or column plot.
 

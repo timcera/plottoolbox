@@ -70,7 +70,8 @@ def waterfall(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[time index, N columns] Watefall plot.
+    """
+    [time index, N columns] Watefall plot.
 
     Create a waterfall plot from a time series.
 

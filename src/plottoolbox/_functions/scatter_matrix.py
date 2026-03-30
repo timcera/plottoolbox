@@ -63,7 +63,8 @@ def scatter_matrix(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Plots all columns against each other in matrix of plots.
+    """
+    [N columns] Plots all columns against each other in matrix of plots.
 
     "scatter_matrix" will plots all columns against each other in a matrix,
     with the diagonal plots either histogram or KDE probability distribution

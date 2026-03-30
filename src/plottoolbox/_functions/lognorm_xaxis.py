@@ -70,7 +70,8 @@ def lognorm_xaxis(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Log-normal x-axis.
+    """
+    [N columns] Log-normal x-axis.
 
     "lognorm_yaxis" will sort, calculate probabilities, and plot data against
     a y axis lognormal distribution.

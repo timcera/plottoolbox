@@ -68,7 +68,8 @@ def xy(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[x1, y1, x2, y2, x3, y3, ...] Creates an 'x,y' plot, also known as a scatter plot.
+    """
+    [x1, y1, x2, y2, x3, y3, ...] Creates an 'x,y' plot, also known as a scatter plot.
 
     ${xydata}
 

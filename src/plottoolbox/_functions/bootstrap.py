@@ -64,7 +64,8 @@ def bootstrap(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[1 column] Bootstrap plots a randomly selected subset of the input series.
+    """
+    [1 column] Bootstrap plots a randomly selected subset of the input series.
 
     "bootstrap" creates a plot that visually assess aspects of a data set by
     plotting random selections of values.  Only available for a single

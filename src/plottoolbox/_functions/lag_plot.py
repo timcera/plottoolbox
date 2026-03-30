@@ -63,7 +63,8 @@ def lag_plot(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[time index, 1 column] Lag plot.
+    """
+    [time index, 1 column] Lag plot.
 
     "lag_plot" indicates structure in the data.
 

@@ -63,7 +63,8 @@ def histogram(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[N columns] Histogram.
+    """
+    [N columns] Histogram.
 
     "histogram" will calculate and create a histogram plot.  See 'kde' for
     a smooth representation of a histogram.

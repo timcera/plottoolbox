@@ -31,8 +31,7 @@ or numpy (http://numpy.scipy.org) for any heavy lifting.
 
 Requirements
 ------------
-* pandas - on Windows this is part scientific Python distributions like
-  Python(x,y), Anaconda, or Enthought.
+* pandas
 
 Installation
 ------------

@@ -73,7 +73,8 @@ def barh(
     vlines_linestyles="-",
     **kwds,
 ):
-    r"""[category index, N columns] Bar plot
+    """
+    [category index, N columns] Bar plot
 
     "barh" creates a horizontal bar plot.
 

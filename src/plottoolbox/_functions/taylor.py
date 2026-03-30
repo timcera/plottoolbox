@@ -49,7 +49,8 @@ def taylor(
     plot_styles="bright",
     **kwds,
 ):
-    r"""[obs columns, sim N columns] Taylor diagram to plot goodness of fit.
+    """
+    [obs columns, sim N columns] Taylor diagram to plot goodness of fit.
 
     "taylor" will create a taylor diagram that compares three goodness of fit
     statistics on one plot.  The three goodness of fit statistics calculated
