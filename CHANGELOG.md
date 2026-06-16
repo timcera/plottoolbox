@@ -1,3 +1,9 @@
+## v105.2.3 (2026-06-16)
+
+### Fix
+
+- fixed scienceplot to support matploblib 3.11
+
 ## v105.2.2 (2026-06-11)
 
 ### Fix
