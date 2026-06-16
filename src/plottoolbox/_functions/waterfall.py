@@ -12,7 +12,7 @@ from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 from .. import _plotutils
 from ..waterfall_ax import waterfall_ax
 
-sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
+sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots" / "src"))
 import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")

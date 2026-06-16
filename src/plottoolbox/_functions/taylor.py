@@ -13,7 +13,7 @@ from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 from .. import _plotutils
 from ..SkillMetrics.skill_metrics import centered_rms_dev, taylor_diagram
 
-sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots"))
+sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots" / "src"))
 import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")

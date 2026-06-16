@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 from .. import _plotutils
-from ..SciencePlots import scienceplots  # noqa: F401
+from ..SciencePlots.src import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
 
