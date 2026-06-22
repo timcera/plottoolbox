@@ -1,3 +1,10 @@
+## v105.2.4 (2026-06-22)
+
+### Fix
+
+- update imports to support matplotlib>=3.11
+- additional fix for matplotlib>=3.11
+
 ## v105.2.3 (2026-06-16)
 
 ### Fix
