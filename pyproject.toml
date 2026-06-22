@@ -64,29 +64,41 @@ github = "https://github.com/timcera/plottoolbox"
 
 [tool]
 
-[tool.black]
-# 'extend-exclude' excludes files or directories in addition to the defaults
-extend-exclude = '''
-(
-      src/plottoolbox/SciencePlots/.*
-    | src/plottoolbox/SkillMetrics/.*
-    | src/plottoolbox/waterfall_ax/.*
-    | src/plottoolbox/toolbox_utils/.*
-)
-'''
-
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
 version = "105.2.3"
 version_files = ["VERSION"]
+multiline = true
 
 [tool.isort]
 profile = "black"
 
+[tool.jupytext]
+formats = "auto:percent"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+fix = true
+exclude = [
+    "src/*/SciencePlots/**/*.py",
+    "src/*/SkillMetrics/**/*.py",
+    "src/*/toolbox_utils/**/*.py",
+    "src/*/waterfall_ax/**/*.py"
+]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort.import-heading]
+future = "Future imports"
+standard-library = "Standard library imports"
+third-party = "Third party imports"
+first-party = "First party imports"
+local-folder = "Local folder imports"
 
 [tool.setuptools]
 include-package-data = true
