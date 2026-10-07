@@ -65,12 +65,12 @@ github = "https://github.com/timcera/plottoolbox"
 [tool]
 
 [tool.commitizen]
+multiline = true
 name = "cz_conventional_commits"
 tag_format = "v$version"
 update_changelog_on_bump = true
 version = "105.2.4"
 version_files = ["VERSION"]
-multiline = true
 
 [tool.isort]
 profile = "black"
@@ -82,23 +82,23 @@ formats = "auto:percent"
 testpaths = ["tests"]
 
 [tool.ruff]
-fix = true
 exclude = [
-    "src/*/SciencePlots/**/*.py",
-    "src/*/SkillMetrics/**/*.py",
-    "src/*/toolbox_utils/**/*.py",
-    "src/*/waterfall_ax/**/*.py"
+    "src/plottoolbox/SciencePlots",
+    "src/plottoolbox/SkillMetrics",
+    "src/plottoolbox/toolbox_utils",
+    "src/plottoolbox/waterfall_ax"
 ]
+fix = true
 
 [tool.ruff.lint]
 extend-select = ["I"]
 
 [tool.ruff.lint.isort.import-heading]
+first-party = "First party imports"
 future = "Future imports"
+local-folder = "Local folder imports"
 standard-library = "Standard library imports"
 third-party = "Third party imports"
-first-party = "First party imports"
-local-folder = "Local folder imports"
 
 [tool.setuptools]
 include-package-data = true

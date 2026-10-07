@@ -1,18 +1,23 @@
 """Collection of functions for the manipulation of time series."""
 
+# Standard library imports
 import sys
 import warnings
 from pathlib import Path
 
+# Third party imports
 import matplotlib
 import matplotlib.pyplot as plt
 from pandas.plotting import bootstrap_plot
 
+# First party imports
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
+# Local folder imports
 from .. import _plotutils
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots" / "src"))
+# Third party imports
 import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
@@ -190,9 +195,9 @@ def bootstrap(
         colors,
         linestyles,
         markerstyles,
-        icolors,
-        ilinestyles,
-        imarkerstyles,
+        _,
+        _,
+        _,
     ) = _plotutils.prepare_styles(
         len(tsd.columns), style, colors, linestyles, markerstyles
     )

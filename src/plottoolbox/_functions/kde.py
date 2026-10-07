@@ -1,12 +1,16 @@
 """Collection of functions for the manipulation of time series."""
 
+# Standard library imports
 import warnings
 
+# Third party imports
 import matplotlib
 import matplotlib.pyplot as plt
 
+# First party imports
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
+# Local folder imports
 from .. import _plotutils
 from ..SciencePlots.src import scienceplots  # noqa: F401
 
@@ -189,7 +193,7 @@ def kde(
     for line in ax.lines:
         c = next(icolors) if icolors is not None else None
         m = next(imarkerstyles) if imarkerstyles is not None else None
-        l = next(ilinestyles) if ilinestyles is not None else None  # noqa: E741
+        l = next(ilinestyles) if ilinestyles is not None else None
         if c is not None:
             plt.setp(line, color=c)
         plt.setp(line, marker=m)

@@ -1,8 +1,10 @@
 """Collection of functions for the manipulation of time series."""
 
+# Standard library imports
 import os.path as _osp
 import sys as _sys
 
+# Local folder imports
 from . import (
     about,
     autocorrelation,
@@ -73,19 +75,23 @@ def _main():
     if not _osp.exists("debug_plottoolbox"):
         _sys.tracebacklimit = 0
 
+    # Standard library imports
     from argparse import (  # W: E402 module level import not at top of file
         RawTextHelpFormatter,
     )
 
+    # Third party imports
     import cltoolbox
     import numpy as np
 
+    # Local folder imports
     from .toolbox_utils.src.toolbox_utils import tsutils
 
     @cltoolbox.command("about", formatter_class=RawTextHelpFormatter)
     @tsutils.copy_doc(about)
     def about_cli():
         """docstring replaced by tsutils.copy_doc"""
+        # Standard library imports
         import pprint
 
         pprint.pprint(tsutils.about(__name__))

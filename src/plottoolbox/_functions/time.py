@@ -1,18 +1,23 @@
 """Collection of functions for the manipulation of time series."""
 
+# Standard library imports
 import sys
 import warnings
 from pathlib import Path
 
+# Third party imports
 import matplotlib
 import numpy as np
 import pandas as pd
 
+# First party imports
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
+# Local folder imports
 from .. import _plotutils
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots" / "src"))
+# Third party imports
 import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
@@ -134,6 +139,7 @@ def time(
     ${vlines_linestyles}
     """
 
+    # Third party imports
     import matplotlib.pyplot as plt
 
     # set up dataframe
@@ -154,7 +160,7 @@ def time(
     )
     # check dataframe
     if not isinstance(tsd.index, pd.DatetimeIndex):
-        raise ValueError(
+        raise TypeError(
             tsutils.error_wrapper(
                 """
                 The index is not a datetime index and cannot be plotted as
@@ -204,11 +210,12 @@ def time(
     for _ in range(len(tsd.columns)):
         c = next(icolors) if icolors is not None else None
         m = next(imarkerstyles) if imarkerstyles is not None else None  # noqa: F841
-        l = next(ilinestyles) if ilinestyles is not None else None  # noqa: E741, F841
+        l = next(ilinestyles) if ilinestyles is not None else None  # noqa: F841
 
     _ = (
         tsd.plot(
             kind="line",
+            ax=ax,
             legend=legend,
             subplots=subplots,
             sharex=sharex,
@@ -225,6 +232,7 @@ def time(
         if c is None
         else tsd.plot(
             kind="line",
+            ax=ax,
             legend=legend,
             subplots=subplots,
             sharex=sharex,

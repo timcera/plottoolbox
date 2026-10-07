@@ -1,18 +1,23 @@
 """Collection of functions for the manipulation of time series."""
 
+# Standard library imports
 import sys
 import warnings
 from pathlib import Path
 
+# Third party imports
 import matplotlib
 import pandas as pd  # noqa: F401
 
+# First party imports
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
+# Local folder imports
 from .. import _plotutils
 from ..waterfall_ax import waterfall_ax
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots" / "src"))
+# Third party imports
 import scienceplots  # noqa: F401
 
 matplotlib.use("Agg")
@@ -132,6 +137,7 @@ def waterfall(
     ${vlines_linestyles}
     """
 
+    # Third party imports
     import matplotlib.pyplot as plt
 
     # set up dataframe
@@ -166,9 +172,9 @@ def waterfall(
         colors,
         linestyles,
         markerstyles,
-        icolors,
-        ilinestyles,
-        imarkerstyles,
+        _,
+        _,
+        _,
     ) = _plotutils.prepare_styles(
         len(tsd.columns), style, colors, linestyles, markerstyles
     )

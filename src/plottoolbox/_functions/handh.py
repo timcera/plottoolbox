@@ -1,15 +1,20 @@
+# Standard library imports
 import sys
 from pathlib import Path
 
+# Third party imports
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib import gridspec
 
+# First party imports
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
+# Local folder imports
 from .. import _plotutils
 
 sys.path.append(str(Path(__file__).parent / ".." / "SciencePlots" / "src"))
+# Third party imports
 import scienceplots  # noqa: F401
 
 
@@ -144,7 +149,7 @@ def handh(
     )
     # check dataframe
     if not isinstance(tsd.index, pd.DatetimeIndex):
-        raise ValueError(
+        raise TypeError(
             tsutils.error_wrapper(
                 """
                 The index is not a datetime index and cannot be plotted as
@@ -172,9 +177,9 @@ def handh(
         colors,
         linestyles,
         markerstyles,
-        icolors,
-        ilinestyles,
-        imarkerstyles,
+        _,
+        _,
+        _,
     ) = _plotutils.prepare_styles(
         len(tsd.columns), style, colors, linestyles, markerstyles
     )

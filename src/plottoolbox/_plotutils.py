@@ -1,12 +1,16 @@
 """Collection of functions for the manipulation of time series."""
 
+# Standard library imports
 import itertools
 import warnings
 
 try:
+    # Third party imports
     from pydantic import validate_call
 except ImportError:
+    # Third party imports
     from pydantic import validate_arguments as validate_call
+# First party imports
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 
 warnings.filterwarnings("ignore")

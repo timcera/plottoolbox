@@ -1,10 +1,13 @@
+# Third party imports
 import matplotlib
 
 matplotlib.use("Agg")
+# Third party imports
 import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
 
+# First party imports
 from plottoolbox import plottoolbox
 from plottoolbox.toolbox_utils.src.toolbox_utils import tsutils
 from plottoolbox.toolbox_utils.src.toolbox_utils.utils import pandas_offset_by_version

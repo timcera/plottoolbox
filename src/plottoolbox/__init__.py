@@ -1,5 +1,6 @@
 """Define plottoolbox package."""
 
+# Local folder imports
 from ._functions.autocorrelation import autocorrelation
 from ._functions.bar import bar
 from ._functions.bar_stacked import bar_stacked

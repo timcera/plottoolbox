@@ -22,6 +22,11 @@ bar
 .. program-output:: plottoolbox bar --help
    :prompt:
 
+bar_stacked
+~~~~~~~~~~~
+.. program-output:: plottoolbox bar_stacked --help
+   :prompt:
+
 barh
 ~~~~
 .. program-output:: plottoolbox barh --help
@@ -30,11 +35,6 @@ barh
 barh_stacked
 ~~~~~~~~~~~~
 .. program-output:: plottoolbox barh_stacked --help
-   :prompt:
-
-bar_stacked
-~~~~~~~~~~~
-.. program-output:: plottoolbox bar_stacked --help
    :prompt:
 
 bootstrap
